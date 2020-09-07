@@ -12,7 +12,7 @@ public class FileReaderSource {
     public FileReaderSource(String route) {
      try {
         //Crear un objeto BufferedReader al que se le pasa 
-        //   un objeto FileReader con el nombre del fichero
+        //un objeto FileReader con el nombre del fichero
         br = new BufferedReader(new FileReader(route));
         //Leer la primera línea, guardando en un String
         String texto = br.readLine();
