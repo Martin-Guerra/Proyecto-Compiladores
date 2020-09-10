@@ -51,7 +51,7 @@ public class FileInput extends JFrame implements ActionListener {
             	route.setText("...");
             } else {
                 route.setText(fileName.getAbsolutePath());
-                FileReaderSource fileReader=new FileReaderSource(this.getRoute().getText());
+                FileReaderSource fileReader = new FileReaderSource(this.getRoute().getText());
             }
         }
         

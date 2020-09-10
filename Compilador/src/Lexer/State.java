@@ -12,6 +12,10 @@ public class State {
 		this.semanticaction= sa;
 	}
 	
+	public State(int nextstate) {
+		this.nextstate = nextstate;
+	}
+	
 	public void setState(int nextstate) {
 		this.nextstate = nextstate;
 	}
