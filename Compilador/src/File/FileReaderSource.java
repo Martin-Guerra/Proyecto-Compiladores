@@ -14,17 +14,7 @@ public class FileReaderSource {
         //Crear un objeto BufferedReader al que se le pasa 
         //un objeto FileReader con el nombre del fichero
         br = new BufferedReader(new FileReader(route));
-        //Leer la primera línea, guardando en un String
-        String texto = br.readLine();
-        //Repetir mientras no se llegue al final del fichero
-        while(texto != null)
-        {
-            //Hacer lo que sea con la línea leída
-            System.out.println(texto);
-            //Leer la siguiente línea
-            texto = br.readLine();
         }
-     }
      catch (FileNotFoundException e) {
          System.out.println("Error: Fichero no encontrado");
          System.out.println(e.getMessage());
@@ -43,5 +33,9 @@ public class FileReaderSource {
              System.out.println(e.getMessage());
          }
      }
+    }
+    
+    public BufferedReader getBufferedReader() {
+    	return br;
     }
 }
