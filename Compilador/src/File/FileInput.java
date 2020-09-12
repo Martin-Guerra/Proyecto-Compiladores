@@ -1,8 +1,11 @@
 package File;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 
@@ -16,10 +19,16 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import Lexer.LexerAnalyzer;
+import File.*;
+
 public class FileInput extends JFrame implements ActionListener {
 
     private JTextField route;
     private JButton btn;
+   // private FileReaderSource fileReader;
+    private BufferedReader br = null;
+    private String road;
 
     public FileInput() {
         super("JFileChooser Test");
@@ -31,6 +40,7 @@ public class FileInput extends JFrame implements ActionListener {
         btn = new JButton("Buscar...");
         btn.addActionListener(this);
         add(btn);
+        
     }
 
     @Override
@@ -51,23 +61,45 @@ public class FileInput extends JFrame implements ActionListener {
             	route.setText("...");
             } else {
                 route.setText(fileName.getAbsolutePath());
-                FileReaderSource fileReader = new FileReaderSource(this.getRoute().getText());
+                this.road=fileName.getAbsolutePath();
+               /* try {
+					br=new BufferedReader(new FileReader(fileName.getAbsolutePath()));
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}*/
+                
             }
         }
         
       
     }
 
-    public JTextField getRoute() {
-		return route;
-	}
-
+    public String getRoad() {
+    	return this.road;
+    }
+    
+  public BufferedReader getBuffer() {
+	 BufferedReader auxBr=new BufferedReader(br);
+	  return auxBr;
+  }
 
 	public static void main(String[] args) {
-        FileInput test = new FileInput();
+    /*    FileInput test = new FileInput();
+       
+     
         test.setDefaultCloseOperation(EXIT_ON_CLOSE);
         test.setSize(400, 110);
         test.setVisible(true);
+       
+        LexerAnalyzer la = new LexerAnalyzer(test.getRoad());
+        System.out.println(la.getNextLine());*/
+		
+		JFileChooser ventanita=new JFileChooser();
+		ventanita.showOpenDialog(ventanita);
+		String path=ventanita.getSelectedFile().getAbsolutePath();//obtiene la ruta del archivo selecionado
+		LexerAnalyzer la= new LexerAnalyzer(path);
+		la.getNextToken();
        
     }
 }

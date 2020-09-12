@@ -4,30 +4,30 @@ import java.util.HashMap;
 import semantic_Actions.*;
 
 public class StateMatrix {
-	private State matrix[][];
+	private State[][] matrix;
 	private static final int ROW = 20;
 	private static final int COLUMN =  28;
 	private HashMap mapofcaracters;
 	
 	public StateMatrix () {
+		this.matrix = new State[ROW][COLUMN];
 		
-		State matrix[][] = new State[ROW][COLUMN];
-		
-		
-		
+	
 		for(int i = 0; i < ROW; i++) {
 			for(int j = 0; j < COLUMN; j++) {
 				if( i == 0 || i == 1 || i == 5 || i == 6 || i == 9 || i == 11 || i == 12 || i == 16 
-					|| i == 17 || i == 18 || i == 19 )
-					matrix[i][j] = new State(-1);
+					|| i == 17 || i == 18 || i == 19 ) {
+					this.matrix[i][j] = new State(-1);
+				}
 				if(i == 2 || i == 3 || i == 4 || i == 7 || i == 8 || i == 10)
-					matrix[i][j] = new State(0);
+					this.matrix[i][j] = new State(0);
 				if(i == 13 || i == 14)
-					matrix[i][j] = new State(13);
+				this.matrix[i][j] = new State(13);
 				if(i == 15)
-					matrix[i][j] = new State(15);
+				this.matrix[i][j] = new State(15);
 			}
 		}
+		
 		//Fila 0
 		matrix[0][0].setState(1);
 		matrix[0][1].setState(2);
@@ -112,6 +112,8 @@ public class StateMatrix {
 		matrix[15][10].setState(-1);
 		matrix[15][26].setState(0);
 		matrix[15][27].setState(-1);
+		
+		
 		
 
 		// Semantic Action Matrix
@@ -268,31 +270,33 @@ public class StateMatrix {
 			if(aux.isLetter(aux)) {
 				if(aux.isUpperCase(aux)) {
 					 key="mayuscula";
-					 return (int) this.mapofcaracters.get(a);
+					 return (int) this.mapofcaracters.get(key);
 					}
 				else
 					if(aux.equals("u") || aux.equals("l") || aux.equals("d") ) {
 						key=aux.toString();
-						return (int) this.mapofcaracters.get(a);
+						return (int) this.mapofcaracters.get(key);
 					}
 					else {
 						key="minuscula";
-						return (int) this.mapofcaracters.get(a);}
+						return (int) this.mapofcaracters.get(key);}
 			}
 			else
 				if(aux.isDigit(aux)) {
 					key="digito";
-					return (int) this.mapofcaracters.get(a);
+					return (int) this.mapofcaracters.get(key);
 				}
 				else{
 					key=aux.toString();
-					return (int) this.mapofcaracters.get(a);
+					return (int) this.mapofcaracters.get(key);
 				}
 			
 		}
 	
 	public State getState(int row,int col) {
-		State state= new State(this.matrix[row][col].getNextstate(),this.matrix[row][col].getSemanticaction());
+		int stateAux=this.matrix[row][col].getNextstate();
+		SemanticAction sa=this.matrix[row][col].getSemanticaction();
+		State state= new State(stateAux,sa);
 		return state;
 	}
 		
