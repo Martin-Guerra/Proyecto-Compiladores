@@ -1,17 +1,16 @@
 package semantic_Actions;
 
+import Lexer.LexerAnalyzer;
+
 public class SemanticAction3 implements SemanticAction{
-	
-	//Inicializar string y agregar letra al string
-	private String token;
-	
-	public SemanticAction3() {
-		token = new String();
+	// agregar letra al string
+	@Override
+	public void execute(String token, char character, LexerAnalyzer la) {
+		// TODO Auto-generated method stub
+		token=token+character;
 	}
 	
-	public String addChar(Character c) {
-		token = c.toString();
-		return token;
-	}
+	
+	
 
 }

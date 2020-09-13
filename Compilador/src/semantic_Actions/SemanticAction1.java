@@ -1,5 +1,7 @@
 package semantic_Actions;
 
+import Lexer.LexerAnalyzer;
+
 public class SemanticAction1 implements SemanticAction{
 	
 	private static final String INCORRECTSIMBOL = "Caracter ingresado incorrecto";
@@ -7,17 +9,15 @@ public class SemanticAction1 implements SemanticAction{
 	public SemanticAction1() {
 		
 	}
+
+	@Override
+	public void execute(String token, char character, LexerAnalyzer la) {
+		// TODO Auto-generated method stub
+		la.addError(INCORRECTSIMBOL);
+	}
+
 	
-	/*public String error(int row, Character c) {
-		if((row == 0) && (c.toString() == "_") || (c.toString() == "%")) {
-			return INCORRECTSIMBOL;
-		}
-		else()
-		
-		return "Le erraste feo flaco";
-	}*/
-	
-	
+
 	
 
 }

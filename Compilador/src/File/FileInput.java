@@ -99,8 +99,9 @@ public class FileInput extends JFrame implements ActionListener {
 		ventanita.showOpenDialog(ventanita);
 		String path=ventanita.getSelectedFile().getAbsolutePath();//obtiene la ruta del archivo selecionado
 		LexerAnalyzer la= new LexerAnalyzer(path);
-		la.getNextToken();
-       
+		String devolucion=la.nextToken(la.getNextLine());
+		System.out.println(devolucion);
+      
     }
 }
 
