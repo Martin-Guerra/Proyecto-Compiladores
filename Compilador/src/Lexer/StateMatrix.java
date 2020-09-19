@@ -170,7 +170,7 @@ public class StateMatrix {
 		
 		//Fila 1
 		for(int j = 0; j <= 4; j++) {
-			matrix[1][j].setSemanticAction(sa4);
+			matrix[1][j].setSemanticAction(sa3);
 		}
 		matrix[1][6].setSemanticAction(sa4);
 		

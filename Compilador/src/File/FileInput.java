@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Lexer.LexerAnalyzer;
+import Lexer.Token;
 import File.*;
 
 public class FileInput extends JFrame implements ActionListener {
@@ -99,8 +100,8 @@ public class FileInput extends JFrame implements ActionListener {
 		ventanita.showOpenDialog(ventanita);
 		String path=ventanita.getSelectedFile().getAbsolutePath();//obtiene la ruta del archivo selecionado
 		LexerAnalyzer la= new LexerAnalyzer(path);
-		String devolucion=la.nextToken(la.getNextLine());
-		System.out.println(devolucion);
+		Token tk=la.nextToken();
+		System.out.println(tk.getLexema()+" "+tk.getId());
       
     }
 }

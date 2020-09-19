@@ -11,6 +11,7 @@ import java.util.List;
 import File.*
 ;
 import SymbolTable.SymbolTable;
+import semantic_Actions.SemanticAction;
 /* -Recibir cadena de caracteres
  * -analizar caracter por carcater
  * -recorrer la matriz para que estado se va y que accion semantica aplicar a ese caracter
@@ -19,11 +20,13 @@ public class LexerAnalyzer {
 	
 	
 	private StateMatrix sm;
-	private String token;
 	private BufferedReader br;
 	private List<String> errors=new ArrayList<String>();
 	private List<String> warning=new ArrayList<String>();
 	private SymbolTable st;
+	private State state;
+	private Token token;
+	private int pos;
 	
 	// llena matriz y le pasamos por main el buffer con el archivo cargado ya
 	public LexerAnalyzer(String path) {
@@ -35,7 +38,8 @@ public class LexerAnalyzer {
 				e.printStackTrace();
 			}
 			this.sm=new StateMatrix();
-		
+			this.pos=0;
+			this.token=new Token();
 		
 	}
 	
@@ -66,70 +70,84 @@ public class LexerAnalyzer {
 		return null;
 	}
 	///////////////////////pseudo de tincho///////////////////
-	public String nextToken(String line) {
+	public	Token nextToken() {
+		Token finalToken = null;
 		int col;
-		State state;
-		int nextState=0;
-		String token="";
-		char character;
-	while(line != null) {
-		character = line.charAt(0);
-		line.substring(1);
-		col=sm.getColumn(character);
-		state=sm.getState(nextState, col);
-		nextState=state.getNextstate();
-		//ejecutar accion semantica
-		if(nextState == -1 && token == "") {
-			return token+character;
+		int nextState=0; 
+		String lexeme=new String();
+		char character ;
+		SemanticAction action;
+		
+		int salida=999999;
+		String source;
+		try {
+			source = this.br.readLine();
+		
+		while(salida != nextState && this.getPos()<source.length()) {
+			if(nextState==-1) {
+				nextState=0;
+				this.setPos(this.getPos()-1);
+			}
+		
+			character = source.charAt(this.getPos());
+			this.setPos(this.getPos()+1);
+			col=sm.getColumn(character);
+			this.state=sm.getState(nextState, col);
+			nextState=this.state.getNextstate();
+			action=this.state.getSemanticaction();
+			action.execute(this.token.getLexema(), character, this);
+		}
+		finalToken=new Token(this.token.getId(),this.token.getLexema());
+		this.setToken(-1, "");
+		return finalToken;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	return finalToken;
+
+		
+	/*	if(nextState == -1 && token == "") {
+			System.out.println("entro en el if 1");
+			System.out.println(character);
+			sb.append(character);
+			token=token+sb.toString();
+			 System.out.println(token);
 			}
 		else
 			if (nextState == -1 && token != ""){
+				System.out.println("entro en el if 2");
 				line=character+line;
-				return  token;
+				System.out.println(token);
 			}
-			else
-				token=token+character;
-		}
-		return  null;
+			else {
+				
+				System.out.println("entro en el if 3");
+				System.out.println(character);
+				sb.append(character);
+				token=token+sb.toString();
+				System.out.println(token);
+				}
+			*/
+	
 	}
 	
-	/*public void getNextToken(String line) {
-		//String line=this.getNextLine();
-		System.out.println("texto es:"+line);
+	public void setToken(int id,String lexeme) {
 		
-		while(line!= null) {
-		//for(int i=0; i<texto.length();i++) {
-			//while(line.length()>0) {
-			 character = line.charAt(0); 
-			 line.substring(1);
-			col=sm.getColumn(character);
-			System.out.println("la letra es:"+line.charAt(0));
-			System.out.println("La columna es :"+col+"La fila es:" +nextState);
-			state=sm.getState(nextState, col);
-			nextState=state.getNextstate();
-			state.getSemanticaction();
-			if(nextState==-1 && token.equals("")) {
-					line=character+line;// agregar carcatr al token
-					
-			}
-			else
-				if(nextState!=-1) {
-					token=token+character;
-				}
-				else
-				{
-					line=character+line;
-					return token;
-				}
-				
-			System.out.println("es el estado:"+ state.getNextstate());
-			// ejecutar accion semantica
-			//mover estado
-			
-			}
-			texto=this.getNextLine();
-		}
-	}*/
+		
+		this.token.setLexema(lexeme);
+		this.token.setId(id);
+	}
+	
+
+	public int getPos() {
+		return this.pos;
+	}
+	
+	public void setPos(int i) {
+		this.pos=i;
+	}
+	
 	
 	public void addError(String error) {
 		this.errors.add(error);
@@ -140,9 +158,11 @@ public class LexerAnalyzer {
 	}
 	
 	public void addSymbolTable(String token, String id) {
+		
 		this.st.add(token, id);
 	}
-	
-	public int 
+	public int getNumberId(String lexeme) {
+		return this.st.getNumberId(lexeme);
+	}
 	
 }

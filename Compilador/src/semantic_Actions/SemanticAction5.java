@@ -14,16 +14,18 @@ public class SemanticAction5 implements SemanticAction{
 @Override
 public void execute(String token, char character, LexerAnalyzer la) {
 	// TODO Auto-generated method stub
-	//devolver a la entrada ultimo caracter leido
+	//devolver a la entrada ultimo caracter leido lo hicimos en lexerAnalyzer
+	
+	
 	if(token.length()>20) {
 		 token=token.substring(0, LENGTH);
 		la.addWarning(WARNING);	
 	}
 	
 	la.addSymbolTable(token, "ID");
-	///////////////////el lexico tendria que devilver un token que sea lexema y id en un string.
-	string newToken = "lexema, token(ID)";
-	la.addToken(newToken);
+	int exitNumber=la.getNumberId(token);
+	la.setToken(exitNumber,token);
+
 	
 }
 	
