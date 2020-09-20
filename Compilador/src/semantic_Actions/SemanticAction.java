@@ -4,5 +4,5 @@ import Lexer.LexerAnalyzer;
 
 public interface SemanticAction {
 
-	public void execute(String token, char character, LexerAnalyzer la) ;
+	public void execute( char character, LexerAnalyzer la) ;
 }

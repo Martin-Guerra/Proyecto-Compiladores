@@ -11,7 +11,7 @@ public class SemanticAction1 implements SemanticAction{
 	}
 
 	@Override
-	public void execute(String token, char character, LexerAnalyzer la) {
+	public void execute( char character, LexerAnalyzer la) {
 		// TODO Auto-generated method stub
 		la.addError(INCORRECTSIMBOL);
 	}
