@@ -6,18 +6,24 @@ import Lexer.State;
 public class SemanticAction7 implements SemanticAction{
 
 	public void execute(char character, LexerAnalyzer la) {
-		String lexeme = la.getLexeme();
-		if(!(lexeme.equals("IF") || lexeme.equals("THEN") || lexeme.equals("ELSE") 
-			|| lexeme.equals("END_IF") || lexeme.equals("OUT") || lexeme.equals("FUNC") || lexeme.equals("RETURN")
-			|| lexeme.equals("ULONGINT")|| lexeme.equals("DOUBLE")|| lexeme.equals("FOR"))){//agregar a la tabla de plabras reservada los ultimos 3
-			la.setLexeme("");
-			la.setNextState(0);
+
+		String lexeme=la.getLexeme();
+		long  number = Long.valueOf(lexeme.substring(0, lexeme.length()-2));//porque ya tiene el _
+		if (number<0 || number > Math.pow(2,32)-1){
+			number=(long) (Math.pow(2,32)-1);
+			String warning="Linea: "+ la.getNroLinea() + "Warning: "+"La constante entera supera el rango";
+			la.addWarning(warning);
+			la.setLexeme(String.valueOf(number) + '_'+'u' + character);//agrego u y el char leido que es l
 		}
-		else {
-			int idNumber=la.getIdReservedWord(lexeme);//obtengo el id del lexema de la tabla de palabra reservada
-			la.setToken(idNumber,lexeme);
-			State state=la.getState(la.getNextState(), la.getColumn(character));
-			la.setNextState(state.getNextstate());
+		else
+			la.setLexeme(lexeme+character);//45_ul
+
+		lexeme.substring(0, lexeme.length()-3);
+		la.setPos(la.getPos()+1);
+		la.addSymbolTable(lexeme, "CTE");//45,CTE
+		la.setToken(la.getIdReservedWord("CTE"),lexeme);
+		State state=la.getState(la.getNextState(), la.getColumn(character));
+		la.setNextState(state.getNextstate());
+
 		}
-	}
 }

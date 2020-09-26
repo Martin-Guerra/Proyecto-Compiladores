@@ -4,18 +4,42 @@ import Lexer.LexerAnalyzer;
 import Lexer.State;
 
 public class SemanticAction3 implements SemanticAction{
-	// agregar letra al string
+
+	private static final double POWERPOSITIVE =  Math.pow(10,308);
+	private static final double POWERNEGATIVE =  Math.pow(10,-308);
+	private static final double LOWRANGEPOSITIVE = 1.7976931348623157 * POWERPOSITIVE;
+	private static final double TOPRANGEPOSITIVE = 2.2250738585072014 * POWERNEGATIVE;
+	private static final double LOWRANGENEGATIVE = -1.7976931348623157 * POWERNEGATIVE;
+	private static final double TOPRANGENEGATIVE = -2.2250738585072014 * POWERPOSITIVE;
+
 	@Override
 	public void execute(char character, LexerAnalyzer la) {
-		la.setLexeme(la.getLexeme()+character);
-		la.setPos(la.getPos()+1);
-		State state=la.getState(la.getNextState(), la.getColumn(character));
+
+		double num;
+		String lexeme = la.getLexeme();
+		if (lexeme.contains("d")){
+			String[] d = lexeme.split("d");
+			double real = Double.valueOf(d[0]);
+			double exponencial;
+			exponencial = Double.valueOf(d[1]);
+			num = (double) (real * Math.pow(10,exponencial));
+		}
+		else
+			num = Double.valueOf(lexeme);
+
+		//Como el léxico no reconoce numeros negativos no se realizara el chequeo de estos valores.
+		if((num < LOWRANGEPOSITIVE  || num > TOPRANGEPOSITIVE) && num != 0){
+			String warning = "Linea: " + la.getNroLinea() + "Warning: " + "El double se encuentra fuera de rango";
+			la.addWarning(warning);
+			num = TOPRANGEPOSITIVE;
+		}
+
+		lexeme = String.valueOf(num);
+		la.addSymbolTable(lexeme, "DOUBLE");
+		int idNumber = la.getNumberId(lexeme);
+		la.setToken(idNumber,lexeme);
+		State state = la.getState(la.getNextState(), la.getColumn(character));
 		la.setNextState(state.getNextstate());
-		//la.setEst(la.estados[la.getEst()][la.getColumn(character)]);
-		
 	}
-	
-	
-	
 
 }

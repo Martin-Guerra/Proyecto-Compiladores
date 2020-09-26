@@ -1,0 +1,408 @@
+Index: src/semantic_Actions/SemanticAction5.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package semantic_Actions;\r\n\r\nimport Lexer.LexerAnalyzer;\r\n\r\npublic class SemanticAction5 implements SemanticAction{\r\n//Ddevuelve a la entrada el ultimo cracter \r\n// chequea la longitud\r\n\t//ir a la tabla a buscar el puntero\r\n\t\r\n\tprivate static final String WARNING=\"Identificador truncado\";\r\n\tprivate static final int LENGTH=20;\r\n\tpublic SemanticAction5() {}\r\n\r\n@Override\r\npublic void execute(String token, char character, LexerAnalyzer la) {\r\n\t// TODO Auto-generated method stub\r\n\t//devolver a la entrada ultimo caracter leido lo hicimos en lexerAnalyzer\r\n\t\r\n\t\r\n\tif(token.length()>20) {\r\n\t\t token=token.substring(0, LENGTH);\r\n\t\tla.addWarning(WARNING);\t\r\n\t}\r\n\t\r\n\tla.addSymbolTable(token, \"ID\");\r\n\tint exitNumber=la.getNumberId(token);\r\n\tla.setToken(exitNumber,token);\r\n\r\n\t\r\n}\r\n\t\r\n\t\r\n\t\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/semantic_Actions/SemanticAction5.java	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ src/semantic_Actions/SemanticAction5.java	(date 1600605257246)
+@@ -11,24 +11,20 @@
+ 	private static final int LENGTH=20;
+ 	public SemanticAction5() {}
+ 
+-@Override
+-public void execute(String token, char character, LexerAnalyzer la) {
+-	// TODO Auto-generated method stub
+-	//devolver a la entrada ultimo caracter leido lo hicimos en lexerAnalyzer
+-	
+-	
+-	if(token.length()>20) {
+-		 token=token.substring(0, LENGTH);
+-		la.addWarning(WARNING);	
+-	}
+-	
+-	la.addSymbolTable(token, "ID");
+-	int exitNumber=la.getNumberId(token);
+-	la.setToken(exitNumber,token);
++	@Override
++	public void execute(String token, char character, LexerAnalyzer la) {
++		// TODO Auto-generated method stub
++		//devolver a la entrada ultimo caracter leido lo hicimos en lexerAnalyzer
++
++		if(token.length()>20) {
++			 token=token.substring(0, LENGTH);
++			la.addWarning(WARNING);
++		}
++
++		la.addSymbolTable(token, "ID");
++		int exitNumber=la.getNumberId(token);
++		la.setToken(exitNumber,token);
+ 
+-	
+-}
+-	
+-	
++	}
+ 	
+ }
+Index: src/semantic_Actions/SemanticAction6.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package semantic_Actions;\r\n\r\npublic class SemanticAction6 implements SemanticAction{\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/semantic_Actions/SemanticAction6.java	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ src/semantic_Actions/SemanticAction6.java	(date 1600605257507)
+@@ -1,5 +1,11 @@
+ package semantic_Actions;
+ 
++import Lexer.LexerAnalyzer;
++
+ public class SemanticAction6 implements SemanticAction{
+ 
++    @Override
++    public void execute(String token, char character, LexerAnalyzer la) {
++
++    }
+ }
+Index: src/semantic_Actions/SemanticAction7.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package semantic_Actions;\r\n\r\npublic class SemanticAction7 implements SemanticAction{\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/semantic_Actions/SemanticAction7.java	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ src/semantic_Actions/SemanticAction7.java	(date 1600605644102)
+@@ -1,5 +1,11 @@
+ package semantic_Actions;
+ 
++import Lexer.LexerAnalyzer;
++
+ public class SemanticAction7 implements SemanticAction{
+ 
++    @Override
++    public void execute(String token, char character, LexerAnalyzer la) {
++
++    }
+ }
+Index: src/semantic_Actions/SemanticAction10.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package semantic_Actions;\r\n\r\npublic class SemanticAction10 implements SemanticAction{\r\n\t\r\n\tprivate static final double LOWRANGE = 1.7976931348623157;\r\n\tprivate static final double TOPRANGE = 2.2250738585072014;\r\n\tprivate static final int POWER = 10 * 308;\r\n\t\r\n\t\r\n\t\r\n\tpublic SemanticAction10() {\r\n\t\t\r\n\t}\r\n\t\r\n\tpublic boolean checkRange(String s) {\r\n\t\t\r\n\t\tdouble value = Double.parseDouble(s);\r\n\t\tif((Math.pow(TOPRANGE, (1/POWER)) < value) && (value < Math.pow(LOWRANGE, POWER))){\r\n\t\t\tif((value >\tMath.pow(-1 * LOWRANGE, POWER)) && (value < Math.pow(-1 * TOPRANGE, 1/POWER)) \r\n\t\t\t\t\t|| value == 0) {\r\n\t\t\t\treturn true;\r\n\t\t\t}\r\n\t\t}\r\n\t\treturn false;\r\n\t}\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/semantic_Actions/SemanticAction10.java	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ src/semantic_Actions/SemanticAction10.java	(date 1600558862544)
+@@ -1,6 +1,6 @@
+ package semantic_Actions;
+ 
+-public class SemanticAction10 implements SemanticAction{
++/*public class SemanticAction10 implements SemanticAction{
+ 	
+ 	private static final double LOWRANGE = 1.7976931348623157;
+ 	private static final double TOPRANGE = 2.2250738585072014;
+@@ -24,4 +24,4 @@
+ 		return false;
+ 	}
+ 
+-}
++}*/
+Index: src/semantic_Actions/SemanticAction4.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package semantic_Actions;\r\n\r\nimport Lexer.LexerAnalyzer;\r\n\r\npublic class SemanticAction4 implements SemanticAction{\r\n\r\n\t@Override\r\n\tpublic void execute(String token, char character, LexerAnalyzer la) {\r\n\t\t// TODO Auto-generated method stub\r\n\t\t\r\n\t}\r\n\t\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/semantic_Actions/SemanticAction4.java	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ src/semantic_Actions/SemanticAction4.java	(date 1600605257642)
+@@ -7,7 +7,6 @@
+ 	@Override
+ 	public void execute(String token, char character, LexerAnalyzer la) {
+ 		// TODO Auto-generated method stub
+-		
+ 	}
+ 	
+ 
+Index: src/semantic_Actions/SemanticAction8.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package semantic_Actions;\r\n\r\npublic class SemanticAction8 implements SemanticAction{\r\n\t\r\n\tpublic SemanticAction8() {\r\n\t\t\r\n\t}\r\n\t\r\n\tpublic boolean deleteComment(String s) {\r\n\t\tif(s.endsWith(\"/\"))\r\n\t\t\treturn true;\r\n\t\telse\r\n\t\t\treturn false;\r\n\t}\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/semantic_Actions/SemanticAction8.java	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ src/semantic_Actions/SemanticAction8.java	(date 1600558862744)
+@@ -1,6 +1,6 @@
+ package semantic_Actions;
+ 
+-public class SemanticAction8 implements SemanticAction{
++/*public class SemanticAction8 implements SemanticAction{
+ 	
+ 	public SemanticAction8() {
+ 		
+@@ -13,4 +13,4 @@
+ 			return false;
+ 	}
+ 
+-}
++}*/
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"76b0d774-2e33-42ef-8f77-ebd5f85e6c07\" name=\"Default Changelist\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1h8kVxlWeNvB3zqVKE69nj3jvCw\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"WebServerToolWindowFactoryState\" value=\"false\" />\r\n    <property name=\"aspect.path.notification.shown\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"SvnConfiguration\">\r\n    <configuration />\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"76b0d774-2e33-42ef-8f77-ebd5f85e6c07\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1599400133919</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1599400133919</updated>\r\n      <workItem from=\"1599400139496\" duration=\"11000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ .idea/workspace.xml	(date 1601123940979)
+@@ -1,7 +1,20 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="76b0d774-2e33-42ef-8f77-ebd5f85e6c07" name="Default Changelist" comment="" />
++    <list default="true" id="76b0d774-2e33-42ef-8f77-ebd5f85e6c07" name="Default Changelist" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/Lexer/StateMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/StateMatrix.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction12.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction12.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction13.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction13.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction5.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction8.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction9.java" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -21,8 +34,29 @@
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+     <property name="WebServerToolWindowFactoryState" value="false" />
+     <property name="aspect.path.notification.shown" value="true" />
+-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../src" />
++  </component>
++  <component name="RunManager">
++    <configuration name="FileInput" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="File.FileInput" />
++      <module name="Compilador" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="File.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="Application.FileInput" />
++      </list>
++    </recent_temporary>
+   </component>
++  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="SvnConfiguration">
+     <configuration />
+   </component>
+@@ -34,7 +68,42 @@
+       <option name="presentableId" value="Default" />
+       <updated>1599400133919</updated>
+       <workItem from="1599400139496" duration="11000" />
++      <workItem from="1600557913000" duration="1843000" />
++      <workItem from="1600563842699" duration="13000" />
++      <workItem from="1600604877430" duration="1589000" />
++      <workItem from="1600609405237" duration="2282000" />
++      <workItem from="1601123422225" duration="20000" />
++      <workItem from="1601123469489" duration="440000" />
+     </task>
+     <servers />
+   </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="version" value="3" />
++  </component>
++  <component name="WindowStateProjectService">
++    <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser" timestamp="1600605268222">
++      <screen x="0" y="0" width="1366" height="768" />
++    </state>
++    <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1600605268222" />
++    <state x="463" y="139" key="FileChooserDialogImpl" timestamp="1600608434306">
++      <screen x="0" y="0" width="1366" height="768" />
++    </state>
++    <state x="463" y="139" key="FileChooserDialogImpl/0.0.1366.768@0.0.1366.768" timestamp="1600608434306" />
++    <state width="1323" height="176" key="GridCell.Tab.0.bottom" timestamp="1600563696224">
++      <screen x="0" y="0" width="1366" height="768" />
++    </state>
++    <state width="1323" height="176" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.1280.720@0.0.1366.768" timestamp="1600563696224" />
++    <state width="1323" height="176" key="GridCell.Tab.0.center" timestamp="1600563696223">
++      <screen x="0" y="0" width="1366" height="768" />
++    </state>
++    <state width="1323" height="176" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.1280.720@0.0.1366.768" timestamp="1600563696223" />
++    <state width="1323" height="176" key="GridCell.Tab.0.left" timestamp="1600563696223">
++      <screen x="0" y="0" width="1366" height="768" />
++    </state>
++    <state width="1323" height="176" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.1280.720@0.0.1366.768" timestamp="1600563696223" />
++    <state width="1323" height="176" key="GridCell.Tab.0.right" timestamp="1600563696223">
++      <screen x="0" y="0" width="1366" height="768" />
++    </state>
++    <state width="1323" height="176" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.1280.720@0.0.1366.768" timestamp="1600563696223" />
++  </component>
+ </project>
+\ No newline at end of file
+Index: src/semantic_Actions/SemanticAction11.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package semantic_Actions;\r\n\r\npublic class SemanticAction11 implements SemanticAction{\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/semantic_Actions/SemanticAction11.java	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ src/semantic_Actions/SemanticAction11.java	(date 1600558862381)
+@@ -1,5 +1,5 @@
+ package semantic_Actions;
+ 
+-public class SemanticAction11 implements SemanticAction{
++/*public class SemanticAction11 implements SemanticAction{
+ 
+-}
++}*/
+Index: src/Lexer/StateMatrix.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Lexer;\r\n\r\nimport java.util.HashMap;\r\nimport semantic_Actions.*;\r\n\r\npublic class StateMatrix {\r\n\tprivate State[][] matrix;\r\n\tprivate static final int ROW = 20;\r\n\tprivate static final int COLUMN =  28;\r\n\tprivate HashMap mapofcaracters;\r\n\t\r\n\tpublic StateMatrix () {\r\n\t\tthis.matrix = new State[ROW][COLUMN];\r\n\t\t\r\n\t\r\n\t\tfor(int i = 0; i < ROW; i++) {\r\n\t\t\tfor(int j = 0; j < COLUMN; j++) {\r\n\t\t\t\tif( i == 0 || i == 1 || i == 5 || i == 6 || i == 9 || i == 11 || i == 12 || i == 16 \r\n\t\t\t\t\t|| i == 17 || i == 18 || i == 19 ) {\r\n\t\t\t\t\tthis.matrix[i][j] = new State(-1);\r\n\t\t\t\t}\r\n\t\t\t\tif(i == 2 || i == 3 || i == 4 || i == 7 || i == 8 || i == 10)\r\n\t\t\t\t\tthis.matrix[i][j] = new State(0);\r\n\t\t\t\tif(i == 13 || i == 14)\r\n\t\t\t\tthis.matrix[i][j] = new State(13);\r\n\t\t\t\tif(i == 15)\r\n\t\t\t\tthis.matrix[i][j] = new State(15);\r\n\t\t\t}\r\n\t\t}\r\n\t\t\r\n\t\t//Fila 0\r\n\t\tmatrix[0][0].setState(1);\r\n\t\tmatrix[0][1].setState(2);\r\n\t\tmatrix[0][2].setState(1);\r\n\t\tmatrix[0][3].setState(1);\r\n\t\tmatrix[0][4].setState(1);\r\n\t\tmatrix[0][5].setState(10);\r\n\t\tmatrix[0][6].setState(0);\r\n\t\tmatrix[0][7].setState(6);\r\n\t\tmatrix[0][8].setState(12);\r\n\t\tmatrix[0][9].setState(0);\r\n\t\tmatrix[0][10].setState(15);\r\n\t\tmatrix[0][20].setState(16);\r\n\t\tmatrix[0][21].setState(17);\r\n\t\tmatrix[0][22].setState(18);\r\n\t\tmatrix[0][23].setState(19);\r\n\t\tmatrix[0][24].setState(0);\r\n\t\tmatrix[0][25].setState(0);\r\n\t\tmatrix[0][26].setState(0);\r\n\t\t\r\n\t\t//Fila 1\r\n\t\tmatrix[1][0].setState(1);\r\n\t\tmatrix[1][1].setState(1);\r\n\t\tmatrix[1][2].setState(1);\r\n\t\tmatrix[1][3].setState(1);\r\n\t\tmatrix[1][4].setState(1);\r\n\t\tmatrix[1][6].setState(1);\r\n\t\t\r\n\t\t//Fila 2\r\n\t\tmatrix[2][1].setState(2);\r\n\t\tmatrix[2][6].setState(3);\r\n\t\tmatrix[2][7].setState(6);\r\n\t\tmatrix[2][27].setState(-1);\r\n\t\t\r\n\t\t//Fila 3\t\t\r\n\t\tmatrix[3][3].setState(4);\r\n\t\tmatrix[3][27].setState(-1);\r\n\t\t\r\n\t\t//Fila 4\r\n\t\tmatrix[4][4].setState(5);\r\n\t\tmatrix[4][27].setState(-1);\r\n\t\t\r\n\t\t//Fila 5 ya cargada toda con estado final\r\n\t\t\r\n\t\t//Fila 6\t\t\r\n\t\tmatrix[6][1].setState(6);\r\n\t\tmatrix[6][2].setState(7);\r\n\t\t\r\n\t\t//Fila 7\r\n\t\tmatrix[7][11].setState(8);\r\n\t\tmatrix[7][19].setState(8);\r\n\t\tmatrix[7][27].setState(-1);\r\n\t\t\r\n\t\t//Fila 8\r\n\t\tmatrix[8][1].setState(9);\r\n\t\tmatrix[8][27].setState(-1);\r\n\t\t\r\n\t\t//Fila 9\r\n\t\tmatrix[9][1].setState(9);\r\n\t\t\r\n\t\t//Fila 10\r\n\t\tmatrix[10][5].setState(10);\r\n\t\tmatrix[10][6].setState(11); \r\n\t\tmatrix[10][27].setState(-1);\r\n\t\t\r\n\t\t//Fila 11\r\n\t\tmatrix[11][5].setState(11);\r\n\t\t\r\n\t\t//Fila 12\r\n\t\tmatrix[12][9].setState(13);\r\n\t\t\r\n\t\t//Fila 13\r\n\t\tmatrix[13][9].setState(14);\r\n\t\tmatrix[13][27].setState(-1);\r\n\t\t\r\n\t\t//Fila 14\r\n\t\tmatrix[14][8].setState(0);\r\n\t\tmatrix[14][9].setState(14);\r\n\t\tmatrix[14][27].setState(-1);\r\n\t\t\r\n\t\t//Fila 15\r\n\t\tmatrix[15][10].setState(-1);\r\n\t\tmatrix[15][26].setState(0);\r\n\t\tmatrix[15][27].setState(-1);\r\n\t\t\r\n\t\t\r\n\t\t\r\n\r\n\t\t// Semantic Action Matrix\r\n\t\tSemanticAction sa1 = new SemanticAction1();\r\n\t\tSemanticAction sa2 = new SemanticAction2();\r\n\t\tSemanticAction sa3 = new SemanticAction3();\r\n\t\tSemanticAction sa4 = new SemanticAction4();\r\n\t\tSemanticAction sa5 = new SemanticAction5();\r\n\t\tSemanticAction sa6 = new SemanticAction6();\r\n\t\tSemanticAction sa7 = new SemanticAction7();\r\n\t\tSemanticAction sa8 = new SemanticAction8();\r\n\t\tSemanticAction sa9 = new SemanticAction9();\r\n\t\tSemanticAction sa10 = new SemanticAction10();\r\n\t\tSemanticAction sa11 = new SemanticAction11();\r\n\t\tSemanticAction sa12 = new SemanticAction12();\r\n\t\tSemanticAction sa13 = new SemanticAction13();\r\n\t\t\r\n\t\t/*ERR_ID errId = new ERR_ID();\r\n\t\tERR_CTN errCte = new ERR_CTN();\r\n\t\tERR_COM errCom = new ERR_COM();\r\n\t\tERR_CHAR errChar = new ERR_CHAR();*/\r\n\t\t\r\n\t\tfor(int i = 0; i < ROW; i++) {\r\n\t\t\tfor(int j = 0; j < COLUMN - 1; j++) {\r\n\t\t\t\tif(i == 0)\r\n\t\t\t\t\tmatrix[i][j].setSemanticAction(sa3);\r\n\t\t\t\tif(i == 1)\r\n\t\t\t\t\tmatrix[i][j].setSemanticAction(sa5);\r\n\t\t\t\tif(i == 2 || i == 3 || i == 4 || i == 7 || i == 8 || i == 10)\r\n\t\t\t\t\tmatrix[i][j].setSemanticAction(sa1);\r\n\t\t\t\tif(i == 5)\r\n\t\t\t\t\tmatrix[i][j].setSemanticAction(sa6);\r\n\t\t\t\tif(i == 6)\r\n\t\t\t\t\tmatrix[i][j].setSemanticAction(sa13);\r\n\t\t\t\tif(i == 9)\r\n\t\t\t\t\tmatrix[i][j].setSemanticAction(sa10);\r\n\t\t\t\tif(i == 11)\r\n\t\t\t\t\tmatrix[i][j].setSemanticAction(sa7);\r\n\t\t\t\tif(i == 12 || i == 16 || i == 17 || i ==18 || i == 19)\r\n\t\t\t\t\tmatrix[i][j].setSemanticAction(sa11);\r\n\t\t\t\tif(i == 13 || i == 14 || i == 15)\r\n\t\t\t\t\tmatrix[i][j].setSemanticAction(sa4);\r\n\t\t\t}\r\n\t\t}\r\n\t\t\r\n\t\t//Fila 0\r\n\t\tmatrix[0][9].setSemanticAction(sa1);\r\n\t\tfor(int j = 11; j <= 19; j++) {\r\n\t\t\tmatrix[0][j].setSemanticAction(null);\r\n\t\t}\r\n\t\tmatrix[0][24].setSemanticAction(sa1);\r\n\t\tmatrix[0][25].setSemanticAction(sa2);\r\n\t\tmatrix[0][26].setSemanticAction(sa2);\r\n\t\t\r\n\t\t//Fila 1\r\n\t\tfor(int j = 0; j <= 4; j++) {\r\n\t\t\tmatrix[1][j].setSemanticAction(sa3);\r\n\t\t}\r\n\t\tmatrix[1][6].setSemanticAction(sa4);\r\n\t\t\r\n\t\t//Fila 2\r\n\t\tmatrix[2][1].setSemanticAction(sa4);\r\n\t\tmatrix[2][6].setSemanticAction(sa9); \r\n\t\tmatrix[2][7].setSemanticAction(sa10);\r\n\t\t\r\n\t\t//Fila 3\t\t\r\n\t\tmatrix[3][3].setSemanticAction(sa4);\r\n\t\t\r\n\t\t//Fila 4\r\n\t\tmatrix[4][4].setSemanticAction(sa4); \r\n\t\t\r\n\t\t//Fila 5 ya cargada\r\n\t\t\r\n\t\t//Fila 6\r\n\t\tmatrix[6][1].setSemanticAction(sa4); \r\n\t\tmatrix[6][2].setSemanticAction(sa4); \r\n\t\t\r\n\t\t//Fila 7\r\n\t\tmatrix[7][11].setSemanticAction(sa4);\r\n\t\tmatrix[7][19].setSemanticAction(sa4);\r\n\t\t\r\n\t\t//Fila 8\r\n\t\tmatrix[8][1].setSemanticAction(sa4);\r\n\t\t\r\n\t\t//Fila 9\r\n\t\tmatrix[9][1].setSemanticAction(sa4);\r\n\t\t\r\n\t\t//Fila 10\r\n\t\tmatrix[10][5].setSemanticAction(sa5);\r\n\t\t\r\n\t\t//Fila 11\r\n\t\tmatrix[11][5].setSemanticAction(sa4);\r\n\t\t\r\n\t\t//Fila 12\r\n\t\tmatrix[12][9].setSemanticAction(sa4);\r\n\t\t\r\n\t\t//Fila 13 ya cargada\r\n\t\t\r\n\t\t//Fila 14\r\n\t\tmatrix[14][8].setSemanticAction(sa8);\r\n\t\t\r\n\t\t//Fila 15\r\n\t\tmatrix[15][18].setSemanticAction(sa6); \r\n\t\tmatrix[15][26].setSemanticAction(sa1);\r\n\t\t\r\n\t\t\r\n\t\t//Fila 16\r\n\t\tfor(int i = 16; i < ROW; i++) {\r\n\t\t\tmatrix[i][22].setSemanticAction(sa12);\r\n\t\t}\r\n\t\tfor(int i = 0; i < ROW; i++) {\r\n\t\t\tmatrix[i][27].setSemanticAction(null);\r\n\t\t}\r\n\t\t\r\n\t\tmapofcaracters = new HashMap();\r\n\t\t\r\n\t\tthis.mapofcaracters.put(\"minuscula\", 0);//problema\r\n\t\tthis.mapofcaracters.put(\"digito\", 1);//problema\r\n\t\tthis.mapofcaracters.put(\"d\", 2);\r\n\t\tthis.mapofcaracters.put(\"u\", 3);\r\n\t\tthis.mapofcaracters.put(\"l\", 4);\r\n\t\tthis.mapofcaracters.put(\"mayuscula\", 5);//problema\r\n\t\tthis.mapofcaracters.put(\"_\", 6);\r\n\t\tthis.mapofcaracters.put(\".\", 7);\r\n\t\tthis.mapofcaracters.put(\"/\", 8);\r\n\t\tthis.mapofcaracters.put(\"%\", 9);\r\n\t\tthis.mapofcaracters.put(\"'\", 10);\r\n\t\tthis.mapofcaracters.put(\"+\", 11);\r\n\t\tthis.mapofcaracters.put(\"*\", 12);\r\n\t\tthis.mapofcaracters.put(\"{\", 13);\r\n\t\tthis.mapofcaracters.put(\"}\", 14);\r\n\t\tthis.mapofcaracters.put(\"(\", 15);\r\n\t\tthis.mapofcaracters.put(\")\", 16);\r\n\t\tthis.mapofcaracters.put(\";\", 17);\r\n\t\tthis.mapofcaracters.put(\",\", 18);\r\n\t\tthis.mapofcaracters.put(\"-\", 19);\r\n\t\tthis.mapofcaracters.put(\"<\", 20);\r\n\t\tthis.mapofcaracters.put(\">\", 21);\r\n\t\tthis.mapofcaracters.put(\"=\", 22);\r\n\t\tthis.mapofcaracters.put(\"!\", 23);\r\n\t\tthis.mapofcaracters.put(\"C\", 24);//cualquier caracter del universo//problema\r\n\t\tthis.mapofcaracters.put(\"\\t\", 25);//problema\r\n\t\tthis.mapofcaracters.put(\"\\n\", 26);//problema\r\n\t\tthis.mapofcaracters.put(\"$\", 27);\r\n\t\t\r\n\t\r\n\t}\r\n\t\r\n\tpublic int getColumn(char a) {\r\n\t\tCharacter aux;\r\n\t\tString key;\r\n\r\n\t\taux=new Character(a);\r\n\t\t\tif(aux.isLetter(aux)) {\r\n\t\t\t\tif(aux.isUpperCase(aux)) {\r\n\t\t\t\t\t key=\"mayuscula\";\r\n\t\t\t\t\t return (int) this.mapofcaracters.get(key);\r\n\t\t\t\t\t}\r\n\t\t\t\telse\r\n\t\t\t\t\tif(aux.equals(\"u\") || aux.equals(\"l\") || aux.equals(\"d\") ) {\r\n\t\t\t\t\t\tkey=aux.toString();\r\n\t\t\t\t\t\treturn (int) this.mapofcaracters.get(key);\r\n\t\t\t\t\t}\r\n\t\t\t\t\telse {\r\n\t\t\t\t\t\tkey=\"minuscula\";\r\n\t\t\t\t\t\treturn (int) this.mapofcaracters.get(key);}\r\n\t\t\t}\r\n\t\t\telse\r\n\t\t\t\tif(aux.isDigit(aux)) {\r\n\t\t\t\t\tkey=\"digito\";\r\n\t\t\t\t\treturn (int) this.mapofcaracters.get(key);\r\n\t\t\t\t}\r\n\t\t\t\telse{\r\n\t\t\t\t\tkey=aux.toString();\r\n\t\t\t\t\treturn (int) this.mapofcaracters.get(key);\r\n\t\t\t\t}\r\n\t\t\t\r\n\t\t}\r\n\t\r\n\tpublic State getState(int row,int col) {\r\n\t\tint stateAux=this.matrix[row][col].getNextstate();\r\n\t\tSemanticAction sa=this.matrix[row][col].getSemanticaction();\r\n\t\tState state= new State(stateAux,sa);\r\n\t\treturn state;\r\n\t}\r\n\t\t\r\n\t\t\r\n\t\r\n\t\r\n\t\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/Lexer/StateMatrix.java	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ src/Lexer/StateMatrix.java	(date 1600558929922)
+@@ -122,14 +122,14 @@
+ 		SemanticAction sa3 = new SemanticAction3();
+ 		SemanticAction sa4 = new SemanticAction4();
+ 		SemanticAction sa5 = new SemanticAction5();
+-		SemanticAction sa6 = new SemanticAction6();
++		/*SemanticAction sa6 = new SemanticAction6();
+ 		SemanticAction sa7 = new SemanticAction7();
+ 		SemanticAction sa8 = new SemanticAction8();
+ 		SemanticAction sa9 = new SemanticAction9();
+ 		SemanticAction sa10 = new SemanticAction10();
+ 		SemanticAction sa11 = new SemanticAction11();
+ 		SemanticAction sa12 = new SemanticAction12();
+-		SemanticAction sa13 = new SemanticAction13();
++		SemanticAction sa13 = new SemanticAction13();*/
+ 		
+ 		/*ERR_ID errId = new ERR_ID();
+ 		ERR_CTN errCte = new ERR_CTN();
+@@ -144,7 +144,7 @@
+ 					matrix[i][j].setSemanticAction(sa5);
+ 				if(i == 2 || i == 3 || i == 4 || i == 7 || i == 8 || i == 10)
+ 					matrix[i][j].setSemanticAction(sa1);
+-				if(i == 5)
++				/*if(i == 5)
+ 					matrix[i][j].setSemanticAction(sa6);
+ 				if(i == 6)
+ 					matrix[i][j].setSemanticAction(sa13);
+@@ -155,7 +155,7 @@
+ 				if(i == 12 || i == 16 || i == 17 || i ==18 || i == 19)
+ 					matrix[i][j].setSemanticAction(sa11);
+ 				if(i == 13 || i == 14 || i == 15)
+-					matrix[i][j].setSemanticAction(sa4);
++					matrix[i][j].setSemanticAction(sa4);*/
+ 			}
+ 		}
+ 		
+@@ -176,8 +176,8 @@
+ 		
+ 		//Fila 2
+ 		matrix[2][1].setSemanticAction(sa4);
+-		matrix[2][6].setSemanticAction(sa9); 
+-		matrix[2][7].setSemanticAction(sa10);
++		//matrix[2][6].setSemanticAction(sa9);
++		//matrix[2][7].setSemanticAction(sa10);
+ 		
+ 		//Fila 3		
+ 		matrix[3][3].setSemanticAction(sa4);
+@@ -213,16 +213,16 @@
+ 		//Fila 13 ya cargada
+ 		
+ 		//Fila 14
+-		matrix[14][8].setSemanticAction(sa8);
++		//matrix[14][8].setSemanticAction(sa8);
+ 		
+ 		//Fila 15
+-		matrix[15][18].setSemanticAction(sa6); 
++		//matrix[15][18].setSemanticAction(sa6);
+ 		matrix[15][26].setSemanticAction(sa1);
+ 		
+ 		
+ 		//Fila 16
+ 		for(int i = 16; i < ROW; i++) {
+-			matrix[i][22].setSemanticAction(sa12);
++			//matrix[i][22].setSemanticAction(sa12);
+ 		}
+ 		for(int i = 0; i < ROW; i++) {
+ 			matrix[i][27].setSemanticAction(null);
+Index: src/semantic_Actions/SemanticAction13.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package semantic_Actions;\r\n\r\npublic class SemanticAction13 implements SemanticAction{\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/semantic_Actions/SemanticAction13.java	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ src/semantic_Actions/SemanticAction13.java	(date 1600558862470)
+@@ -1,5 +1,5 @@
+ package semantic_Actions;
+ 
+-public class SemanticAction13 implements SemanticAction{
++/*public class SemanticAction13 implements SemanticAction{
+ 
+-}
++}*/
+Index: src/semantic_Actions/SemanticAction12.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package semantic_Actions;\r\n\r\npublic class SemanticAction12 implements SemanticAction{\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/semantic_Actions/SemanticAction12.java	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ src/semantic_Actions/SemanticAction12.java	(date 1600558862889)
+@@ -1,5 +1,5 @@
+ package semantic_Actions;
+ 
+-public class SemanticAction12 implements SemanticAction{
++/*public class SemanticAction12 implements SemanticAction{
+ 
+-}
++}*/
+Index: src/semantic_Actions/SemanticAction9.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package semantic_Actions;\r\n\r\npublic class SemanticAction9 implements SemanticAction{\r\n\t\r\n\tpublic SemanticAction9() {\r\n\t\t\r\n\t}\r\n\t\r\n\tpublic boolean checkRange(String s) {\r\n\r\n\t\tint value = Integer.parseInt(s);\r\n\t\tif(value <= Math.pow(2,32) - 1)\r\n\t\t\treturn true;\r\n\t\telse\r\n\t\t\treturn false;\r\n\t\t\r\n\t}\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/semantic_Actions/SemanticAction9.java	(revision 6e19ec0eb95623edf176440c97904dc1947188fd)
++++ src/semantic_Actions/SemanticAction9.java	(date 1600558862611)
+@@ -1,6 +1,6 @@
+ package semantic_Actions;
+ 
+-public class SemanticAction9 implements SemanticAction{
++/*public class SemanticAction9 implements SemanticAction{
+ 	
+ 	public SemanticAction9() {
+ 		
+@@ -16,4 +16,4 @@
+ 		
+ 	}
+ 
+-}
++}*/

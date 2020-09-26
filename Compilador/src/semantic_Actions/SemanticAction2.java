@@ -1,25 +1,31 @@
 package semantic_Actions;
 
 import Lexer.LexerAnalyzer;
+import Lexer.State;
+
 
 public class SemanticAction2 implements SemanticAction{
-// informar tabulacion salto y blanco(ver si se usa!!!!!!!!!!)
+
+	private static final int LENGTH=20;
+
 	@Override
 	public void execute( char character, LexerAnalyzer la) {
-			if(character=='\n')
-				System.out.println("Linea: "+ la.getNroLinea()+ " Error: El caracter \\n no puede estar al final de la cadena " + la.getLexeme());
-			else if (character == '\t')
-				System.out.println("Linea: "+ la.getNroLinea()+ " Error: El caracter \\t no puede estar al final de la cadena " + la.getLexeme());
-			else if(character == ' ')
-				System.out.println("Linea: "+ la.getNroLinea()+ " Error: El caracter BLANCO no puede estar al final de la cadena " + la.getLexeme());
-			else
-				System.out.println("Linea: "+ la.getNroLinea()+ " Error: El caracter " + character + " no puede estar al final de la cadena " + la.getLexeme());
-			
-			la.setLexeme("");
-			la.setNextState(0);
-		
-	}
+		//devolver a la entrada ultimo caracter leido lo hicimos en lexerAnalyzer
 
-	
+		//chequea largo de identificador < 25 (elimina/descarta)
+		String lexeme = la.getLexeme();
+		if(lexeme.length()>LENGTH){
+			String warning="Linea: "+ la.getNroLinea() + "Warning: "+"La longitud del identificador es mayor a 20";
+			la.addWarning(warning);
+			lexeme=lexeme.substring(0, LENGTH);
+
+		}
+		la.addSymbolTable(lexeme, "ID");//agrego a la tabla de simbolos el nuevo lexema con ID
+		int idNumber = la.getNumberId(lexeme);//obtengo el id del lexema
+		la.setToken(idNumber, lexeme);
+		State state = la.getState(la.getNextState(), la.getColumn(character));
+		la.setNextState(state.getNextstate());
+
+	}
 
 }

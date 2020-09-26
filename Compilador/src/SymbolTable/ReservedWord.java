@@ -37,6 +37,7 @@ private Map<String, Integer> reserved_table;
 		reserved_table.put(">=",68);
 		reserved_table.put("==",69);
 		reserved_table.put("!=",70);
+		reserved_table.put("CADENA",71);
 	}
 
 	public int getReservedId(String id) {

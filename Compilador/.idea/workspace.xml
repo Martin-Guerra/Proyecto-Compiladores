@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="76b0d774-2e33-42ef-8f77-ebd5f85e6c07" name="Default Changelist" comment="" />
+    <list default="true" id="76b0d774-2e33-42ef-8f77-ebd5f85e6c07" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/LexerAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/LexerAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SymbolTable/ReservedWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SymbolTable/ReservedWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction5.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction8.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction9.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,6 +56,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -34,7 +68,37 @@
       <option name="presentableId" value="Default" />
       <updated>1599400133919</updated>
       <workItem from="1599400139496" duration="11000" />
+      <workItem from="1601144124661" duration="1008000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser" timestamp="1601128681748">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1601128681748" />
+    <state x="404" y="124" width="540" height="524" key="StructurePopup" timestamp="1601144669739">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="404" y="124" width="540" height="524" key="StructurePopup/0.0.1366.768/1366.0.1280.720@0.0.1366.768" timestamp="1601144669739" />
+    <state x="776" y="100" width="497" height="575" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1601131533556">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="776" y="100" width="497" height="575" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.768@0.0.1366.768" timestamp="1601131533556" />
   </component>
 </project>

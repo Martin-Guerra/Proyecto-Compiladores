@@ -1,23 +1,21 @@
 package semantic_Actions;
 
 import Lexer.LexerAnalyzer;
-//sabemos que viene una "/" y seteamos el estado 0 porque descartamos y guardamos el comentario y descartamos token
+import Lexer.State;
+
+//Reconocemos saltos de lineas \n
 public class SemanticAction8 implements SemanticAction{
 	
-	public SemanticAction8() {
-		
-	}
+	public SemanticAction8() { }
 
 	@Override
 	public void execute(char character, LexerAnalyzer la) {
-		String comment="Linea: "+ la.getNroLinea() + "Comentario: "+ la.getLexeme();
-		la.addComments(comment);
-		la.setLexeme("");
-		la.setNextState(0);
-		la.setToken(0, "");
-		
+
+		la.setNroLinea(la.getNroLinea()+1);
+		la.setPos(la.getPos()+1);
+		State state = la.getState(la.getNextState(), la.getColumn(character));
+		la.setNextState(state.getNextstate());
+
 	}
-	
-	
 
 }

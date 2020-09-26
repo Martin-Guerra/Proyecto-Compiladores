@@ -68,10 +68,6 @@ public class LexerAnalyzer {
 	}
 
 	
-	
-	
-	
-	
 	// devuelve <token,lexema> de una palabra
 	public	Token nextToken() {
 		Token finalToken = null;
@@ -132,7 +128,8 @@ public class LexerAnalyzer {
 	public int getPos() {
 		return this.pos;
 	}
-	//seteo la posicion actual de la letra de entrada 
+
+	//seteo la posicion actual de la letra de entrada
 	public void setPos(int i) {
 		this.pos=i;
 	}
@@ -141,28 +138,34 @@ public class LexerAnalyzer {
 	public void addError(String error) {
 		this.errors.add(error);
 	}
+
 	//agrego warning a la lista
 	public void addWarning(String warning) {
 		this.warning.add(warning);
 	}
+
 	// agrego un <lexema,ID> nuevo a la tabla de simbolos
 	public void addSymbolTable(String token, String id) {
 		
 		this.st.add(token, id);
 	}
+
 	//devuelvo el id de un lexema dado buscado en la tabla de simbolo
 	public int getNumberId(String lexeme) {
 		return this.st.getNumberId(lexeme);
 	}
+
 	//devuelvo el lexema actual que estamos construyendo
 	public String getLexeme() {
 		return this.lexeme;
 	}
+
 	//construyo el lexema
 	public void setLexeme(String string) {
 		this.lexeme=string;
 		
 	}
+
 	//obtengo la celda(estado) de la matriz de SM
 	public State getState(int row,int col) {
 		return this.sm.getState(row, col);
@@ -172,14 +175,17 @@ public class LexerAnalyzer {
 	public int getNroLinea() {
 		return nroLinea;
 	}
+
 	//seteo el numero de lineas
 	public void setNroLinea(int nroLinea) {
 		this.nroLinea = nroLinea;
 	}
+
 	//obtengo el id de la plabra reservada
 	public int getIdReservedWord(String key) {
 		return rw.getReservedId(key);
 	}
+
 	public void addComments(String comment) {
 		this.comments.add(comment);
 	}
