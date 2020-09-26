@@ -55,9 +55,9 @@ public class SemanticAction10 implements SemanticAction{
 				double lim_inf_neg = LOWRANGENEGATIVE;
 				double lim_inf = LOWRANGEPOSITIVE;
 				double lim_sup = TOPRANGEPOSITIVE;
-				if((lim_sup_neg<num && num <0) || (num < lim_inf_neg) || (lim_inf > num && num>0) || (num > lim_sup)){//despues lo hago chequear, esto esta mal, num NO tiene que estar antre el mayor de los negativos y el 0.0 o entre el menos de los positios y el 0.0 
+				if((TOPRANGENEGATIVE<num && num <0) || (num < LOWRANGENEGATIVE) || (LOWRANGEPOSITIVE > num && num>0) || (num > TOPRANGEPOSITIVE)){//despues lo hago chequear, esto esta mal, num NO tiene que estar antre el mayor de los negativos y el 0.0 o entre el menos de los positios y el 0.0 
 					System.out.println("Linea: "+ la.getNroLinea()+" Warning: El float esta fuera de rango y fue reemplazado por un valor frontera "+ "NUMERO  "+num);
-					num=lim_sup;
+					num=TOPRANGEPOSITIVE;
 				}
 				buffer = String.valueOf(num);
 				al.setBuffer(buffer);
