@@ -15,16 +15,16 @@ public class StateMatrix {
 	
 		for(int i = 0; i < ROW; i++) {
 			for(int j = 0; j < COLUMN; j++) {
-				if( i == 0 || i == 1 || i == 5 || i == 6 || i == 9 || i == 11 || i == 12 || i == 16 
+				if( i == 0 || i == 1 || i == 5 || i == 8 || i == 10 || i == 11 || i == 15
 					|| i == 17 || i == 18 || i == 19 ) {
 					this.matrix[i][j] = new State(-1);
 				}
-				if(i == 2 || i == 3 || i == 4 || i == 7 || i == 8 || i == 10)
+				if(i == 2 || i == 3 || i == 4 || i == 6 || i == 7 || i == 8)
 					this.matrix[i][j] = new State(0);
 				if(i == 13 || i == 14)
-				this.matrix[i][j] = new State(13);
+					this.matrix[i][j] = new State(13);
 				if(i == 15)
-				this.matrix[i][j] = new State(15);
+					this.matrix[i][j] = new State(15);
 			}
 		}
 		

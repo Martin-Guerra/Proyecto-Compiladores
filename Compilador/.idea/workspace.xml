@@ -20,12 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76b0d774-2e33-42ef-8f77-ebd5f85e6c07" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/LexerAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/LexerAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/StateMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/StateMatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SymbolTable/ReservedWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SymbolTable/ReservedWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction12.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction12.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction13.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction13.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" afterDir="false" />
@@ -33,12 +35,18 @@
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction8.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction9.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -52,9 +60,23 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -69,6 +91,7 @@
       <updated>1599400133919</updated>
       <workItem from="1599400139496" duration="11000" />
       <workItem from="1601144124661" duration="1008000" />
+      <workItem from="1601146504097" duration="9833000" />
     </task>
     <servers />
   </component>
@@ -88,10 +111,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser" timestamp="1601128681748">
+    <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser" timestamp="1601153865572">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1601128681748" />
+    <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1601153865572" />
     <state x="404" y="124" width="540" height="524" key="StructurePopup" timestamp="1601144669739">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -100,5 +123,9 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="776" y="100" width="497" height="575" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.768@0.0.1366.768" timestamp="1601131533556" />
+    <state x="526" y="141" key="refactoring.ChangeSignatureDialog" timestamp="1601151879273">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="526" y="141" key="refactoring.ChangeSignatureDialog/0.0.1366.768@0.0.1366.768" timestamp="1601151879273" />
   </component>
 </project>

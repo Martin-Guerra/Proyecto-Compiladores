@@ -18,7 +18,7 @@ import semantic_Actions.SemanticAction;
  * -recorrer la matriz para que estado se va y que accion semantica aplicar a ese caracter
  * -cuando encuentre estado final entrega un token cuando se puede */
 public class LexerAnalyzer {
-	private static final int finalState=-1;
+	private static final int finalState = -1;
 	
 	private StateMatrix sm;
 	private BufferedReader br;

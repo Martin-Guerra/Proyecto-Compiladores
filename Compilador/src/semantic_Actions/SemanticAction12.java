@@ -11,7 +11,9 @@ public class SemanticAction12 implements SemanticAction{
 
     @Override
     public void execute( char character, LexerAnalyzer la) {
-        la.addError(INCORRECTSIMBOL);
+
+        String error = "Linea: " + la.getNroLinea() + "Error: " + INCORRECTSIMBOL + character;
+        la.addError(error);
     }
 
 }

@@ -3,6 +3,7 @@ package semantic_Actions;
 import Lexer.LexerAnalyzer;
 import Lexer.State;
 
+//Chequea rango double
 public class SemanticAction3 implements SemanticAction{
 
 	private static final double POWERPOSITIVE =  Math.pow(10,308);

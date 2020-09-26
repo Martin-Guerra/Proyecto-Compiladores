@@ -10,7 +10,7 @@ public class SemanticAction11 implements SemanticAction{
     public void execute(char character, LexerAnalyzer la) {
 
         la.setLexeme(la.getLexeme() + character);
-        la.setPos(la.getPos()+1);
+        la.setPos(la.getPos() + 1);
         String lexeme = la.getLexeme();
         la.addSymbolTable(lexeme, "CADENA");//agrego a la tabla de simbolos el nuevo lexema con ID
         int idNumber = la.getNumberId(lexeme);//obtengo el id del lexema
