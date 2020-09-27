@@ -125,14 +125,14 @@ public class FileInput extends JFrame implements ActionListener {
         Path path = Paths.get("C:\\Users\\Camila Barreiro\\Documents\\Entrada.txt");
         System.out.println(path);
         LexerAnalyzer la = new LexerAnalyzer(path);
+
         System.out.println("Source: " + la.getSource());
-        System.out.println("Long source: " + la.getSource().length() + " Recorrido: " + la.getSourceLong());
-        while (la.getSource().length() >= la.getSourceLong() ){
+        for (int i = 0; i <= 20; i++) {
             Token tk = la.nextToken();
-            System.out.println("Long source: " + la.getSource().length() + " Recorrido: " + la.getSourceLong());
             System.out.println("Token: " + tk.getLexema() + " Id: " + tk.getId());
-            System.out.println(la.getErrors());
         }
+        System.out.println(la.getErrors());
+        System.out.println(la.getWarning());
     }
 }
 

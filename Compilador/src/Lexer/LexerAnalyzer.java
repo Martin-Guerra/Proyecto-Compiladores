@@ -62,7 +62,7 @@ public class LexerAnalyzer {
 				try{
 					String line = this.br.readLine();
 					while (line != null) {
-						this.source+=line+'\n';
+						this.source+=line+"\n";
 						line = this.br.readLine();
 					}
 				} catch (IOException x) {
@@ -84,7 +84,7 @@ public class LexerAnalyzer {
 
 			this.token = new Token();
 			this.pos = 0;
-			this.nroLinea = 0;
+			this.nroLinea = 1;
 			this.lexeme = new String();
 			this.actualState = 0;
 			this.sourceLong = 0;
@@ -112,9 +112,9 @@ public class LexerAnalyzer {
 			char character = source.charAt(this.getPos());
 			this.sourceLong++;
 			int col = this.getColumn(character);        //Columna en relación al caracter en análisis
-			this.state = sm.getState(actualState, col);    //Setea estado global
+			this.state = sm.getState(actualState, col); //Setea estado global
 			action = this.state.getSemanticaction();    //Obtiene acción semántica
-			action.execute(character, this);            //Ejecuta acción semántica
+			action.execute(character, this);         //Ejecuta acción semántica
 		}
 		//Inicializa el token a devolver con el par <token,lexema> obtenidos
 		this.sourceLong--;
@@ -168,6 +168,11 @@ public class LexerAnalyzer {
 	//Agrega warning a la lista
 	public void addWarning(String warning) {
 		this.warning.add(warning);
+	}
+
+	public List<String> getWarning() {
+		List<String> warnings = new ArrayList<>(this.warning);
+		return warnings;
 	}
 
 	//Agrega un <lexema,ID> nuevo a la tabla de simbolos

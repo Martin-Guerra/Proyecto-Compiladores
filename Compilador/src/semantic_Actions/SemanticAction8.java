@@ -12,7 +12,7 @@ public class SemanticAction8 implements SemanticAction{
 	public void execute(char character, LexerAnalyzer la) {
 
 		la.setNroLinea(la.getNroLinea()+1);
-		la.setPos(0);
+		la.setPos(la.getPos()+1);
 		State state = la.getState(la.getActualState(), la.getColumn(character));
 		la.setActualState(state.getNextstate());
 

@@ -105,7 +105,7 @@ public class StateMatrix {
 		
 		
 		//Fila 14
-		matrix[14][18].setState(-1);
+		matrix[14][10].setState(-1);
 		matrix[14][26].setState(0);
 		
 
@@ -123,8 +123,9 @@ public class StateMatrix {
 		SemanticAction sa11 = new SemanticAction11();
 		SemanticAction sa12 = new SemanticAction12();
 		SemanticAction sa13 = new SemanticAction13();
-		SemanticAction sa14 = new SemanticAction13();
-		SemanticAction sa15 = new SemanticAction13();
+		SemanticAction sa14 = new SemanticAction14();
+		SemanticAction sa15 = new SemanticAction15();
+		SemanticAction sa16 = new SemanticAction16();
 		
 		/*ERR_ID errId = new ERR_ID();
 		ERR_CTN errCte = new ERR_CTN();
@@ -150,7 +151,7 @@ public class StateMatrix {
 				if(i == 12 || i == 13 || i == 14 )
 					matrix[i][j].setSemanticAction(sa5);
 				if(i == 15 || i == 16 || i == 17 || i == 18)
-					matrix[i][j].setSemanticAction(sa1);
+					matrix[i][j].setSemanticAction(sa16);
 			}
 		}
 		
@@ -260,7 +261,7 @@ public class StateMatrix {
 		this.mapofcaracters.put("=", 22);
 		this.mapofcaracters.put("!", 23);
 		this.mapofcaracters.put("C", 24);//cualquier caracter del universo//problema
-		this.mapofcaracters.put("\t", 25);//problema
+		this.mapofcaracters.put("\t", 25);
 		this.mapofcaracters.put("\n", 26);//problema
 		this.mapofcaracters.put("$", 27);
 		
@@ -268,35 +269,36 @@ public class StateMatrix {
 	}
 	
 	public int getColumn(char a) {
-		Character aux;
 		String key;
-
-		aux=new Character(a);
-			if(aux.isLetter(aux)) {
-				if(aux.isUpperCase(aux)) {
-					 key="mayuscula";
-					 return (int) this.mapofcaracters.get(key);
-					}
-				else
-					if(aux.equals("u") || aux.equals("l") || aux.equals("d") ) {
-						key=aux.toString();
-						return (int) this.mapofcaracters.get(key);
-					}
-					else {
-						key="minuscula";
-						return (int) this.mapofcaracters.get(key);}
-			}
+		Character character = a;
+		if(character.isLetter(character)) {
+			if(character.isUpperCase(character)) {
+				 key="mayuscula";
+				 return (int) this.mapofcaracters.get(key);
+				}
 			else
-				if(aux.isDigit(aux)) {
-					key="digito";
+				if(character == 'u' || character == 'l' || character == 'd') {
+					key=character.toString();
 					return (int) this.mapofcaracters.get(key);
 				}
-				else{
-					key=aux.toString();
-					return (int) this.mapofcaracters.get(key);
-				}
-			
+				else {
+					key="minuscula";
+					return (int) this.mapofcaracters.get(key);}
 		}
+		else
+			if(character.isDigit(character)) {
+				key="digito";
+				return (int) this.mapofcaracters.get(key);
+			}else {
+				if (character == ' ') {
+					key = "\t";
+					return (int) this.mapofcaracters.get(key);
+				} else {
+					key = character.toString();
+					return (int) this.mapofcaracters.get(key);
+				}
+			}
+	}
 	
 	public State getState(int row,int col) {
 		int stateAux=this.matrix[row][col].getNextstate();

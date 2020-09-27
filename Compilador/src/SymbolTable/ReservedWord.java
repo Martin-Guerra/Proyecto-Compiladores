@@ -11,7 +11,7 @@ private Map<String, Integer> reserved_table;
 		reserved_table = new HashMap<>();
 		
 		reserved_table.put("ID",45);
-		reserved_table.put("CTE",46);
+		reserved_table.put("ULONGINT",46);
 		reserved_table.put("IF",47);
 		reserved_table.put("THEN",48);
 		reserved_table.put("ELSE",49);
@@ -20,7 +20,6 @@ private Map<String, Integer> reserved_table;
 		reserved_table.put("FUNC",52);
 		reserved_table.put("RETURN",53);
 		reserved_table.put("DOUBLE",72);
-		reserved_table.put("ULONGINT",73);
 		reserved_table.put(";",54);
 		reserved_table.put(",",55);
 		reserved_table.put("(",56);

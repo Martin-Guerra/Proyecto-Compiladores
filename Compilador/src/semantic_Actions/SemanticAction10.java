@@ -11,7 +11,6 @@ public class SemanticAction10 implements SemanticAction{
 
 	@Override
 	public void execute(char character, LexerAnalyzer la) {
-
 		la.setLexeme(la.getLexeme()+character);
 		String lexeme = la.getLexeme();
 		int idnumber = la.getIdReservedWord(la.getLexeme());
