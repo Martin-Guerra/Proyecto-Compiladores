@@ -16,7 +16,7 @@ public class SemanticAction4 implements SemanticAction{
 				//agregar a la tabla de plabras reservada los ultimos 3
 			la.setLexeme("");
 			la.setNextState(0);
-			String error = "Linea: " + la.getNroLinea() + "Error: " + "Palabra reservada invalida";
+			String error = "Linea: " + la.getNroLinea() + " Error: " + "Palabra reservada invalida";
 			la.addError(error);
 		}
 		else {

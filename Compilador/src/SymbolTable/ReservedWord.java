@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ReservedWord {
-
 	
 private Map<String, Integer> reserved_table;
 	
@@ -20,12 +19,14 @@ private Map<String, Integer> reserved_table;
 		reserved_table.put("OUT",51);
 		reserved_table.put("FUNC",52);
 		reserved_table.put("RETURN",53);
+		reserved_table.put("DOUBLE",72);
+		reserved_table.put("ULONGINT",73);
 		reserved_table.put(";",54);
 		reserved_table.put(",",55);
-		reserved_table.put(")",56);
-		reserved_table.put("(",57);
-		reserved_table.put("}",58);
-		reserved_table.put("{",59);
+		reserved_table.put("(",56);
+		reserved_table.put(")",57);
+		reserved_table.put("{",58);
+		reserved_table.put("}",59);
 		reserved_table.put("<",60);
 		reserved_table.put(">",61);
 		reserved_table.put("=",62);

@@ -16,11 +16,11 @@ public class StateMatrix {
 	
 		for(int i = 0; i < ROW; i++) {
 			for(int j = 0; j < COLUMN; j++) {
-				if( i == 0 || i == 1 || i == 5 || i == 8 || i == 10 || i == 11 || i == 15
+				if( i == 0 || i == 1 || i == 5 || i == 8 || i == 9 || i == 10 || i == 11 || i == 15
 					|| i == 16 || i == 17 || i == 18 ) {
 					this.matrix[i][j] = new State(-1);
 				}
-				if(i == 2 || i == 3 || i == 4 || i == 6 || i == 7 || i == 9)
+				if(i == 2 || i == 3 || i == 4 || i == 6 || i == 7)
 					this.matrix[i][j] = new State(0);
 				
 				if(i == 12 || i == 13)
@@ -87,7 +87,7 @@ public class StateMatrix {
 		matrix[8][1].setState(8);
 		
 		//Fila 9
-		matrix[9][1].setState(9);
+		matrix[9][5].setState(9);
 		matrix[9][6].setState(10);
 		
 		//Fila 10
@@ -107,10 +107,6 @@ public class StateMatrix {
 		//Fila 14
 		matrix[14][18].setState(-1);
 		matrix[14][26].setState(0);
-		
-		
-		
-		
 		
 
 		// Semantic Action Matrix
@@ -141,13 +137,13 @@ public class StateMatrix {
 					matrix[i][j].setSemanticAction(sa5);
 				if(i == 1)
 					matrix[i][j].setSemanticAction(sa2);
-				if(i == 2 || i == 3 || i == 4 || i == 6 || i == 7 || i == 9)
+				if(i == 2 || i == 3 || i == 4 || i == 6 || i == 7)
 					matrix[i][j].setSemanticAction(sa12);
 				if(i == 5)
 					matrix[i][j].setSemanticAction(sa6);
 				if(i == 8)
 					matrix[i][j].setSemanticAction(sa3);
-				if(i == 10)
+				if(i == 9 || i == 10)
 					matrix[i][j].setSemanticAction(sa4);
 				if(i == 11)
 					matrix[i][j].setSemanticAction(sa1);
@@ -159,13 +155,15 @@ public class StateMatrix {
 		}
 		
 		//Fila 0
-		for(int j = 0; j <= 5; j++) {
-			matrix[0][j].setSemanticAction(sa5);
+		for(int j = 11; j <= 19; j++) {
+			matrix[0][j].setSemanticAction(sa1);
 		}
+
 		matrix[0][6].setSemanticAction(sa12);
 		matrix[0][7].setSemanticAction(sa5);
 		matrix[0][8].setSemanticAction(sa5);
 		matrix[0][9].setSemanticAction(sa12);
+		matrix[0][10].setSemanticAction(sa5);
 		matrix[0][24].setSemanticAction(sa12);
 		matrix[0][25].setSemanticAction(sa13);
 		matrix[0][26].setSemanticAction(sa13);
@@ -306,9 +304,4 @@ public class StateMatrix {
 		State state= new State(stateAux,sa);
 		return state;
 	}
-		
-		
-	
-	
-	
 }

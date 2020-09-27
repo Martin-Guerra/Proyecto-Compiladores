@@ -12,7 +12,7 @@ public class SemanticAction7 implements SemanticAction{
 		long  number = Long.valueOf(lexeme.substring(0, lexeme.length()-2));//porque ya tiene el _
 		if ((number < 0) || (number > Math.pow(2,32)-1)){
 			number=(long) (Math.pow(2,32)-1);
-			String warning="Linea: "+ la.getNroLinea() + "Warning: " + "La constante entera supera el rango";
+			String warning="Linea: "+ la.getNroLinea() + " Warning: " + "La constante entera supera el rango";
 			la.addWarning(warning);
 			la.setLexeme(String.valueOf(number) + '_'+'u' + character);//agrego u y el char leido que es l
 		}

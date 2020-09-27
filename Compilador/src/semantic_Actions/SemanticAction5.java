@@ -14,7 +14,6 @@ public class SemanticAction5 implements SemanticAction{
 		la.setPos(la.getPos() + 1);
 		State state=la.getState(la.getNextState(), la.getColumn(character));
 		la.setNextState(state.getNextstate());
-
 	}
 	
 }

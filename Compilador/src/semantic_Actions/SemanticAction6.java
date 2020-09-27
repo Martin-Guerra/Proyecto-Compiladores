@@ -9,7 +9,7 @@ public class SemanticAction6 implements SemanticAction{
 	public void execute( char character, LexerAnalyzer la) {
 
 		if(la.getLexeme().length() == 1 && la.getLexeme().equals(".")) {
-			String error = "Linea: " + la.getNroLinea() + "Error: " + "Vino un punto solo";
+			String error = "Linea: " + la.getNroLinea() + " Error: " + "Ingresó el caracter punto (.) solo";
 			la.addError(error);
 		}
 		else{

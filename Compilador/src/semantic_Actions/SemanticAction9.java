@@ -11,7 +11,7 @@ public class SemanticAction9 implements SemanticAction{
 	@Override
 	public void execute(char character, LexerAnalyzer la) {
 
-		String comment = "Linea: " + la.getNroLinea() + "Comentario: " + la.getLexeme();
+		String comment = "Linea: " + la.getNroLinea() + " Comentario: " + la.getLexeme();
 		la.addComments(comment);
 		la.setLexeme("");
 		State state = la.getState(la.getNextState(), la.getColumn(character));

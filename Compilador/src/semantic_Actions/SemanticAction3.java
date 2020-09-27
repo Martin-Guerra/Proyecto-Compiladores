@@ -10,8 +10,8 @@ public class SemanticAction3 implements SemanticAction{
 	private static final double POWERNEGATIVE =  Math.pow(10,-308);
 	private static final double LOWRANGEPOSITIVE = 1.7976931348623157 * POWERPOSITIVE;
 	private static final double TOPRANGEPOSITIVE = 2.2250738585072014 * POWERNEGATIVE;
-	private static final double LOWRANGENEGATIVE = -1.7976931348623157 * POWERNEGATIVE;
-	private static final double TOPRANGENEGATIVE = -2.2250738585072014 * POWERPOSITIVE;
+	//private static final double LOWRANGENEGATIVE = -1.7976931348623157 * POWERNEGATIVE;
+	//private static final double TOPRANGENEGATIVE = -2.2250738585072014 * POWERPOSITIVE;
 
 	@Override
 	public void execute(char character, LexerAnalyzer la) {
@@ -30,7 +30,7 @@ public class SemanticAction3 implements SemanticAction{
 
 		//Como el léxico no reconoce numeros negativos no se realizara el chequeo de estos valores.
 		if((num < LOWRANGEPOSITIVE  || num > TOPRANGEPOSITIVE) && num != 0){
-			String warning = "Linea: " + la.getNroLinea() + "Warning: " + "El double se encuentra fuera de rango";
+			String warning = "Linea: " + la.getNroLinea() + " Warning: " + "El double se encuentra fuera de rango";
 			la.addWarning(warning);
 			num = TOPRANGEPOSITIVE;
 		}

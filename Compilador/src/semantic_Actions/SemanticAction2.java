@@ -14,7 +14,7 @@ public class SemanticAction2 implements SemanticAction{
 
 		String lexeme = la.getLexeme();
 		if(lexeme.length() > LENGTH){
-			String warning = "Linea: " + la.getNroLinea() + "Warning: " + "La longitud del identificador es mayor a 20";
+			String warning = "Linea: " + la.getNroLinea() + " Warning: " + "La longitud del identificador es mayor a 20";
 			la.addWarning(warning);
 			lexeme=lexeme.substring(0, LENGTH);
 		}

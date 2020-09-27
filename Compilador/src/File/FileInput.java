@@ -30,6 +30,7 @@ public class FileInput extends JFrame implements ActionListener {
    // private FileReaderSource fileReader;
     private BufferedReader br = null;
     private String road;
+    private static final int EOF = 9999999;
 
     public FileInput() {
         super("JFileChooser Test");
@@ -81,7 +82,7 @@ public class FileInput extends JFrame implements ActionListener {
     }
     
   public BufferedReader getBuffer() {
-	 BufferedReader auxBr=new BufferedReader(br);
+	 BufferedReader auxBr = new BufferedReader(br);
 	  return auxBr;
   }
 
@@ -96,12 +97,17 @@ public class FileInput extends JFrame implements ActionListener {
         LexerAnalyzer la = new LexerAnalyzer(test.getRoad());
         System.out.println(la.getNextLine());*/
 		
-		JFileChooser ventanita=new JFileChooser();
-		ventanita.showOpenDialog(ventanita);
-		String path=ventanita.getSelectedFile().getAbsolutePath();//obtiene la ruta del archivo selecionado
-		LexerAnalyzer la= new LexerAnalyzer(path);
-		Token tk=la.nextToken();
-		System.out.println(tk.getLexema()+" "+tk.getId());
+		//JFileChooser ventanita=new JFileChooser();
+		//ventanita.showOpenDialog(ventanita);
+
+        //String path = ventanita.getSelectedFile().getAbsolutePath();//obtiene la ruta del archivo selecionado
+        String path = "C:\\Users\\Camila Barreiro\\Documents\\Entrada.txt";
+        System.out.println(path);
+		LexerAnalyzer la = new LexerAnalyzer(path);
+
+		Token tk = la.nextToken();
+		System.out.println("Token: " + tk.getLexema() + " Id: " + tk.getId());
+		System.out.println(la.getErrors());
       
     }
 }
