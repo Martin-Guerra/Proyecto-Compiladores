@@ -39,8 +39,8 @@ public class SemanticAction3 implements SemanticAction{
 		la.addSymbolTable(lexeme, "DOUBLE");
 		int idNumber = la.getNumberId(lexeme);
 		la.setToken(idNumber,lexeme);
-		State state = la.getState(la.getNextState(), la.getColumn(character));
-		la.setNextState(state.getNextstate());
+		State state = la.getState(la.getActualState(), la.getColumn(character));
+		la.setActualState(state.getNextstate());
 	}
 
 }

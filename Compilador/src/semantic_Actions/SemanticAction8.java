@@ -13,8 +13,8 @@ public class SemanticAction8 implements SemanticAction{
 
 		la.setNroLinea(la.getNroLinea()+1);
 		la.setPos(0);
-		State state = la.getState(la.getNextState(), la.getColumn(character));
-		la.setNextState(state.getNextstate());
+		State state = la.getState(la.getActualState(), la.getColumn(character));
+		la.setActualState(state.getNextstate());
 
 	}
 

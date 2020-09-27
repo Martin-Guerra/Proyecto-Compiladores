@@ -12,10 +12,11 @@ public class SemanticAction12 implements SemanticAction{
 
     @Override
     public void execute( char character, LexerAnalyzer la) {
-        String error = "Linea: " + la.getNroLinea() + " Error: " + INCORRECTSIMBOL + character;
+        String error = "Linea: " + la.getNroLinea() + " Error: " + INCORRECTSIMBOL + la.getLexeme();
         la.addError(error);
-        State state = la.getState(la.getNextState(), la.getColumn(character));
-        la.setNextState(state.getNextstate());
+        la.setLexeme(Character.toString(character));
+        State state = la.getState(la.getActualState(), la.getColumn(character));
+        la.setActualState(state.getNextstate());
     }
 
 }

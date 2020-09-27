@@ -24,7 +24,7 @@ public class SemanticAction13 implements SemanticAction{
                     " Error: El caracter " + character + " no puede estar al final de la cadena " + la.getLexeme());
 
         la.setLexeme("");
-        la.setNextState(0);
+        la.setActualState(0);
     }
 
 }

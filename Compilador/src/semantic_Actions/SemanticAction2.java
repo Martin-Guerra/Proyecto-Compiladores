@@ -22,8 +22,8 @@ public class SemanticAction2 implements SemanticAction{
 		la.addSymbolTable(lexeme, "ID");//agrego a la tabla de simbolos el nuevo lexema con ID
 		int idNumber = la.getNumberId(lexeme);//obtengo el id del lexema
 		la.setToken(idNumber, lexeme);
-		State state = la.getState(la.getNextState(), la.getColumn(character));
-		la.setNextState(state.getNextstate());
+		State state = la.getState(la.getActualState(), la.getColumn(character));
+		la.setActualState(state.getNextstate());
 
 	}
 

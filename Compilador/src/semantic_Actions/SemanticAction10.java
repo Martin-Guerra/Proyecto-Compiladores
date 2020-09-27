@@ -17,8 +17,8 @@ public class SemanticAction10 implements SemanticAction{
 		int idnumber = la.getIdReservedWord(la.getLexeme());
 		la.setToken(idnumber, lexeme);
 		la.setPos(la.getPos()+1);
-		State state = la.getState(la.getNextState(), la.getColumn(character));
-		la.setNextState(state.getNextstate());
+		State state = la.getState(la.getActualState(), la.getColumn(character));
+		la.setActualState(state.getNextstate());
 
 	}
 

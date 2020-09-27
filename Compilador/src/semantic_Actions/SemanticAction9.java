@@ -14,8 +14,8 @@ public class SemanticAction9 implements SemanticAction{
 		String comment = "Linea: " + la.getNroLinea() + " Comentario: " + la.getLexeme();
 		la.addComments(comment);
 		la.setLexeme("");
-		State state = la.getState(la.getNextState(), la.getColumn(character));
-		la.setNextState(state.getNextstate());
+		State state = la.getState(la.getActualState(), la.getColumn(character));
+		la.setActualState(state.getNextstate());
 
 	}
 

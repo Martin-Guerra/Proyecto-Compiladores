@@ -23,8 +23,8 @@ public class SemanticAction7 implements SemanticAction{
 		la.setPos(la.getPos()+1);
 		la.addSymbolTable(lexeme, "CTE");//45,CTE
 		la.setToken(la.getIdReservedWord("CTE"),lexeme);
-		State state=la.getState(la.getNextState(), la.getColumn(character));
-		la.setNextState(state.getNextstate());
+		State state=la.getState(la.getActualState(), la.getColumn(character));
+		la.setActualState(state.getNextstate());
 
 		}
 }

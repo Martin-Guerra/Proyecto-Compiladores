@@ -186,8 +186,8 @@ public class StateMatrix {
 		matrix[3][3].setSemanticAction(sa5);
 		
 		//Fila 4
-		matrix[4][4].setSemanticAction(sa7); 
-		
+		matrix[4][4].setSemanticAction(sa7);
+
 		//Fila 5 ya cargada
 		matrix[5][1].setSemanticAction(sa5); 
 		matrix[5][2].setSemanticAction(sa5); 

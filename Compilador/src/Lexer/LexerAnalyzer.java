@@ -2,14 +2,13 @@ package Lexer;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
-import File.*
-;
 import SymbolTable.ReservedWord;
 import SymbolTable.SymbolTable;
 import semantic_Actions.SemanticAction;
@@ -25,7 +24,7 @@ public class LexerAnalyzer {
 	private BufferedReader br;
 
 	//Matriz de transición de estados, de acciones semánticas y mapeo de columnas
-	private StateMatrix sm;
+	public StateMatrix sm;
 	//Estado que contiene la celda de la matriz
 	private State state;
 	//Tabla de palabras reservadas
@@ -47,16 +46,32 @@ public class LexerAnalyzer {
 	//Lexema que formamos en el recorrido de la entrada
 	private String lexeme;
 	//Próximo estado al que nos debemos dirigir en la matriz de transición de estados
-	private int nextState; 
+	private int actualState;
+	//Entrada
+	private String source = "";
+	//Longitud recorrida de source
+	private int sourceLong;
 
 
 	//Llenado de la matriz de transición de estados y de acciones semánticas
 	//Se pasa en el main el buffer con el archivo ya cargado
-	public LexerAnalyzer(String path) {
+	public LexerAnalyzer(Path path) {
 			try {
-				this.br =new BufferedReader(new FileReader(path));
+				Charset charset = Charset.forName("US-ASCII");
+				this.br = Files.newBufferedReader(path, charset);
+				try{
+					String line = this.br.readLine();
+					while (line != null) {
+						this.source+=line+'\n';
+						line = this.br.readLine();
+					}
+				} catch (IOException x) {
+					System.err.format("IOException: %s%n", x);
+				}
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			this.sm = new StateMatrix();
@@ -71,7 +86,8 @@ public class LexerAnalyzer {
 			this.pos = 0;
 			this.nroLinea = 0;
 			this.lexeme = new String();
-			this.nextState = 0;
+			this.actualState = 0;
+			this.sourceLong = 0;
 	}
 
 	public String getNextLine() {	
@@ -88,35 +104,26 @@ public class LexerAnalyzer {
 	public Token nextToken() {
 		Token finalToken = null;
 		SemanticAction action;
-		//int col;
-		//char character;
-		//String source;
 
-		try {
-			String source = this.br.readLine();
-		
-			while(nextState != FINAL_STATE && this.getPos() < source.length()) {
-				if(nextState == EOF) {
-					nextState=0;
-				}			
-				char character = source.charAt(this.getPos());
-				int col = this.getColumn(character);		//Columna en relación al caracter en análisis
-				this.state = sm.getState(nextState, col);	//Setea estado global
-				action = this.state.getSemanticaction();	//Obtiene acción semántica
-				action.execute(character,this);			//Ejecuta acción semántica
+		while (actualState != FINAL_STATE && this.getPos() < source.length()) {
+			if (actualState == EOF) {
+				actualState = 0;
 			}
-			//Inicializa el token a devolver con el par <token,lexema> obtenidos
-			finalToken = new Token(this.token.getId(),this.token.getLexema());
-			//Setea el token global para el próximo pedido del consumidor de tokens
-			this.setToken(-1, "");
-
-			return finalToken;
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return finalToken;
+			char character = source.charAt(this.getPos());
+			this.sourceLong++;
+			int col = this.getColumn(character);        //Columna en relación al caracter en análisis
+			this.state = sm.getState(actualState, col);    //Setea estado global
+			action = this.state.getSemanticaction();    //Obtiene acción semántica
+			action.execute(character, this);            //Ejecuta acción semántica
 		}
+		//Inicializa el token a devolver con el par <token,lexema> obtenidos
+		this.sourceLong--;
+		finalToken = new Token(this.token.getId(), this.token.getLexema());
+		//Setea el token global para el próximo pedido del consumidor de tokens
+		this.setToken(-1, "");
+		this.setActualState(0);
+		this.setLexeme("");
+		return finalToken;
 	}
 	
 	//Devuelve el numero de la columna asociada el caracter
@@ -124,13 +131,13 @@ public class LexerAnalyzer {
 		return sm.getColumn(character);
 	}
 	//Devuelve el proximo estado del caracter donde tenemos que ir
-	public int getNextState() {
-		return this.nextState;
+	public int getActualState() {
+		return this.actualState;
 	}
 
 	//Detea el proximo estado del caracter donde tenemos que ir
-	public void setNextState(int state) {
-		 this.nextState=state;
+	public void setActualState(int state) {
+		 this.actualState =state;
 	}
 	//Detea el token que se va a devolver
 	public void setToken(int id,String lexeme) {
@@ -207,5 +214,26 @@ public class LexerAnalyzer {
 	public void addComments(String comment) {
 		this.comments.add(comment);
 	}
+
+	//Devolver buffer
+	public BufferedReader getBuffer(){
+		return this.br;
+	}
+
+	//Devolver source
+	public boolean endSource(){
+		return (this.source.length() == this.pos);
+	}
+
+	//Devolver source
+	public String getSource(){
+		return this.source;
+	}
+
+	//Devolver source
+	public int getSourceLong(){
+		return this.sourceLong;
+	}
+
 	
 }

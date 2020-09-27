@@ -6,6 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 
@@ -86,7 +90,24 @@ public class FileInput extends JFrame implements ActionListener {
 	  return auxBr;
   }
 
+
+
 	public static void main(String[] args) {
+
+        /*public static String readFile(){
+            String str="";
+            Charset charset = Charset.forName("US-ASCII");
+            Path path = Paths.get("C:\\Users\\Camila Barreiro\\Documents\\Entrada.txt");
+            try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    str+=line+'\n';
+                }
+            } catch (IOException x) {
+                System.err.format("IOException: %s%n", x);
+            }
+            return str;
+        }*/
     /*    FileInput test = new FileInput();
        
      
@@ -96,19 +117,22 @@ public class FileInput extends JFrame implements ActionListener {
        
         LexerAnalyzer la = new LexerAnalyzer(test.getRoad());
         System.out.println(la.getNextLine());*/
-		
-		//JFileChooser ventanita=new JFileChooser();
-		//ventanita.showOpenDialog(ventanita);
+
+        //JFileChooser ventanita=new JFileChooser();
+        //ventanita.showOpenDialog(ventanita);
 
         //String path = ventanita.getSelectedFile().getAbsolutePath();//obtiene la ruta del archivo selecionado
-        String path = "C:\\Users\\Camila Barreiro\\Documents\\Entrada.txt";
+        Path path = Paths.get("C:\\Users\\Camila Barreiro\\Documents\\Entrada.txt");
         System.out.println(path);
-		LexerAnalyzer la = new LexerAnalyzer(path);
-
-		Token tk = la.nextToken();
-		System.out.println("Token: " + tk.getLexema() + " Id: " + tk.getId());
-		System.out.println(la.getErrors());
-      
+        LexerAnalyzer la = new LexerAnalyzer(path);
+        System.out.println("Source: " + la.getSource());
+        System.out.println("Long source: " + la.getSource().length() + " Recorrido: " + la.getSourceLong());
+        while (la.getSource().length() >= la.getSourceLong() ){
+            Token tk = la.nextToken();
+            System.out.println("Long source: " + la.getSource().length() + " Recorrido: " + la.getSourceLong());
+            System.out.println("Token: " + tk.getLexema() + " Id: " + tk.getId());
+            System.out.println(la.getErrors());
+        }
     }
 }
 

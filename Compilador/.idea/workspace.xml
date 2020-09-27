@@ -20,21 +20,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76b0d774-2e33-42ef-8f77-ebd5f85e6c07" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_09_2020_09_56_a__m___Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_09_2020_09_56_a__m___Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/File/FileInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/File/FileInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/LexerAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/LexerAnalyzer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Lexer/StateMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/StateMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SymbolTable/ReservedWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SymbolTable/ReservedWord.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction12.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction12.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction13.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction13.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction5.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction8.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction9.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,6 +69,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager">
     <configuration name="FileInput" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -83,13 +85,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -116,6 +120,7 @@
       <workItem from="1601146504097" duration="9833000" />
       <workItem from="1601162741474" duration="61000" />
       <workItem from="1601164374347" duration="12527000" />
+      <workItem from="1601207204911" duration="11058000" />
     </task>
     <servers />
   </component>
@@ -143,46 +148,55 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1601153865572" />
-    <state width="1877" height="264" key="GridCell.Tab.0.bottom" timestamp="1601177911531">
+    <state x="1653" y="-147" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1601219125995">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601177911531" />
-    <state width="1877" height="264" key="GridCell.Tab.0.center" timestamp="1601177911531">
+    <state x="1653" y="-147" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601219125995" />
+    <state width="1851" height="178" key="GridCell.Tab.0.bottom" timestamp="1601219393444">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.0.center/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601177911531" />
-    <state width="1877" height="264" key="GridCell.Tab.0.left" timestamp="1601177911531">
+    <state width="1851" height="178" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601219393444" />
+    <state width="1851" height="178" key="GridCell.Tab.0.center" timestamp="1601219393444">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.0.left/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601177911531" />
-    <state width="1877" height="264" key="GridCell.Tab.0.right" timestamp="1601177911531">
+    <state width="1851" height="178" key="GridCell.Tab.0.center/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601219393444" />
+    <state width="1851" height="178" key="GridCell.Tab.0.left" timestamp="1601219393443">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.0.right/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601177911531" />
-    <state width="1877" height="264" key="GridCell.Tab.1.bottom" timestamp="1601177911531">
+    <state width="1851" height="178" key="GridCell.Tab.0.left/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601219393443" />
+    <state width="1851" height="178" key="GridCell.Tab.0.right" timestamp="1601219393444">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.1.bottom/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601177911531" />
-    <state width="1877" height="264" key="GridCell.Tab.1.center" timestamp="1601177911531">
+    <state width="1851" height="178" key="GridCell.Tab.0.right/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601219393444" />
+    <state width="1851" height="178" key="GridCell.Tab.1.bottom" timestamp="1601219394581">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.1.center/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601177911531" />
-    <state width="1877" height="264" key="GridCell.Tab.1.left" timestamp="1601177911531">
+    <state width="1851" height="178" key="GridCell.Tab.1.bottom/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601219394581" />
+    <state width="1851" height="178" key="GridCell.Tab.1.center" timestamp="1601219394581">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.1.left/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601177911531" />
-    <state width="1877" height="264" key="GridCell.Tab.1.right" timestamp="1601177911531">
+    <state width="1851" height="178" key="GridCell.Tab.1.center/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601219394581" />
+    <state width="1851" height="178" key="GridCell.Tab.1.left" timestamp="1601219394581">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
-    <state width="1877" height="264" key="GridCell.Tab.1.right/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601177911531" />
-    <state x="163" y="0" key="SettingsEditor" timestamp="1601162771845">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1851" height="178" key="GridCell.Tab.1.left/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601219394581" />
+    <state width="1851" height="178" key="GridCell.Tab.1.right" timestamp="1601219394581">
+      <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
+    <state width="1851" height="178" key="GridCell.Tab.1.right/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601219394581" />
+    <state x="1586" y="-147" key="SettingsEditor" timestamp="1601214133345">
+      <screen x="1366" y="-147" width="1920" height="1040" />
+    </state>
+    <state x="1586" y="-147" key="SettingsEditor/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601214133345" />
     <state x="163" y="0" key="SettingsEditor/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1601162771845" />
     <state x="404" y="124" width="540" height="524" key="StructurePopup" timestamp="1601144669739">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="404" y="124" width="540" height="524" key="StructurePopup/0.0.1366.768/1366.0.1280.720@0.0.1366.768" timestamp="1601144669739" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1601214701670">
+      <screen x="1366" y="-147" width="1920" height="1040" />
+    </state>
+    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601214701670" />
     <state x="776" y="100" width="497" height="575" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1601131533556">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
@@ -191,14 +205,23 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="526" y="141" key="refactoring.ChangeSignatureDialog/0.0.1366.768@0.0.1366.768" timestamp="1601151879273" />
+    <state x="1989" y="78" width="672" height="678" key="search.everywhere.popup" timestamp="1601210069157">
+      <screen x="1366" y="-147" width="1920" height="1040" />
+    </state>
+    <state x="1989" y="78" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601210069157" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/File/FileInput.java</url>
-          <line>107</line>
+          <line>130</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Lexer/StateMatrix.java</url>
+          <line>185</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
