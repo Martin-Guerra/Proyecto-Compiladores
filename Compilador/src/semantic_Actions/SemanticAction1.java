@@ -18,7 +18,6 @@ public class SemanticAction1 implements SemanticAction{
 		la.setToken(idNumber,"");
 		State state=la.getState(la.getActualState(), la.getColumn(character));
 		la.setActualState(state.getNextstate());
-
 	}
 
 }

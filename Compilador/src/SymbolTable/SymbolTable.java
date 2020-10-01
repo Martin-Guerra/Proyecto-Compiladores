@@ -24,7 +24,7 @@ public class SymbolTable {
 	}
 	
 	
-	public void add(String lexeme,String id) {
+	public void add(String lexeme, String id) {
 		if(!symbolTable.contains(lexeme)) {
 			symbolTable.put(lexeme, id);
 		}

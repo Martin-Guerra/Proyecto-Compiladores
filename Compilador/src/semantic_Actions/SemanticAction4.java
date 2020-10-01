@@ -11,8 +11,9 @@ public class SemanticAction4 implements SemanticAction{
 
 		String lexeme = la.getLexeme();
 		if( ! ((lexeme.equals("IF") || lexeme.equals("THEN") || lexeme.equals("ELSE")
-				|| lexeme.equals("END_IF") || lexeme.equals("OUT") || lexeme.equals("FUNC") || lexeme.equals("RETURN")
-				|| lexeme.equals("ULONGINT")|| lexeme.equals("DOUBLE")|| lexeme.equals("FOR")))){
+				|| lexeme.equals("END_IF") || lexeme.equals("OUT") || lexeme.equals("PROC") || lexeme.equals("RETURN")
+				|| lexeme.equals("ULONGINT")|| lexeme.equals("DOUBLE") || lexeme.equals("FOR") || lexeme.equals("UP")
+				|| lexeme.equals("DOWN") || lexeme.equals("NA") ))){
 				//agregar a la tabla de plabras reservada los ultimos 3
 			la.setLexeme("");
 			la.setActualState(0);

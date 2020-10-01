@@ -9,36 +9,41 @@ private Map<String, Integer> reserved_table;
 	
 	public ReservedWord() {
 		reserved_table = new HashMap<>();
-		
-		reserved_table.put("ID",45);
-		reserved_table.put("ULONGINT",46);
-		reserved_table.put("IF",47);
-		reserved_table.put("THEN",48);
-		reserved_table.put("ELSE",49);
-		reserved_table.put("END_IF",50);
-		reserved_table.put("OUT",51);
-		reserved_table.put("FUNC",52);
-		reserved_table.put("RETURN",53);
-		reserved_table.put("DOUBLE",72);
-		reserved_table.put(";",54);
-		reserved_table.put(",",55);
-		reserved_table.put("(",56);
-		reserved_table.put(")",57);
-		reserved_table.put("{",58);
-		reserved_table.put("}",59);
-		reserved_table.put("<",60);
-		reserved_table.put(">",61);
-		reserved_table.put("=",62);
-		reserved_table.put("/",63);
-		reserved_table.put("*",64);
-		reserved_table.put("+",65);
-		reserved_table.put("-",66);
-		reserved_table.put("<=",67);
-		reserved_table.put(">=",68);
-		reserved_table.put("==",69);
-		reserved_table.put("!=",70);
-		reserved_table.put("CADENA",71);
 
+		reserved_table.put(";",59);
+
+		reserved_table.put("(",40);
+		reserved_table.put(")",41);
+		reserved_table.put("*",42);
+		reserved_table.put("+",43);
+		reserved_table.put(",",44);
+		reserved_table.put("-",45);
+		reserved_table.put("/",47);
+		reserved_table.put("<",60);
+		reserved_table.put("=",61);
+		reserved_table.put(">",62);
+		reserved_table.put("{",123);
+		reserved_table.put("}",125);
+		reserved_table.put("ID",257);
+		reserved_table.put("ULONGINT",258);
+		reserved_table.put("IF",259);
+		reserved_table.put("THEN",260);
+		reserved_table.put("ELSE",261);
+		reserved_table.put("END_IF",262);
+		reserved_table.put("FOR",263);
+		reserved_table.put("OUT",264);
+		reserved_table.put("PROC",265);
+		reserved_table.put("RETURN",266);
+		reserved_table.put("DOUBLE",267);
+		reserved_table.put("MENOR_IGUAL",268);
+		reserved_table.put("MAYOR_IGUAL",269);
+		reserved_table.put("IGUAL",270);
+		reserved_table.put("DISTINTO",271);
+		reserved_table.put("PUNTO_PUNTO",272);
+		reserved_table.put("UP",273);
+		reserved_table.put("DOWN",274);
+		reserved_table.put("CADENA",275);
+		reserved_table.put("NA",276);
 	}
 
 	public int getReservedId(String id) {
