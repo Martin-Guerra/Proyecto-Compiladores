@@ -13,8 +13,8 @@ public class SemanticAction10 implements SemanticAction{
 	public void execute(char character, LexerAnalyzer la) {
 		la.setLexeme(la.getLexeme()+character);
 		String lexeme = la.getLexeme();
-		int idnumber = la.getIdReservedWord(lexeme);
-
+		//int idnumber = la.getIdReservedWord(lexeme);
+		int idnumber=0;
 		switch(lexeme){
 			case "<=": idnumber = la.getIdReservedWord("MENOR_IGUAL");
 			case ">=": idnumber = la.getIdReservedWord("MAYOR_IGUAL");

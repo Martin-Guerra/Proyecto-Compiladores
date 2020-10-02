@@ -65,6 +65,8 @@ public class LexerAnalyzer {
 						this.source+=line+"\n";
 						line = this.br.readLine();
 					}
+					//pongo $ para reconocer el fin de archivo
+					this.source+=line+"$";
 				} catch (IOException x) {
 					System.err.format("IOException: %s%n", x);
 				}

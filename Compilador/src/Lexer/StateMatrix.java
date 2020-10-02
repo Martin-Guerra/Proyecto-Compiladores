@@ -115,6 +115,7 @@ public class StateMatrix {
 		//Fila 19
 		matrix[19][28].setState(-1);
 		
+		
 
 		// Semantic Action Matrix
 		SemanticAction sa1 = new SemanticAction1();
@@ -140,7 +141,7 @@ public class StateMatrix {
 		ERR_CHAR errChar = new ERR_CHAR();*/
 		
 		for(int i = 0; i < ROW; i++) {
-			for(int j = 0; j < COLUMN - 1; j++) {
+			for(int j = 0; j < COLUMN ; j++) {
 				if(i == 0)
 					matrix[i][j].setSemanticAction(sa5);
 				if(i == 1)
@@ -230,21 +231,24 @@ public class StateMatrix {
 			matrix[i][22].setSemanticAction(sa10);
 		}
 
-		for(int i = 0; i < ROW; i++) {
-			matrix[i][27].setNextstate(EOF);
-			matrix[i][27].setSemanticAction(sa15);
-		}
-
-		for(int i = 1; i < ROW-1; i++) {
-			matrix[i][28].setState(0);
-			matrix[i][28].setSemanticAction(sa12);
-		}
-
 		//Fila 18
 		matrix[18][22].setSemanticAction(sa10);
 
 		//Fila 19
 		matrix[19][28].setSemanticAction(sa10);
+		
+		//fijo colum 27
+		for(int i = 0; i < ROW; i++) {
+			matrix[i][27].setNextstate(EOF);
+			matrix[i][27].setSemanticAction(sa15);
+		}
+		//colum 28
+		
+		
+		/*for(int i = 1; i < ROW-1; i++) {
+			matrix[i][28].setState(0);
+			matrix[i][28].setSemanticAction(sa12);
+		}*/
 		
 		mapofcaracters = new HashMap();
 		
@@ -276,6 +280,7 @@ public class StateMatrix {
 		this.mapofcaracters.put("\t", 25);
 		this.mapofcaracters.put("\n", 26);//problema
 		this.mapofcaracters.put("$", 27);
+		this.mapofcaracters.put(":", 28);
 		
 	
 	}
