@@ -21,11 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="76b0d774-2e33-42ef-8f77-ebd5f85e6c07" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/StateMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/StateMatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SymbolTable/ReservedWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SymbolTable/ReservedWord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SymbolTable/SymbolTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SymbolTable/SymbolTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +96,7 @@
       <workItem from="1601207204911" duration="27298000" />
       <workItem from="1601323515935" duration="671000" />
       <workItem from="1601498164169" duration="4533000" />
-      <workItem from="1601592570716" duration="1654000" />
+      <workItem from="1601592570716" duration="4506000" />
     </task>
     <servers />
   </component>

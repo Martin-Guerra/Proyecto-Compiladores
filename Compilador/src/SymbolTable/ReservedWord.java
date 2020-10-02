@@ -10,8 +10,6 @@ private Map<String, Integer> reserved_table;
 	public ReservedWord() {
 		reserved_table = new HashMap<>();
 
-		reserved_table.put(";",59);
-
 		reserved_table.put("(",40);
 		reserved_table.put(")",41);
 		reserved_table.put("*",42);
@@ -22,6 +20,7 @@ private Map<String, Integer> reserved_table;
 		reserved_table.put("<",60);
 		reserved_table.put("=",61);
 		reserved_table.put(">",62);
+		reserved_table.put(";",59);
 		reserved_table.put("{",123);
 		reserved_table.put("}",125);
 		reserved_table.put("ID",257);

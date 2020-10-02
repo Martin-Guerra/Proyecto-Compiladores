@@ -6,8 +6,8 @@ import semantic_Actions.*;
 public class StateMatrix {
 	private static final int EOF = 9999999;
 	private State[][] matrix;
-	private static final int ROW = 19;
-	private static final int COLUMN =  28;
+	private static final int ROW = 20;
+	private static final int COLUMN =  29;
 	private HashMap mapofcaracters;
 	
 	public StateMatrix () {
@@ -17,10 +17,10 @@ public class StateMatrix {
 		for(int i = 0; i < ROW; i++) {
 			for(int j = 0; j < COLUMN; j++) {
 				if( i == 0 || i == 1 || i == 5 || i == 8 || i == 9 || i == 10 || i == 11 || i == 15
-					|| i == 16 || i == 17 || i == 18 ) {
+					|| i == 16 || i == 17) {
 					this.matrix[i][j] = new State(-1);
 				}
-				if(i == 2 || i == 3 || i == 4 || i == 6 || i == 7)
+				if(i == 2 || i == 3 || i == 4 || i == 6 || i == 7 || i == 18 || i == 19)
 					this.matrix[i][j] = new State(0);
 				
 				if(i == 12 || i == 13)
@@ -49,6 +49,7 @@ public class StateMatrix {
 		matrix[0][24].setState(0);
 		matrix[0][25].setState(0);
 		matrix[0][26].setState(0);
+		matrix[0][28].setState(19);
 		
 		//Fila 1
 		matrix[1][0].setState(1);
@@ -101,12 +102,18 @@ public class StateMatrix {
 		
 		//Fila 13
 		matrix[13][8].setState(0);
-		matrix[13][9].setState(3);
+		matrix[13][9].setState(13);
 		
 		
 		//Fila 14
 		matrix[14][10].setState(-1);
 		matrix[14][26].setState(0);
+
+		//Fila 18
+		matrix[18][22].setState(-1);
+
+		//Fila 19
+		matrix[19][28].setState(-1);
 		
 
 		// Semantic Action Matrix
@@ -138,7 +145,7 @@ public class StateMatrix {
 					matrix[i][j].setSemanticAction(sa5);
 				if(i == 1)
 					matrix[i][j].setSemanticAction(sa2);
-				if(i == 2 || i == 3 || i == 4 || i == 6 || i == 7)
+				if(i == 2 || i == 3 || i == 4 || i == 6 || i == 7 || i == 18 || i == 19)
 					matrix[i][j].setSemanticAction(sa12);
 				if(i == 5)
 					matrix[i][j].setSemanticAction(sa6);
@@ -150,34 +157,30 @@ public class StateMatrix {
 					matrix[i][j].setSemanticAction(sa1);
 				if(i == 12 || i == 13 || i == 14 )
 					matrix[i][j].setSemanticAction(sa5);
-				if(i == 15 || i == 16 || i == 17 || i == 18)
+				if(i == 15 || i == 16 || i == 17)
 					matrix[i][j].setSemanticAction(sa16);
 			}
 		}
 		
 		//Fila 0
+
+		matrix[0][6].setSemanticAction(sa12);
+		matrix[0][9].setSemanticAction(sa12);
+
 		for(int j = 11; j <= 19; j++) {
 			matrix[0][j].setSemanticAction(sa1);
 		}
-
-		matrix[0][6].setSemanticAction(sa12);
-		matrix[0][7].setSemanticAction(sa5);
-		matrix[0][8].setSemanticAction(sa5);
-		matrix[0][9].setSemanticAction(sa12);
-		matrix[0][10].setSemanticAction(sa5);
 		matrix[0][24].setSemanticAction(sa12);
 		matrix[0][25].setSemanticAction(sa13);
 		matrix[0][26].setSemanticAction(sa13);
-		
-		
+
 		//Fila 1
 		for(int j = 0; j <= 4; j++) {
 			matrix[1][j].setSemanticAction(sa5);
 		}
-		matrix[1][5].setSemanticAction(sa2);
+
 		matrix[1][6].setSemanticAction(sa5);
-		
-		
+
 		//Fila 2
 		matrix[2][1].setSemanticAction(sa5);
 		matrix[2][6].setSemanticAction(sa5); 
@@ -189,7 +192,7 @@ public class StateMatrix {
 		//Fila 4
 		matrix[4][4].setSemanticAction(sa7);
 
-		//Fila 5 ya cargada
+		//Fila 5
 		matrix[5][1].setSemanticAction(sa5); 
 		matrix[5][2].setSemanticAction(sa5); 
 		
@@ -199,7 +202,6 @@ public class StateMatrix {
 		
 		//Fila 7
 		matrix[7][1].setSemanticAction(sa5);
-		
 		
 		//Fila 8
 		matrix[8][1].setSemanticAction(sa5);
@@ -214,25 +216,35 @@ public class StateMatrix {
 		//Fila 11
 		matrix[11][9].setSemanticAction(sa5);
 		
-		//file 12 cargada
+		//Fila 12 cargada
 		
-		//Fila 13 ya cargada
+		//Fila 13
 		matrix[13][8].setSemanticAction(sa9);
 		
 		//Fila 14
 		matrix[14][10].setSemanticAction(sa11);
 		matrix[14][26].setSemanticAction(sa14);
-		
 			
 		//Fila 15 en adelante
 		for(int i = 15; i < ROW; i++) {
 			matrix[i][22].setSemanticAction(sa10);
 		}
-		
+
 		for(int i = 0; i < ROW; i++) {
 			matrix[i][27].setNextstate(EOF);
 			matrix[i][27].setSemanticAction(sa15);
 		}
+
+		for(int i = 1; i < ROW-1; i++) {
+			matrix[i][28].setState(0);
+			matrix[i][28].setSemanticAction(sa12);
+		}
+
+		//Fila 18
+		matrix[18][22].setSemanticAction(sa10);
+
+		//Fila 19
+		matrix[19][28].setSemanticAction(sa10);
 		
 		mapofcaracters = new HashMap();
 		
