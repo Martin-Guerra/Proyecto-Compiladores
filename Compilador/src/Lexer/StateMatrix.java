@@ -217,10 +217,12 @@ public class StateMatrix {
 		//Fila 11
 		matrix[11][9].setSemanticAction(sa5);
 		
-		//Fila 12 cargada
+		//Fila 12
+		matrix[12][26].setSemanticAction(sa8);
 		
 		//Fila 13
 		matrix[13][8].setSemanticAction(sa9);
+		matrix[13][26].setSemanticAction(sa8);
 		
 		//Fila 14
 		matrix[14][10].setSemanticAction(sa11);
@@ -242,22 +244,15 @@ public class StateMatrix {
 			matrix[i][27].setNextstate(EOF);
 			matrix[i][27].setSemanticAction(sa15);
 		}
-		//colum 28
-		
-		
-		/*for(int i = 1; i < ROW-1; i++) {
-			matrix[i][28].setState(0);
-			matrix[i][28].setSemanticAction(sa12);
-		}*/
-		
+
 		mapofcaracters = new HashMap();
 		
-		this.mapofcaracters.put("minuscula", 0);//problema
-		this.mapofcaracters.put("digito", 1);//problema
+		this.mapofcaracters.put("minuscula", 0);
+		this.mapofcaracters.put("digito", 1);
 		this.mapofcaracters.put("d", 2);
 		this.mapofcaracters.put("u", 3);
 		this.mapofcaracters.put("l", 4);
-		this.mapofcaracters.put("mayuscula", 5);//problema
+		this.mapofcaracters.put("mayuscula", 5);
 		this.mapofcaracters.put("_", 6);
 		this.mapofcaracters.put(".", 7);
 		this.mapofcaracters.put("/", 8);
@@ -278,11 +273,10 @@ public class StateMatrix {
 		this.mapofcaracters.put("!", 23);
 		this.mapofcaracters.put("C", 24);//cualquier caracter del universo//problema
 		this.mapofcaracters.put("\t", 25);
-		this.mapofcaracters.put("\n", 26);//problema
+		this.mapofcaracters.put("\n", 26);
 		this.mapofcaracters.put("$", 27);
 		this.mapofcaracters.put(":", 28);
 		
-	
 	}
 	
 	public int getColumn(char a) {

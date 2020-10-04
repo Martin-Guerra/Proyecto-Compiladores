@@ -8,6 +8,7 @@ public class Token {
 			this.id=id;
 			this.lexeme=lexeme;
 		 }
+
 		 public Token() {
 			 this.id=0;
 			 this.lexeme=new String();

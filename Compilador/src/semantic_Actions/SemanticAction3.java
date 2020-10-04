@@ -29,16 +29,17 @@ public class SemanticAction3 implements SemanticAction{
 			num = Double.valueOf(lexeme);
 
 		//Como el léxico no reconoce numeros negativos no se realizara el chequeo de estos valores.
-		if((num < LOWRANGEPOSITIVE  || num > TOPRANGEPOSITIVE) && num != 0){
-			String warning = "Linea: " + la.getNroLinea() + " Warning: " + "El double se encuentra fuera de rango";
-			la.addWarning(warning);
-			num = TOPRANGEPOSITIVE;
+		if(num > LOWRANGEPOSITIVE && num < TOPRANGEPOSITIVE && num != 0){
+			String error = "Linea: " + la.getNroLinea() + " Error: " + "El double se encuentra fuera de rango";
+			la.addError(error);
+			la.setLexeme("");
+			la.setPos(la.getPos() + 1);
+		}else {
+			lexeme = String.valueOf(num);
+			la.addSymbolTable(lexeme, "DOUBLE");
+			int idNumber = la.getNumberId(lexeme);
+			la.setToken(idNumber, lexeme);
 		}
-
-		lexeme = String.valueOf(num);
-		la.addSymbolTable(lexeme, "DOUBLE");
-		int idNumber = la.getNumberId(lexeme);
-		la.setToken(idNumber,lexeme);
 		State state = la.getState(la.getActualState(), la.getColumn(character));
 		la.setActualState(state.getNextstate());
 	}
