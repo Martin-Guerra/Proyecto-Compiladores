@@ -1,6 +1,1 @@
-ULONGINT id_ulongint = 32767_ul
-ULONGINT id_ulongint = -32768_ul
-ULONGINT id_ulongint = 4294967296_ul
-ULONGINT id_ulongint = -4294967296_ul
-ULONGINT id_ulongint = 32767
-ULONGINT id_ulongint = -4294967296
+/ ;

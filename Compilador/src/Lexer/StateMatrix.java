@@ -134,6 +134,7 @@ public class StateMatrix {
 		SemanticAction sa14 = new SemanticAction14();
 		SemanticAction sa15 = new SemanticAction15();
 		SemanticAction sa16 = new SemanticAction16();
+		SemanticAction sa17 = new SemanticAction17();
 		
 		/*ERR_ID errId = new ERR_ID();
 		ERR_CTN errCte = new ERR_CTN();
@@ -155,7 +156,7 @@ public class StateMatrix {
 				if(i == 9 || i == 10)
 					matrix[i][j].setSemanticAction(sa4);
 				if(i == 11)
-					matrix[i][j].setSemanticAction(sa1);
+					matrix[i][j].setSemanticAction(sa17);
 				if(i == 12 || i == 13 || i == 14 )
 					matrix[i][j].setSemanticAction(sa5);
 				if(i == 15 || i == 16 || i == 17)
