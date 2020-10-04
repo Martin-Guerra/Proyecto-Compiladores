@@ -5,20 +5,23 @@ import Lexer.State;
 
 public class SemanticAction14 implements SemanticAction {
 
-    private SemanticAction sa8;
-    private SemanticAction sa12;
+	 private static final String INCORRECTSIMBOL = "No se permiten salto de linea en las cadenas ";
 
     public SemanticAction14() {
-        SemanticAction sa8 = new SemanticAction8();
-        SemanticAction sa12 = new SemanticAction12();
     }
 
     @Override
     public void execute(char character, LexerAnalyzer la) {
 
-        sa8.execute(character, la);
-        sa12.execute(character, la);
+    	la.setNroLinea(la.getNroLinea()+1);
+		la.setPos(la.getPos()+1);
+		String error;
+		error = "Linea: " + la.getNroLinea() + " Error: " + INCORRECTSIMBOL + character;
+		la.addError(error);
         la.setLexeme("");
+        State state = la.getState(la.getActualState(), la.getColumn(character));
+        la.setActualState(state.getNextstate());
+        
 
     }
 

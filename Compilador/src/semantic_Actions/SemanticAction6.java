@@ -11,15 +11,17 @@ public class SemanticAction6 implements SemanticAction{
 		if(la.getLexeme().length() == 1 && la.getLexeme().equals(".")) {
 			String error = "Linea: " + la.getNroLinea() + " Error: " + "Ingresó el caracter punto (.) solo";
 			la.addError(error);
+			la.setActualState(0);
 		}
 		else{
 			String lexeme = la.getLexeme();
 			la.addSymbolTable(lexeme, "DOUBLE");
 			int idNumber = la.getNumberId(lexeme);
 			la.setToken(idNumber,lexeme);
+			State state = la.getState(la.getActualState(), la.getColumn(character));
+			la.setActualState(state.getNextstate());
 		}
-		State state = la.getState(la.getActualState(), la.getColumn(character));
-		la.setActualState(state.getNextstate());
+		
 
 	}
 }
