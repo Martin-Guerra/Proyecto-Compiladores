@@ -894,6 +894,10 @@ public class Parser
 //#line 179 "G08 - Gramatica.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Se espera expresion."); }
                 break;
+                case 78:
+//#line 187 "G08 - Gramatica.y"
+                {addRule("Linea "+ la.getNroLinea() +": ASIGNACION.");}
+                break;
                 case 79:
 //#line 188 "G08 - Gramatica.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() + ": Expresion invalida en asignacion.");}
@@ -921,7 +925,7 @@ public class Parser
                     this.la.addSymbolTable(lexeme, "NRO_DOUBLE");
                 }
                 break;
-//#line 848 "Parser.java"
+//#line 852 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
             }//switch
             //#### Now let's reduce... ####

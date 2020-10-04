@@ -15,7 +15,7 @@ public class SemanticAction6 implements SemanticAction{
 		}
 		else{
 			String lexeme = la.getLexeme();
-			la.addSymbolTable(lexeme, "DOUBLE");
+			la.addSymbolTable(lexeme, "NRO_DOUBLE");
 			int idNumber = la.getNumberId(lexeme);
 			la.setToken(idNumber,lexeme);
 			State state = la.getState(la.getActualState(), la.getColumn(character));
