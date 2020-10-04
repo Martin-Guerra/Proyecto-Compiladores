@@ -1,2 +1,7 @@
-/%Este es un comentario 
-mal definido 
+ULONGINT i;
+DOUBLE b;
+FOR (i = 4_ul; i < 8_ul ; UP 1_ul) {
+	IF(i>=b)
+		OUT('HOLA');
+	END_IF;
+};
