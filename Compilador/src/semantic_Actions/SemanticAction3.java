@@ -49,7 +49,7 @@ public class SemanticAction3 implements SemanticAction{
 			la.setActualState(0);
 		}else {
 			lexeme = String.valueOf(num);
-			la.addSymbolTable(lexeme, "DOUBLE");
+			la.addSymbolTable(lexeme, "NRO_DOUBLE");
 			int idNumber = la.getNumberId(lexeme);
 			la.setToken(idNumber, lexeme);
 			State state = la.getState(la.getActualState(), la.getColumn(character));

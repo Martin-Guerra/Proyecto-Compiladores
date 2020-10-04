@@ -43,6 +43,8 @@ private Map<String, Integer> reserved_table;
 		reserved_table.put("DOWN",274);
 		reserved_table.put("CADENA",275);
 		reserved_table.put("NA",276);
+		reserved_table.put("NRO_DOUBLE",277);
+		reserved_table.put("NRO_ULONGINT",278);
 	}
 
 	public int getReservedId(String id) {

@@ -19,8 +19,8 @@ public class SemanticAction7 implements SemanticAction{
 		else{
 			la.setLexeme(lexeme);
 			lexeme = la.getLexeme().substring(0, la.getLexeme().length()-2);
-			la.addSymbolTable(lexeme, "ULONGINT");
-			la.setToken(la.getIdReservedWord("ULONGINT"),lexeme);
+			la.addSymbolTable(lexeme, "NRO_ULONGINT");
+			la.setToken(la.getIdReservedWord("NRO_ULONGINT"),lexeme);
 			State state=la.getState(la.getActualState(), la.getColumn(character));
 			la.setActualState(state.getNextstate());
 		}
