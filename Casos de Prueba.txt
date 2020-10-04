@@ -1,0 +1,9 @@
+DOUBLE id_double;
+id_double = 13.0; 
+id_double = .05; 
+id_double = 13.d+1;
+id_double = .5d+1; 
+id_double = 1.7976931348623157d+308;
+id_double = 13.5d-1; 
+id_double = 2.2250738585072014d-308;
+id_double = 13.;
