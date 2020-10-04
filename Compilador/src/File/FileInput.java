@@ -123,13 +123,13 @@ public class FileInput extends JFrame implements ActionListener {
 
         //String path = ventanita.getSelectedFile().getAbsolutePath();//obtiene la ruta del archivo selecionado
        // Path path = Paths.get("C:\\Users\\Camila Barreiro\\Documents\\Entrada.txt");
-		 Path path = Paths.get("C:\\Users\\Yago\\Documents\\PruebaCompi.txt");
-        System.out.println(path);
-        LexerAnalyzer la = new LexerAnalyzer(path);
+        String path = "C:\\Users\\Camila\\Documents\\Entrada.txt";
+        //System.out.println(path);
+       LexerAnalyzer la = new LexerAnalyzer(path);
 
         System.out.println("Source: " + la.getSource());
         for (int i = 0; i <= 20; i++) {
-            Token tk = la.nextToken();
+            Token tk = la.getNextToken();
             System.out.println("Token: " + tk.getLexema() + " Id: " + tk.getId());
         }
         System.out.println(la.getErrors());

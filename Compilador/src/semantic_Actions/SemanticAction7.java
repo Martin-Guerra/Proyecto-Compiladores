@@ -12,16 +12,20 @@ public class SemanticAction7 implements SemanticAction{
 		long  number = Long.valueOf(lexeme.substring(0, lexeme.length()-2));//porque ya tiene el _u
 		if ((number > Math.pow(2,32)-1)){
 			number=(long) (Math.pow(2,32)-1);
-			String warning="Linea: "+ la.getNroLinea() + " Warning: " + "La constante entera supera el rango";
-			la.addWarning(warning);
-			la.setLexeme(String.valueOf(number) + '_'+'u');//agrego u y el char leido que es l
+			String error="Linea: "+ la.getNroLinea() + " Error: " + "La constante entera supera el rango";
+			la.addError(error);
+			la.setLexeme("");
+
+			//la.setLexeme(String.valueOf(number) + '_'+'u');//agrego u y el char leido que es l
 		}
-		else
+		else{
 			la.setLexeme(lexeme);
-		lexeme = la.getLexeme().substring(0, la.getLexeme().length()-2);
+			lexeme = la.getLexeme().substring(0, la.getLexeme().length()-2);
+			la.addSymbolTable(lexeme, "ULONGINT");
+			la.setToken(la.getIdReservedWord("ULONGINT"),lexeme);
+		}
+
 		la.setPos(la.getPos()+1);
-		la.addSymbolTable(lexeme, "ULONGINT");
-		la.setToken(la.getIdReservedWord("ULONGINT"),lexeme);
 		State state=la.getState(la.getActualState(), la.getColumn(character));
 		la.setActualState(state.getNextstate());
 
