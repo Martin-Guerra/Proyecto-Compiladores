@@ -31,7 +31,7 @@ public class Main {
             String source = "";
             //if(args != null && args.length>0){
                 try {
-                    source = loadFile("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt"); //Desde linea de comando se le pasa el path del archivo de entrada
+                    source = loadFile("C:\\Users\\marti\\Desktop\\Proyecto-Compiladores\\Casos de Prueba.txt"); //Desde linea de comando se le pasa el path del archivo de entrada
                 } catch (IOException e) {
                     System.out.println("No se encuentra el archivo");
                     return;

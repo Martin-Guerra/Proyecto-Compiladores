@@ -123,7 +123,7 @@ public class FileInput extends JFrame implements ActionListener {
 
         //String path = ventanita.getSelectedFile().getAbsolutePath();//obtiene la ruta del archivo selecionado
        // Path path = Paths.get("C:\\Users\\Camila Barreiro\\Documents\\Entrada.txt");
-        String path = "C:\\Users\\Camila\\Documents\\Entrada.txt";
+        String path = "C:\\Users\\marti\\Desktop\\Proyecto-Compiladores\\Casos de Prueba.txt";
         //System.out.println(path);
        LexerAnalyzer la = new LexerAnalyzer(path);
 
