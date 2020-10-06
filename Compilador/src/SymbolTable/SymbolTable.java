@@ -1,8 +1,6 @@
 package SymbolTable;
 
-import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.Set;
 
 
 public class SymbolTable {
@@ -18,9 +16,7 @@ public class SymbolTable {
 
 
 	public int getNumberId(String lexeme) {
-		
-		String aux=this.symbolTable.get(lexeme);//
-		
+		String aux=this.symbolTable.get(lexeme);
 		return this.reservedword.getReservedId(aux);
 	}
 	

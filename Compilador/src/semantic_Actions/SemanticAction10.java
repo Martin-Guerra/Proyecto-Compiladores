@@ -15,12 +15,24 @@ public class SemanticAction10 implements SemanticAction{
 		String lexeme = la.getLexeme();
 		//int idnumber = la.getIdReservedWord(lexeme);
 		int idnumber=0;
-		switch(lexeme){
-			case "<=": idnumber = la.getIdReservedWord("MENOR_IGUAL");
-			case ">=": idnumber = la.getIdReservedWord("MAYOR_IGUAL");
-			case "!=": idnumber = la.getIdReservedWord("DISTINTO");
-			case "==": idnumber = la.getIdReservedWord("IGUAL");
-			case "::": idnumber = la.getIdReservedWord("PUNTO_PUNTO");
+		if(lexeme.equals("<=")) {
+			idnumber = la.getIdReservedWord("MENOR_IGUAL");
+		}else {
+			if (lexeme.equals(">=")) {
+				idnumber = la.getIdReservedWord("MAYOR_IGUAL");
+			} else {
+				if (lexeme.equals("!=")) {
+					idnumber = la.getIdReservedWord("DISTINTO");
+				} else {
+					if (lexeme.equals("==")) {
+						idnumber = la.getIdReservedWord("IGUAL");
+					} else {
+						if (lexeme.equals("::")) {
+							idnumber = la.getIdReservedWord("PUNTO_PUNTO");
+						}
+					}
+				}
+			}
 		}
 
 		la.setToken(idnumber, lexeme);

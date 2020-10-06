@@ -1,13 +1,8 @@
 package Lexer;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import SymbolTable.ReservedWord;
@@ -241,10 +236,5 @@ public class LexerAnalyzer {
 		return this.source;
 	}
 
-	//Devolver source
-	//public int getSourceLong(){
-	//	return this.sourceLong;
-	//}
 
-	
 }
