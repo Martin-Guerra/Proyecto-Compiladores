@@ -2,7 +2,7 @@ package semantic_Actions;
 
 import Lexer.LexerAnalyzer;
 import Lexer.State;
-// viene caracteres de la nada 
+//Ingreso de caracteres que no son identificados por el autómata
 public class SemanticAction12 implements SemanticAction{
     private static final String INCORRECTSIMBOL = "Caracter ingresado incorrecto: ";
 
