@@ -2,11 +2,9 @@ package semantic_Actions;
 
 import Lexer.LexerAnalyzer;
 import Lexer.State;
-
+//Reconoce condiciones
 public class SemanticAction10 implements SemanticAction{
 
-
-//Reconoce operadores aritmeticos
 	public SemanticAction10() { }
 
 	@Override
@@ -37,6 +35,7 @@ public class SemanticAction10 implements SemanticAction{
 
 		la.setToken(idnumber, lexeme);
 		la.setPos(la.getPos()+1);
+		la.addRecognizedTokens( lexeme);
 		State state = la.getState(la.getActualState(), la.getColumn(character));
 		la.setActualState(state.getNextstate());
 

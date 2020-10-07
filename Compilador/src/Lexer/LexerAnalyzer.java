@@ -1,7 +1,5 @@
 package Lexer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,15 +7,10 @@ import SymbolTable.ReservedWord;
 import SymbolTable.SymbolTable;
 import semantic_Actions.SemanticAction;
 
-/* -Recibir cadena de caracteres
- * -analizar caracter por carcater
- * -recorrer la matriz para que estado se va y que accion semantica aplicar a ese caracter
- * -cuando encuentre estado final entrega un token cuando se puede */
 public class LexerAnalyzer {
 	private static final int EOF = 9999999;
 	private static final int FINAL_STATE = -1;
 
-	private BufferedReader br;
 
 	//Matriz de transición de estados, de acciones semánticas y mapeo de columnas
 	public StateMatrix sm;
@@ -32,7 +25,7 @@ public class LexerAnalyzer {
 	private List<String> errors;
 	private List<String> warning;
 	private List<String> comments;
-	private List<Token> recognizedTokens;
+	private List<String> recognizedTokens;
 
 	//Token compuesto por el par <token,lexema> que se forma recorriendo la entrada
 	private Token token;
@@ -46,12 +39,7 @@ public class LexerAnalyzer {
 	private int actualState;
 	//Entrada
 	private String source = "";
-	//Longitud recorrida de source
-	private int sourceLong;
 
-
-	//Llenado de la matriz de transición de estados y de acciones semánticas
-	//Se pasa en el main el buffer con el archivo ya cargado
 	public LexerAnalyzer(String source) {
 			this.sm = new StateMatrix();
 			this.rw = new ReservedWord();
@@ -60,7 +48,7 @@ public class LexerAnalyzer {
 			this.errors = new ArrayList<String>();
 			this.warning = new ArrayList<String>();
 			this.comments = new ArrayList<String>();
-			this.recognizedTokens = new ArrayList<Token>();
+			this.recognizedTokens = new ArrayList<String>();
 
 			this.token = new Token();
 			this.pos = 0;
@@ -68,18 +56,8 @@ public class LexerAnalyzer {
 			this.lexeme = new String();
 			this.actualState = 0;
 			this.source = source;
-			this.sourceLong = 0;
 	}
 
-	public String getNextLine() {	
-		try {
-			return this.br.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	//Devuelve el par <token,lexema> a partir de la entrada
 	public Token getNextToken() {
@@ -91,16 +69,13 @@ public class LexerAnalyzer {
 				actualState = -1;
 			}else{
 			char character = source.charAt(this.getPos());
-			int col = this.getColumn(character);        //Columna en relación al caracter en análisis
-			this.state = sm.getState(actualState, col); //Setea estado global
-			action = this.state.getSemanticaction();    //Obtiene acción semántica
-			action.execute(character, this);         //Ejecuta acción semántica
+			int col = this.getColumn(character);       
+			this.state = sm.getState(actualState, col);
+			action = this.state.getSemanticaction();    
+			action.execute(character, this);
 			}
 		}
-		//Inicializa el token a devolver con el par <token,lexema> obtenidos
 		finalToken = new Token(this.token.getId(), this.token.getLexema());
-		this.recognizedTokens.add(finalToken);
-		//Setea el token global para el próximo pedido del consumidor de tokens
 		this.setToken(-1, "");
 		this.setActualState(0);
 		this.setLexeme("");
@@ -142,8 +117,11 @@ public class LexerAnalyzer {
 	}
 
 	//Retorna la lista de errores
-	public List<String> getErrors(){
-		return new ArrayList<>(this.errors);
+	public String getErrors(){
+		String salida="";
+		for(String e:this.errors)
+			salida+=e+"\n";
+		return salida;
 	}
 
 	//Agrega warning a la lista
@@ -151,19 +129,21 @@ public class LexerAnalyzer {
 		this.warning.add(warning);
 	}
 
-	public List<String> getWarning() {
-		List<String> warnings = new ArrayList<>(this.warning);
-		return warnings;
+	public String getWarning() {
+		String salida="";
+		for(String w:this.warning)
+			salida+=w+"\n";
+		return salida;
 	}
 
 	//Agrega tokens a la lista de tokens reconocidos
-	public void addRecognizedTokens(Token token) {
+	public void addRecognizedTokens(String token) {
 		this.recognizedTokens.add(token);
 	}
 
 	//Devuelve la lista de tokens reconocidos
-	public List<Token> getRecognizedTokens() {
-		List<Token> tokens = new ArrayList<>(this.recognizedTokens);
+	public List<String> getRecognizedTokens() {
+		List<String> tokens = new ArrayList<String>(this.recognizedTokens);
 		return tokens;
 	}
 
@@ -177,8 +157,8 @@ public class LexerAnalyzer {
 		return this.st;
 	}
 
-	public void printSymbolTable(){
-		this.st.printSymbolTable();
+	public String printSymbolTable(){
+		return this.st.printSymbolTable();
 	}
 
 	//Devuelve el id de un lexema dado buscado en la tabla de simbolo
@@ -221,10 +201,6 @@ public class LexerAnalyzer {
 		this.comments.add(comment);
 	}
 
-	//Devolver buffer
-	public BufferedReader getBuffer(){
-		return this.br;
-	}
 
 	//Devolver source
 	public boolean endSource(){

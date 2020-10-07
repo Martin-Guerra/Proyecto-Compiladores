@@ -32,10 +32,12 @@ public class SymbolTable {
 		return symbolTable;
 	}
 
-	public void printSymbolTable(){
+	public String printSymbolTable(){
+		String salida="";
 		for(String key : this.symbolTable.keySet()){
-			System.out.println("Lexema: " + key + " Identificador: " + this.symbolTable.get(key));
+			 salida+="Lexema: " + key + " Identificador: " + this.symbolTable.get(key) + "\n";
 		}
+		return salida;
 	}
 	
 	

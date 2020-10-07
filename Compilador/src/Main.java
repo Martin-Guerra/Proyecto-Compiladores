@@ -3,9 +3,14 @@ import Lexer.Token;
 import Parser.Parser;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class Main {
@@ -24,67 +29,60 @@ public class Main {
             reader.close();
             return builder.toString();
         }
+        
+        public static void generarArchivo(String name, String message){
+    		Charset charset = Charset.forName("UTF-8");
+    		Path path = Paths.get(name);
+    		try (BufferedWriter writer = Files.newBufferedWriter(path, charset)) {
+    		    writer.write(message);
+    		} catch (IOException x) {
+    		    System.err.format("IOException: %s%n", x);
+    		}
+    	}
 
         public static void main(String[] args) {
-            String source = "";
-            //if(args != null && args.length>0){
+        	String source = "";
+        	if(args.length>0) {
                 try {
                 	//source = loadFile("C:\\Users\\Yago\\Compilador\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
-                    //source = loadFile("C:\\Users\\marti\\Desktop\\Proyecto-Compiladores\\Casos de Prueba.txt"); //Desde linea de comando se le pasa el path del archivo de entrada
-                	source = loadFile("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
+                    source = loadFile(args[0]);
+                	//source = loadFile("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
                 } catch (IOException e) {
                     System.out.println("No se encuentra el archivo");
                     return;
                 }
-            //}else{
-            //    System.out.println("No se encuentra el archivo");
-            //    return;
-            //}
-
-            System.out.println("Entrada:\n" + source);
+                
+            String textoSalida="************* Tokens reconocidos *************"+"\n";
             LexerAnalyzer lexerAnalyzer = new LexerAnalyzer(source);
-
             Parser parser = new Parser(lexerAnalyzer);
-
-            System.out.println("************* Compilando ************* \n");
             parser.run();
-            System.out.println("********** Finalizó la compilación ********** \n");
-
-            System.out.println("**************** Analizador Lexico ****************");
-            //Tokens reconocidos
-            System.out.println("Tokens reconocidos analizador lexico");
-            List<Token> recognizedTokens = lexerAnalyzer.getRecognizedTokens();
-            for (Token t: recognizedTokens){
-                System.out.println("Lexema: " + t.getLexema());
-                System.out.println("Id: " + t.getId());
+           
+            List<String> recognizedTokens = lexerAnalyzer.getRecognizedTokens();
+            for (String t: recognizedTokens){
+                textoSalida+=t+"\n";
             }
-
-            //Tabla de símbolos
-            System.out.println("Tabla de símbolos");
-            lexerAnalyzer.printSymbolTable();
-
-            //Errores y warnings analizador léxico
-            System.out.println("Errores analizador léxico");
-            System.out.println(lexerAnalyzer.getErrors());
-            System.out.println("Warnings analizador léxico");
-            System.out.println(lexerAnalyzer.getWarning());
-
-            System.out.println("**************** Analizador Sintáctico ****************");
-            System.out.println("Reglas analizador sintáctico");
-            System.out.println(parser.getRules());
-            System.out.println("Errores analizador sintáctico");
-            System.out.println(parser.getErrors());
+            textoSalida+="\n";
+            textoSalida+="************* Tabla de simbolos *************"+"\n";
+            textoSalida+=lexerAnalyzer.printSymbolTable()+"\n"+"\n";//cargue tabal de simbolos
 
 
-            /*for (int i = 0; i < 25; i++) {
-                Token token = lexerAnalyzer.getNextToken();
-                if(token.getId() == 0){
-                    i = 24;
-                }else{
-                    System.out.println("Id: " + token.getId() + " Lexema: " + token.getLexema());
-                }
-            }*/
+            textoSalida+="************* Errores Lexicos Reconocidos *************"+"\n";
+            textoSalida+=lexerAnalyzer.getErrors()+"\n";
+            
+            textoSalida+="*************	Warning  Reconocidos *************"+"\n";
+            textoSalida+=lexerAnalyzer.getWarning()+"\n";
+            
+            textoSalida+="************* Reglas Reconocidas *************"+"\n";
+            for(int i=0;i<parser.getRules().size();i++)
+            	textoSalida+=parser.getRules().get(i)+"\n";
+            
+            textoSalida+="************* Errores Sintacticos Reconocidos *************"+"\n";
+            for(int i=0;i<parser.getErrors().size();i++)
+            	textoSalida+=parser.getErrors().get(i)+"\n";
+            
+            generarArchivo("C:\\Users\\Yago\\Desktop\\Salida.txt", textoSalida);
 
         }
-    }
+       }
+   }
 

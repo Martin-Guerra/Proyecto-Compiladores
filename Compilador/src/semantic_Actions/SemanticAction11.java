@@ -12,9 +12,10 @@ public class SemanticAction11 implements SemanticAction{
         la.setLexeme(la.getLexeme() + character);
         la.setPos(la.getPos() + 1);
         String lexeme = la.getLexeme();
-        la.addSymbolTable(lexeme, "CADENA");//agrego a la tabla de simbolos el nuevo lexema con ID
-        int idNumber = la.getNumberId(lexeme);//obtengo el id del lexema
+        la.addSymbolTable(lexeme, "CADENA");
+        int idNumber = la.getNumberId(lexeme);
         la.setToken(idNumber, lexeme);
+		la.addRecognizedTokens("Cadena de String : " + lexeme);
         State state = la.getState(la.getActualState(), la.getColumn(character));
         la.setActualState(state.getNextstate());
 

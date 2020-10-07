@@ -12,7 +12,7 @@ public class SemanticAction13 implements SemanticAction{
         if(character == '\n') {
             la.setNroLinea(la.getNroLinea()+1);
         }
-        la.setLexeme(""); //Lo hacemos para que el \n no se agregue al lexema
+        la.setLexeme(""); 
         la.setPos(la.getPos()+1);
         State state = la.getState(la.getActualState(), la.getColumn(character));
         la.setActualState(state.getNextstate());

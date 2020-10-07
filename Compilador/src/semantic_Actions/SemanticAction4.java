@@ -14,15 +14,15 @@ public class SemanticAction4 implements SemanticAction{
 				|| lexeme.equals("END_IF") || lexeme.equals("OUT") || lexeme.equals("PROC") || lexeme.equals("RETURN")
 				|| lexeme.equals("ULONGINT")|| lexeme.equals("DOUBLE") || lexeme.equals("FOR") || lexeme.equals("UP")
 				|| lexeme.equals("DOWN") || lexeme.equals("NA") ))){
-				//agregar a la tabla de plabras reservada los ultimos 3
 			la.setLexeme("");
 			la.setActualState(0);
 			String error = "Linea: " + la.getNroLinea() + " Error: " + "Palabra reservada invalida";
 			la.addError(error);
 		}
 		else {
-			int idNumber=la.getIdReservedWord(lexeme);//obtengo el id del lexema de la tabla de palabra reservada
+			int idNumber=la.getIdReservedWord(lexeme);
 			la.setToken(idNumber,lexeme);
+			la.addRecognizedTokens("Palabra reservada: " + lexeme);
 			State state=la.getState(la.getActualState(), la.getColumn(character));
 			la.setActualState(state.getNextstate());
 		}

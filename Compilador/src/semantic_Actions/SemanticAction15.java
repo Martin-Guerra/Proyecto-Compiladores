@@ -11,6 +11,7 @@ public class SemanticAction15 implements SemanticAction{
     @Override
     public void execute(char character, LexerAnalyzer la) {
         la.setToken(0,"EOF");
+		la.addRecognizedTokens("Fin de archivo: " + character);
         State state=la.getState(la.getActualState(), la.getColumn(character));
         la.setActualState(state.getNextstate());
     }

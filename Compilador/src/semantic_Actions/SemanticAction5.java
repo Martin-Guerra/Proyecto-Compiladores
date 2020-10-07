@@ -3,7 +3,7 @@ package semantic_Actions;
 import Lexer.LexerAnalyzer;
 import Lexer.State;
 
-//Agrega letra al lexema
+//Agrega letra al lexema que venimos armando
 public class SemanticAction5 implements SemanticAction{
 
 	public SemanticAction5() {}

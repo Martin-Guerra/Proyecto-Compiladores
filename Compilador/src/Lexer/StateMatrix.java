@@ -8,7 +8,7 @@ public class StateMatrix {
 	private State[][] matrix;
 	private static final int ROW = 20;
 	private static final int COLUMN =  29;
-	private HashMap mapofcaracters;
+	private HashMap<String, Integer> mapofcaracters;
 	
 	public StateMatrix () {
 		this.matrix = new State[ROW][COLUMN];
@@ -135,11 +135,7 @@ public class StateMatrix {
 		SemanticAction sa15 = new SemanticAction15();
 		SemanticAction sa16 = new SemanticAction16();
 		SemanticAction sa17 = new SemanticAction17();
-		
-		/*ERR_ID errId = new ERR_ID();
-		ERR_CTN errCte = new ERR_CTN();
-		ERR_COM errCom = new ERR_COM();
-		ERR_CHAR errChar = new ERR_CHAR();*/
+
 		
 		for(int i = 0; i < ROW; i++) {
 			for(int j = 0; j < COLUMN ; j++) {
@@ -246,7 +242,7 @@ public class StateMatrix {
 			matrix[i][27].setSemanticAction(sa15);
 		}
 
-		mapofcaracters = new HashMap();
+		mapofcaracters = new HashMap<String,Integer>();
 		
 		this.mapofcaracters.put("minuscula", 0);
 		this.mapofcaracters.put("digito", 1);
@@ -272,7 +268,7 @@ public class StateMatrix {
 		this.mapofcaracters.put(">", 21);
 		this.mapofcaracters.put("=", 22);
 		this.mapofcaracters.put("!", 23);
-		this.mapofcaracters.put("C", 24);//cualquier caracter del universo//problema
+		this.mapofcaracters.put("C", 24);
 		this.mapofcaracters.put("\t", 25);
 		this.mapofcaracters.put("\n", 26);
 		this.mapofcaracters.put("$", 27);

@@ -10,8 +10,6 @@ public class SemanticAction2 implements SemanticAction{
 
 	@Override
 	public void execute( char character, LexerAnalyzer la) {
-		//devolver a la entrada ultimo caracter leido lo hicimos en lexerAnalyzer
-
 		String lexeme = la.getLexeme();
 		if(lexeme.length() > LENGTH){
 			String warning = "Linea: " + la.getNroLinea() + " Warning: " + "La longitud del identificador es mayor a 20";
@@ -19,9 +17,10 @@ public class SemanticAction2 implements SemanticAction{
 			lexeme=lexeme.substring(0, LENGTH);
 		}
 
-		la.addSymbolTable(lexeme, "ID");//agrego a la tabla de simbolos el nuevo lexema con ID
-		int idNumber = la.getNumberId(lexeme);//obtengo el id del lexema
+		la.addSymbolTable(lexeme, "ID");
+		int idNumber = la.getNumberId(lexeme);
 		la.setToken(idNumber, lexeme);
+		la.addRecognizedTokens("Identificador: " + lexeme);
 		State state = la.getState(la.getActualState(), la.getColumn(character));
 		la.setActualState(state.getNextstate());
 

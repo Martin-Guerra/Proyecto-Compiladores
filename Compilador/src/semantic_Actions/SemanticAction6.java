@@ -3,7 +3,7 @@ package semantic_Actions;
 import Lexer.LexerAnalyzer;
 import Lexer.State;
 
-//Chequea que el punto venga solo
+//Chequea que el punto venga solo para los double
 public class SemanticAction6 implements SemanticAction{
 	private static final double POWERPOSITIVE =  Math.pow(10,308);
 	private static final double POWERNEGATIVE =  Math.pow(10,-308);
@@ -35,7 +35,6 @@ public class SemanticAction6 implements SemanticAction{
 			}else{
 				num = real;
 			}
-			//Como el léxico no reconoce numeros negativos no se realizara el chequeo de estos valores.
 			if(num < LOWRANGEPOSITIVE || num > TOPRANGEPOSITIVE && num != 0){
 				String error = "Linea: " + la.getNroLinea() + " Error: " + "El double se encuentra fuera de rango";
 				la.addError(error);
@@ -46,6 +45,7 @@ public class SemanticAction6 implements SemanticAction{
 				la.addSymbolTable(lexeme, "NRO_DOUBLE");
 				int idNumber = la.getNumberId(lexeme);
 				la.setToken(idNumber, lexeme);
+				la.addRecognizedTokens("Valor double: " + lexeme);
 				State state = la.getState(la.getActualState(), la.getColumn(character));
 				la.setActualState(state.getNextstate());
 			}
