@@ -2,6 +2,7 @@ package semantic_Actions;
 
 import Lexer.LexerAnalyzer;
 import Lexer.State;
+import SymbolTable.Attribute;
 
 //chequea largo de identificador < 20 (descarta lo que sobra)
 public class SemanticAction2 implements SemanticAction{
@@ -16,8 +17,8 @@ public class SemanticAction2 implements SemanticAction{
 			la.addWarning(warning);
 			lexeme=lexeme.substring(0, LENGTH);
 		}
-
-		la.addSymbolTable(lexeme, "ID");
+		Attribute attribute = new Attribute("ID");
+		la.addSymbolTable(lexeme, attribute);
 		int idNumber = la.getNumberId(lexeme);
 		la.setToken(idNumber, lexeme);
 		la.addRecognizedTokens("Identificador: " + lexeme);

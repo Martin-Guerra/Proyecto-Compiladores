@@ -51,8 +51,4 @@ private Map<String, Integer> reserved_table;
 		return reserved_table.get(id);
 	}
 
-	
-	
-	
-	
 }

@@ -45,42 +45,43 @@ public class Main {
         	if(args.length>0) {
                 try {
                 	//source = loadFile("C:\\Users\\Yago\\Compilador\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
-                    source = loadFile(args[0]);
-                	//source = loadFile("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
+                    //source = loadFile(args[0]);
+                	source = loadFile("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
                 } catch (IOException e) {
                     System.out.println("No se encuentra el archivo");
                     return;
                 }
                 
-            String textoSalida="************* Tokens reconocidos *************"+"\n";
+            System.out.println("************* Tokens reconocidos *************"+"\n");
             LexerAnalyzer lexerAnalyzer = new LexerAnalyzer(source);
             Parser parser = new Parser(lexerAnalyzer);
             parser.run();
            
             List<String> recognizedTokens = lexerAnalyzer.getRecognizedTokens();
             for (String t: recognizedTokens){
-                textoSalida+=t+"\n";
+                System.out.println(t);
             }
-            textoSalida+="\n";
-            textoSalida+="************* Tabla de simbolos *************"+"\n";
-            textoSalida+=lexerAnalyzer.printSymbolTable()+"\n"+"\n";//cargue tabal de simbolos
 
+            System.out.println("************* Tabla de simbolos *************"+"\n");
+            System.out.println(lexerAnalyzer.printSymbolTable()+"\n"+"\n");//cargue tabal de simbolos
 
-            textoSalida+="************* Errores Lexicos Reconocidos *************"+"\n";
-            textoSalida+=lexerAnalyzer.getErrors()+"\n";
+            //textoSalida+="************* Errores Lexicos Reconocidos *************"+"\n";
+            //textoSalida+=lexerAnalyzer.getErrors()+"\n";
             
-            textoSalida+="*************	Warning  Reconocidos *************"+"\n";
-            textoSalida+=lexerAnalyzer.getWarning()+"\n";
-            
-            textoSalida+="************* Reglas Reconocidas *************"+"\n";
+            //textoSalida+="*************	Warning  Reconocidos *************"+"\n";
+            //textoSalida+=lexerAnalyzer.getWarning()+"\n";
+
+                System.out.println("************* Reglas Reconocidas *************"+"\n");
             for(int i=0;i<parser.getRules().size();i++)
-            	textoSalida+=parser.getRules().get(i)+"\n";
-            
-            textoSalida+="************* Errores Sintacticos Reconocidos *************"+"\n";
+                System.out.println(parser.getRules().get(i)+"\n");
+
+            System.out.println("************* Errores Sintacticos Reconocidos *************"+"\n");
             for(int i=0;i<parser.getErrors().size();i++)
-            	textoSalida+=parser.getErrors().get(i)+"\n";
-            
-            generarArchivo("C:\\Users\\Yago\\Desktop\\Salida.txt", textoSalida);
+                System.out.println(parser.getErrors().get(i)+"\n");
+
+                System.out.println("************* Arbol sintactico *************"+"\n");
+            parser.printSyntacticTree();
+            //generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Salida.txt", textoSalida);
 
         }
        }

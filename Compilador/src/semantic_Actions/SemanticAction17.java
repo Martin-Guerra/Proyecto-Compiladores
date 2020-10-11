@@ -8,7 +8,6 @@ public class SemanticAction17 implements SemanticAction{
 
 	@Override
 	public void execute(char character, LexerAnalyzer la) {
-		// TODO Auto-generated method stub
 		String lexeme = la.getLexeme();
 		int idNumber = la.getIdReservedWord(lexeme);
 		la.setToken(idNumber, "");

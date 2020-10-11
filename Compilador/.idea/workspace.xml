@@ -20,8 +20,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76b0d774-2e33-42ef-8f77-ebd5f85e6c07" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_09_2020_09_56_a__m___Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_09_2020_09_56_a__m___Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction12.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction12.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Compilador.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Compilador.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lexer/LexerAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lexer/LexerAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser/ParserVal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/ParserVal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SymbolTable/ReservedWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SymbolTable/ReservedWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SymbolTable/SymbolTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SymbolTable/SymbolTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction17.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction17.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,9 +66,9 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.10249671" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -74,6 +88,17 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Compilador" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -108,6 +133,7 @@
       <workItem from="1601726063498" duration="21389000" />
       <workItem from="1601841864346" duration="1849000" />
       <workItem from="1602008020485" duration="7760000" />
+      <workItem from="1602421879021" duration="12164000" />
     </task>
     <servers />
   </component>
@@ -131,38 +157,42 @@
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
     <state x="1918" y="31" width="816" height="730" key="#Intentions/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601165860169" />
-    <state x="2052" y="-109" key="#com.intellij.ide.util.MemberChooser" timestamp="1601231446983">
+    <state x="2052" y="-147" width="671" height="1040" key="#com.intellij.ide.util.MemberChooser" timestamp="1602445429845">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
-    <state x="2052" y="-109" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601231446983" />
+    <state x="2052" y="-147" width="671" height="1040" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1602445429845" />
     <state x="488" y="90" key="#com.intellij.ide.util.MemberChooser/0.0.1366.768@0.0.1366.768" timestamp="1601153865572" />
     <state x="1366" y="-147" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1601680264734">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
     <state x="1366" y="-147" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601680264734" />
-    <state width="1843" height="482" key="GridCell.Tab.0.bottom" timestamp="1601952251872">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="1850" y="-115" key="FileChooserDialogImpl" timestamp="1602449412386">
+      <screen x="1366" y="-147" width="1920" height="1040" />
+    </state>
+    <state x="1850" y="-115" key="FileChooserDialogImpl/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1602449412386" />
+    <state width="1843" height="355" key="GridCell.Tab.0.bottom" timestamp="1602449332349">
+      <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
     <state width="1843" height="482" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.-147.1920.1040@0.0.1366.728" timestamp="1601952251872" />
-    <state width="1843" height="199" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601938601311" />
+    <state width="1843" height="355" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1602449332349" />
     <state width="1323" height="104" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1601826870205" />
-    <state width="1843" height="482" key="GridCell.Tab.0.center" timestamp="1601952251872">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1843" height="355" key="GridCell.Tab.0.center" timestamp="1602449332348">
+      <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
     <state width="1843" height="482" key="GridCell.Tab.0.center/0.0.1366.728/1366.-147.1920.1040@0.0.1366.728" timestamp="1601952251872" />
-    <state width="1843" height="199" key="GridCell.Tab.0.center/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601938601310" />
+    <state width="1843" height="355" key="GridCell.Tab.0.center/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1602449332348" />
     <state width="1323" height="104" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1601826870205" />
-    <state width="1843" height="482" key="GridCell.Tab.0.left" timestamp="1601952251871">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1843" height="355" key="GridCell.Tab.0.left" timestamp="1602449332348">
+      <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
     <state width="1843" height="482" key="GridCell.Tab.0.left/0.0.1366.728/1366.-147.1920.1040@0.0.1366.728" timestamp="1601952251871" />
-    <state width="1843" height="199" key="GridCell.Tab.0.left/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601938601310" />
+    <state width="1843" height="355" key="GridCell.Tab.0.left/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1602449332348" />
     <state width="1323" height="104" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1601826870204" />
-    <state width="1843" height="482" key="GridCell.Tab.0.right" timestamp="1601952251872">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1843" height="355" key="GridCell.Tab.0.right" timestamp="1602449332348">
+      <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
     <state width="1843" height="482" key="GridCell.Tab.0.right/0.0.1366.728/1366.-147.1920.1040@0.0.1366.728" timestamp="1601952251872" />
-    <state width="1843" height="199" key="GridCell.Tab.0.right/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601938601310" />
+    <state width="1843" height="355" key="GridCell.Tab.0.right/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1602449332348" />
     <state width="1323" height="104" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1601826870205" />
     <state width="1843" height="482" key="GridCell.Tab.1.bottom" timestamp="1601952251873">
       <screen x="0" y="0" width="1366" height="728" />
@@ -188,10 +218,10 @@
     <state width="1843" height="482" key="GridCell.Tab.1.right/0.0.1366.728/1366.-147.1920.1040@0.0.1366.728" timestamp="1601952251873" />
     <state width="1843" height="482" key="GridCell.Tab.1.right/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601936204938" />
     <state width="1323" height="178" key="GridCell.Tab.1.right/0.0.1366.768@0.0.1366.768" timestamp="1601826719185" />
-    <state x="1586" y="-147" key="SettingsEditor" timestamp="1601214133345">
+    <state x="1369" y="-101" width="1808" height="967" key="SettingsEditor" timestamp="1602449306746">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
-    <state x="1586" y="-147" key="SettingsEditor/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1601214133345" />
+    <state x="1369" y="-101" width="1808" height="967" key="SettingsEditor/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1602449306746" />
     <state x="163" y="0" key="SettingsEditor/0.0.1366.728/1366.0.1280.680@0.0.1366.728" timestamp="1601162771845" />
     <state x="404" y="124" width="540" height="524" key="StructurePopup" timestamp="1601144669739">
       <screen x="0" y="0" width="1366" height="768" />
@@ -218,63 +248,18 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java</url>
-          <line>44</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java</url>
-          <line>50</line>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java</url>
-          <line>52</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java</url>
-          <line>53</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java</url>
           <line>13</line>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java</url>
-          <line>14</line>
+          <line>15</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java</url>
-          <line>12</line>
+          <line>13</line>
           <properties class="semantic_Actions.SemanticAction6" method="execute">
             <option name="EMULATED" value="true" />
           </properties>

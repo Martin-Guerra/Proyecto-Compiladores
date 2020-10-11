@@ -5,7 +5,9 @@ import java.util.List;
 
 import SymbolTable.ReservedWord;
 import SymbolTable.SymbolTable;
+import SymbolTable.Attribute;
 import semantic_Actions.SemanticAction;
+
 
 public class LexerAnalyzer {
 	private static final int EOF = 9999999;
@@ -148,8 +150,8 @@ public class LexerAnalyzer {
 	}
 
 	//Agrega un <lexema,ID> nuevo a la tabla de simbolos
-	public void addSymbolTable(String token, String id) {
-		this.st.add(token, id);
+	public void addSymbolTable(String token, Attribute attribute) {
+		this.st.add(token, attribute);
 	}
 
 	//Devuelve tabla de símbolos

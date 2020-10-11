@@ -2,6 +2,7 @@ package semantic_Actions;
 
 import Lexer.LexerAnalyzer;
 import Lexer.State;
+import SymbolTable.Attribute;
 
 //Chequea rango de las constantes
 public class SemanticAction7 implements SemanticAction{
@@ -19,7 +20,8 @@ public class SemanticAction7 implements SemanticAction{
 		else{
 			la.setLexeme(lexeme);
 			lexeme = la.getLexeme().substring(0, la.getLexeme().length()-2);
-			la.addSymbolTable(lexeme, "NRO_ULONGINT");
+			Attribute attribute = new Attribute("NRO_ULONGINT", "ULONGINT");
+			la.addSymbolTable(lexeme, attribute);
 			la.setToken(la.getIdReservedWord("NRO_ULONGINT"),lexeme);
 			la.addRecognizedTokens("Valor de la constante: " + lexeme);
 			State state=la.getState(la.getActualState(), la.getColumn(character));

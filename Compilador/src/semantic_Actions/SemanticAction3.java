@@ -2,6 +2,7 @@ package semantic_Actions;
 
 import Lexer.LexerAnalyzer;
 import Lexer.State;
+import SymbolTable.Attribute;
 
 //Chequea rango double
 public class SemanticAction3 implements SemanticAction{
@@ -47,7 +48,8 @@ public class SemanticAction3 implements SemanticAction{
 			la.setActualState(0);
 		}else {
 			lexeme = String.valueOf(num);
-			la.addSymbolTable(lexeme, "NRO_DOUBLE");
+			Attribute attribute = new Attribute("NRO_DOUBLE", "DOUBLE");
+			la.addSymbolTable(lexeme, attribute);
 			int idNumber = la.getNumberId(lexeme);
 			la.setToken(idNumber, lexeme);
 			la.addRecognizedTokens("Valor double: " + lexeme);
