@@ -1,14 +1,17 @@
 package SymbolTable;
 
 import SyntacticTree.SyntacticTree;
+import org.w3c.dom.Attr;
+
+import java.util.List;
 
 public class Attribute {
-    private String type;
-    private String use;
+    private Type type;
+    private Use use;
     private String id;
     private SyntacticTree tree;
 
-    public Attribute(String type, String use, String id, SyntacticTree tree) {
+    public Attribute(Type type, Use use, String id, SyntacticTree tree) {
         this.type = type;
         this.use = use;
         this.id = id;
@@ -19,25 +22,37 @@ public class Attribute {
         this.id = id;
     }
 
-    public Attribute(String id, String type) {
+    public Attribute(String id, Type type) {
         this.type = type;
         this.id = id;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(Type type) {
+        type = type;
     }
 
-    public String getUse() {
+    public static void setType(List<Attribute> entries, Type type) {
+        for (Attribute entry : entries) {
+            entry.setType(type);
+        }
+    }
+
+    public Use getUse() {
         return use;
     }
 
-    public void setUse(String use) {
-        this.use = use;
+    public void setUse(Use use) {
+        use = use;
+    }
+
+    public static void setUse(List<Attribute> entries, Use use) {
+        for (Attribute entry : entries) {
+            entry.setUse(use);
+        }
     }
 
     public String getId() {

@@ -3,6 +3,7 @@ package semantic_Actions;
 import Lexer.LexerAnalyzer;
 import Lexer.State;
 import SymbolTable.Attribute;
+import SymbolTable.Type;
 
 //Chequea que el punto venga solo para los double
 public class SemanticAction6 implements SemanticAction{
@@ -16,6 +17,7 @@ public class SemanticAction6 implements SemanticAction{
 		if(la.getLexeme().length() == 1 && la.getLexeme().equals(".")) {
 			String error = "Linea: " + la.getNroLinea() + " Error: " + "Ingresó el caracter punto (.) solo";
 			la.addError(error);
+			la.setLexeme("");
 			la.setActualState(0);
 		}
 		else{
@@ -29,6 +31,9 @@ public class SemanticAction6 implements SemanticAction{
 			}else{
 				if(p[0].equals(""))
 					p0 =  "0." + p[1];
+				else{
+					p0 = lexeme;
+				}
 			}
 
 			if(!String.valueOf(real).equals(p0)){
@@ -36,14 +41,14 @@ public class SemanticAction6 implements SemanticAction{
 			}else{
 				num = real;
 			}
-			if(num < LOWRANGEPOSITIVE || num > TOPRANGEPOSITIVE && num != 0){
+			if((num < LOWRANGEPOSITIVE || num > TOPRANGEPOSITIVE) && num != 0.0){
 				String error = "Linea: " + la.getNroLinea() + " Error: " + "El double se encuentra fuera de rango";
 				la.addError(error);
 				la.setLexeme("");
 				la.setActualState(0);
 			}else {
 				lexeme = String.valueOf(num);
-				Attribute attribute = new Attribute("NRO_DOUBLE", "DOUBLE");
+				Attribute attribute = new Attribute("NRO_DOUBLE", Type.DOUBLE);
 				la.addSymbolTable(lexeme, attribute);
 				int idNumber = la.getNumberId(lexeme);
 				la.setToken(idNumber, lexeme);

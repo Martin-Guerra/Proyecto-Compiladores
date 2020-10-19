@@ -1,6 +1,7 @@
 import Lexer.LexerAnalyzer;
 import Lexer.Token;
 import Parser.Parser;
+import SyntacticTree.SyntacticTree;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -42,7 +43,7 @@ public class Main {
 
         public static void main(String[] args) {
         	String source = "";
-        	if(args.length>0) {
+        	//if(args.length>0) {
                 try {
                 	//source = loadFile("C:\\Users\\Yago\\Compilador\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
                     //source = loadFile(args[0]);
@@ -56,7 +57,7 @@ public class Main {
             LexerAnalyzer lexerAnalyzer = new LexerAnalyzer(source);
             Parser parser = new Parser(lexerAnalyzer);
             parser.run();
-           
+
             List<String> recognizedTokens = lexerAnalyzer.getRecognizedTokens();
             for (String t: recognizedTokens){
                 System.out.println(t);
@@ -67,7 +68,7 @@ public class Main {
 
             //textoSalida+="************* Errores Lexicos Reconocidos *************"+"\n";
             //textoSalida+=lexerAnalyzer.getErrors()+"\n";
-            
+            System.out.println(lexerAnalyzer.getErrors());
             //textoSalida+="*************	Warning  Reconocidos *************"+"\n";
             //textoSalida+=lexerAnalyzer.getWarning()+"\n";
 
@@ -80,10 +81,10 @@ public class Main {
                 System.out.println(parser.getErrors().get(i)+"\n");
 
                 System.out.println("************* Arbol sintactico *************"+"\n");
-            parser.printSyntacticTree();
-            //generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Salida.txt", textoSalida);
 
-        }
+            //parser.printSyntacticTree();
+            //generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Salida.txt", textoSalida);
+        	//}
        }
    }
 

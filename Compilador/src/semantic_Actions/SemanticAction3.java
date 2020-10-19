@@ -3,6 +3,7 @@ package semantic_Actions;
 import Lexer.LexerAnalyzer;
 import Lexer.State;
 import SymbolTable.Attribute;
+import SymbolTable.Type;
 
 //Chequea rango double
 public class SemanticAction3 implements SemanticAction{
@@ -33,8 +34,8 @@ public class SemanticAction3 implements SemanticAction{
 			if(!String.valueOf(real).equals(d[0])){
 				num = 4.9*Math.pow(10,-324);
 			}else{
-				double exponencial;
-				exponencial = Double.valueOf(d[1]);
+				int exponencial;
+				exponencial = Integer.valueOf(d[1]);
 				num = (double) (real * Math.pow(10,exponencial));
 			}
 		}
@@ -48,7 +49,7 @@ public class SemanticAction3 implements SemanticAction{
 			la.setActualState(0);
 		}else {
 			lexeme = String.valueOf(num);
-			Attribute attribute = new Attribute("NRO_DOUBLE", "DOUBLE");
+			Attribute attribute = new Attribute("NRO_DOUBLE", Type.DOUBLE);
 			la.addSymbolTable(lexeme, attribute);
 			int idNumber = la.getNumberId(lexeme);
 			la.setToken(idNumber, lexeme);
