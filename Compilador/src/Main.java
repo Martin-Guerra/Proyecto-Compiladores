@@ -72,7 +72,7 @@ public class Main {
             //textoSalida+="*************	Warning  Reconocidos *************"+"\n";
             //textoSalida+=lexerAnalyzer.getWarning()+"\n";
 
-                System.out.println("************* Reglas Reconocidas *************"+"\n");
+            System.out.println("************* Reglas Reconocidas *************"+"\n");
             for(int i=0;i<parser.getRules().size();i++)
                 System.out.println(parser.getRules().get(i)+"\n");
 
@@ -80,7 +80,7 @@ public class Main {
             for(int i=0;i<parser.getErrors().size();i++)
                 System.out.println(parser.getErrors().get(i)+"\n");
 
-                System.out.println("************* Arbol sintactico *************"+"\n");
+            System.out.println("************* Arbol sintactico *************"+"\n");
 
             //parser.printSyntacticTree();
             //generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Salida.txt", textoSalida);

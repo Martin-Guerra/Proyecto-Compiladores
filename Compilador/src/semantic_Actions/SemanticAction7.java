@@ -21,7 +21,7 @@ public class SemanticAction7 implements SemanticAction{
 		else{
 			la.setLexeme(lexeme);
 			lexeme = la.getLexeme().substring(0, la.getLexeme().length()-2);
-			Attribute attribute = new Attribute("NRO_ULONGINT", Type.ULONGINT);
+			Attribute attribute = new Attribute(lexeme,"NRO_ULONGINT", Type.ULONGINT);
 			la.addSymbolTable(lexeme, attribute);
 			la.setToken(la.getIdReservedWord("NRO_ULONGINT"),lexeme);
 			la.addRecognizedTokens("Valor de la constante: " + lexeme);

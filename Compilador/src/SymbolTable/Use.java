@@ -4,6 +4,7 @@ public enum Use {
     variable,
     constante,
     atributo,
-    procedimiento,
-    nombreParam,
+    nombre_parametro,
+    numero_anidamiento,
+    nombre_procedimiento,
 }

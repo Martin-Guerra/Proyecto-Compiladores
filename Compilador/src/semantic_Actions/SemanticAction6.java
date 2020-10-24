@@ -22,6 +22,7 @@ public class SemanticAction6 implements SemanticAction{
 		}
 		else{
 			double num;
+			String outOfRange = "";
 			String lexeme = la.getLexeme();
 			String[] p = lexeme.split("\\.");
 			double real = Double.valueOf(lexeme);
@@ -37,18 +38,19 @@ public class SemanticAction6 implements SemanticAction{
 			}
 
 			if(!String.valueOf(real).equals(p0)){
-				num = 4.9*Math.pow(10,-324);
+				num = 1.0;
+				outOfRange = "Error";
 			}else{
 				num = real;
 			}
-			if((num < LOWRANGEPOSITIVE || num > TOPRANGEPOSITIVE) && num != 0.0){
+			if((outOfRange.equals("Error") && num == 1.0) || (num < LOWRANGEPOSITIVE || num > TOPRANGEPOSITIVE) && num != 0.0){
 				String error = "Linea: " + la.getNroLinea() + " Error: " + "El double se encuentra fuera de rango";
 				la.addError(error);
 				la.setLexeme("");
 				la.setActualState(0);
 			}else {
 				lexeme = String.valueOf(num);
-				Attribute attribute = new Attribute("NRO_DOUBLE", Type.DOUBLE);
+				Attribute attribute = new Attribute(lexeme,"NRO_DOUBLE", Type.DOUBLE);
 				la.addSymbolTable(lexeme, attribute);
 				int idNumber = la.getNumberId(lexeme);
 				la.setToken(idNumber, lexeme);

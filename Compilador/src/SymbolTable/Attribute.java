@@ -6,25 +6,41 @@ import org.w3c.dom.Attr;
 import java.util.List;
 
 public class Attribute {
+    private String lexeme;
     private Type type;
     private Use use;
     private String id;
     private SyntacticTree tree;
+    private int amount;
 
-    public Attribute(Type type, Use use, String id, SyntacticTree tree) {
+    public Attribute(String lexeme, Type type, Use use, String id, SyntacticTree tree) {
+        this.lexeme = lexeme;
         this.type = type;
         this.use = use;
         this.id = id;
         this.tree = tree;
+        this.amount = 1;
     }
 
-    public Attribute(String id) {
+    public Attribute(String lexeme, String id) {
+        this.lexeme = lexeme;
         this.id = id;
+        this.amount = 1;
     }
 
-    public Attribute(String id, Type type) {
+    public Attribute(String lexeme, String id, Type type) {
+        this.lexeme = lexeme;
         this.type = type;
         this.id = id;
+        this.amount = 1;
+    }
+
+    public String getLexeme() {
+        return lexeme;
+    }
+
+    public void setlexeme(String lexeme) {
+        this.lexeme = lexeme;
     }
 
     public Type getType() {
@@ -32,7 +48,7 @@ public class Attribute {
     }
 
     public void setType(Type type) {
-        type = type;
+        this.type = type;
     }
 
     public static void setType(List<Attribute> entries, Type type) {
@@ -46,7 +62,7 @@ public class Attribute {
     }
 
     public void setUse(Use use) {
-        use = use;
+        this.use = use;
     }
 
     public static void setUse(List<Attribute> entries, Use use) {
@@ -57,6 +73,18 @@ public class Attribute {
 
     public String getId() {
         return id;
+    }
+
+    public void increaseAmount(){
+        this.amount++;
+    }
+
+    public void decreaseAmount(){
+        this.amount--;
+    }
+
+    public int getAmount(){
+        return this.amount;
     }
 
     public void setId(String id) {

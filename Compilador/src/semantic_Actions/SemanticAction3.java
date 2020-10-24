@@ -18,6 +18,7 @@ public class SemanticAction3 implements SemanticAction{
 	public void execute(char character, LexerAnalyzer la) {
 
 		double num;
+		String outOfRange = "";
 		String lexeme = la.getLexeme();
 		if (lexeme.contains("d")){
 			String[] d = lexeme.split("d");
@@ -29,10 +30,13 @@ public class SemanticAction3 implements SemanticAction{
 			}else{
 				if(p[0].equals(""))
 					d0 =  "0" + d[0];
+				if(p[1].endsWith("0"))
+					d0 = d[0].substring(0, d[0].length()-1);
 			}
 			d[0] = d0;
 			if(!String.valueOf(real).equals(d[0])){
-				num = 4.9*Math.pow(10,-324);
+				num = 1.0;
+				outOfRange = "Error";
 			}else{
 				int exponencial;
 				exponencial = Integer.valueOf(d[1]);
@@ -42,14 +46,14 @@ public class SemanticAction3 implements SemanticAction{
 		else
 			num = Double.valueOf(lexeme);
 
-		if(num < LOWRANGEPOSITIVE || num > TOPRANGEPOSITIVE && num != 0){
+		if((outOfRange.equals("Error") && num == 1.0) || (num <= LOWRANGEPOSITIVE || num >= TOPRANGEPOSITIVE) && num != 0.0){
 			String error = "Linea: " + la.getNroLinea() + " Error: " + "El double se encuentra fuera de rango";
 			la.addError(error);
 			la.setLexeme("");
 			la.setActualState(0);
 		}else {
 			lexeme = String.valueOf(num);
-			Attribute attribute = new Attribute("NRO_DOUBLE", Type.DOUBLE);
+			Attribute attribute = new Attribute(lexeme,"NRO_DOUBLE", Type.DOUBLE);
 			la.addSymbolTable(lexeme, attribute);
 			int idNumber = la.getNumberId(lexeme);
 			la.setToken(idNumber, lexeme);
@@ -57,8 +61,6 @@ public class SemanticAction3 implements SemanticAction{
 			State state = la.getState(la.getActualState(), la.getColumn(character));
 			la.setActualState(state.getNextstate());
 		}
-
-		la.setPos(la.getPos() + 1);
 	}
 
 }

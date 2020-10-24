@@ -17,7 +17,7 @@ public class SemanticAction2 implements SemanticAction{
 			la.addWarning(warning);
 			lexeme=lexeme.substring(0, LENGTH);
 		}
-		Attribute attribute = new Attribute("ID");
+		Attribute attribute = new Attribute(lexeme, "ID");
 		la.addSymbolTable(lexeme, attribute);
 		int idNumber = la.getNumberId(lexeme);
 		la.setToken(idNumber, lexeme);

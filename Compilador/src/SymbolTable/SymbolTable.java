@@ -1,5 +1,7 @@
 package SymbolTable;
 
+import Lexer.State;
+
 import java.util.Hashtable;
 
 
@@ -22,8 +24,10 @@ public class SymbolTable {
 	
 	
 	public void add(String lexeme, Attribute attribute) {
-		if(!symbolTable.contains(lexeme)) {
+		if(!symbolTable.containsKey(lexeme)) {
 			symbolTable.put(lexeme, attribute);
+		}else{
+			symbolTable.get(lexeme).increaseAmount();
 		}
 	}
 
@@ -35,10 +39,11 @@ public class SymbolTable {
 	public String printSymbolTable(){
 		String salida="";
 		for(String key : this.symbolTable.keySet()){
-			 salida+="Lexema: " + key + " Identificador: " + this.symbolTable.get(key).getId() + "\n";
+			 salida+="Lexema: " + key + " Identificador: " + this.symbolTable.get(key).getId() +
+					 " - Uso: " + this.symbolTable.get(key).getUse() + " - Tipo: " + this.symbolTable.get(key).getType() +
+					 " - Amount: " + this.symbolTable.get(key).getAmount() + "\n";
 		}
 		return salida;
 	}
-	
-	
+
 }

@@ -159,6 +159,17 @@ public class LexerAnalyzer {
 		return this.st;
 	}
 
+	//Devuelve entrada tabla de simbolos
+	public Attribute getAttribute(String lexeme){
+		return this.st.getSymbolTable().get(lexeme);
+	}
+
+	public void deleteSymbolTableEntry(String lexeme){
+		Attribute removedAttribute = this.st.getSymbolTable().remove(lexeme);
+		System.out.println("Removed attribute Lexeme: " + removedAttribute.getLexeme());
+		System.out.println("Existe el lexema en la ts? " + st.getSymbolTable().containsKey(lexeme));
+	}
+
 	public String printSymbolTable(){
 		return this.st.printSymbolTable();
 	}
@@ -214,5 +225,40 @@ public class LexerAnalyzer {
 		return this.source;
 	}
 
+	public boolean checkNegativeDouble(String lexeme){
+		final double POWERPOSITIVE =  Math.pow(10,308);
+		final double POWERNEGATIVE =  Math.pow(10,-308);
+		final double TOPRANGENEGATIVE = -2.2250738585072014 * POWERNEGATIVE;
+		final double LOWRANGENEGATIVE = -1.7976931348623157 * POWERPOSITIVE;
 
+		double num;
+
+		if (lexeme.contains("E")){
+			String[] d = lexeme.split("E");
+			double real = Double.valueOf(d[0]);
+			String d0 = d[0];
+			String[] p = d0.split("\\.");
+			if(p.length < 2) {
+				d0 = d[0] + "0";
+			}else{
+				if(p[0].equals(""))
+					d0 =  "0" + d[0];
+			}
+			d[0] = d0;
+			if(!String.valueOf(real).equals(d[0])){
+				num = 4.9*Math.pow(10,-324);
+			}else{
+				int exponencial;
+				exponencial = Integer.valueOf(d[1]);
+				num = (double) (real * Math.pow(10,exponencial));
+			}
+		}
+		else
+			num = Double.valueOf(lexeme);
+
+		if(num < LOWRANGENEGATIVE || num > TOPRANGENEGATIVE && num != 0)
+			return true;
+		else
+			return false;
+	}
 }
