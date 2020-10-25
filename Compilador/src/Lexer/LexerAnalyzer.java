@@ -1,7 +1,9 @@
 package Lexer;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Set;
 
 import SymbolTable.ReservedWord;
 import SymbolTable.SymbolTable;
@@ -164,11 +166,22 @@ public class LexerAnalyzer {
 		return this.st.getSymbolTable().get(lexeme);
 	}
 
-	public void deleteSymbolTableEntry(String lexeme){
+	/*public void deleteSymbolTableEntry(String lexeme){
 		Attribute removedAttribute = this.st.getSymbolTable().remove(lexeme);
+		Hashtable<String, Attribute> stAux = new Hashtable<String, Attribute>();
+		Set<String> keySet = this.st.getSymbolTable().keySet();
+		if(keySet.remove(lexeme)){
+			for (String key : keySet) {
+				stAux.put(key, this.getAttribute(key));
+			}
+		}
+		this.st.set(stAux);
+		System.out.println("######################");
+		System.out.println(this.st.printSymbolTable());
+		System.out.println("######################");
 		System.out.println("Removed attribute Lexeme: " + removedAttribute.getLexeme());
 		System.out.println("Existe el lexema en la ts? " + st.getSymbolTable().containsKey(lexeme));
-	}
+	}*/
 
 	public String printSymbolTable(){
 		return this.st.printSymbolTable();
@@ -223,6 +236,11 @@ public class LexerAnalyzer {
 	//Devolver source
 	public String getSource(){
 		return this.source;
+	}
+
+	//Devolvemos el objeto st
+	public SymbolTable getSt() {
+		return this.st;
 	}
 
 	public boolean checkNegativeDouble(String lexeme){

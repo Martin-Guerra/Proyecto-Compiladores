@@ -14,7 +14,7 @@ public class Attribute {
     private int amount;
 
     public Attribute(String lexeme, Type type, Use use, String id, SyntacticTree tree) {
-        this.lexeme = lexeme;
+        this.lexeme = lexeme + "@main";
         this.type = type;
         this.use = use;
         this.id = id;
@@ -23,13 +23,13 @@ public class Attribute {
     }
 
     public Attribute(String lexeme, String id) {
-        this.lexeme = lexeme;
+        this.lexeme = lexeme + "@main";
         this.id = id;
         this.amount = 1;
     }
 
     public Attribute(String lexeme, String id, Type type) {
-        this.lexeme = lexeme;
+        this.lexeme = lexeme + "@main";
         this.type = type;
         this.id = id;
         this.amount = 1;

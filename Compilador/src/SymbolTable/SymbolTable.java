@@ -46,4 +46,10 @@ public class SymbolTable {
 		return salida;
 	}
 
+	public void deleteSymbolTableEntry(String lexeme){
+		Attribute removedAttribute = this.symbolTable.remove(lexeme);
+	}
+
+
+
 }
