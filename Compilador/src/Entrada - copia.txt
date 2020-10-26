@@ -1,0 +1,12 @@
+DOUBLE a;
+OUT('Hola');
+
+PROC aa(DOUBLE x, ULONGINT y) NA = 2_ul{
+	ULONGINT b; 
+	PROC bb(DOUBLE w, ULONGINT z) NA = 1_ul{
+		ULONGINT c;
+		a = b;
+	};
+};
+
+

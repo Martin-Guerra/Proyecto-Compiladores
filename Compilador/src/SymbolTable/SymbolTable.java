@@ -2,52 +2,76 @@ package SymbolTable;
 
 import Lexer.State;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 
 public class SymbolTable {
-	private Hashtable<String,Attribute> symbolTable;
+	private Hashtable<String, List<Attribute>> symbolTable;
 	private ReservedWord reservedword; 
 	
 	
 	public SymbolTable() {
 		super();
-		this.symbolTable = new Hashtable<String,Attribute>();
+		this.symbolTable = new Hashtable<String,List<Attribute>>();
 		this.reservedword = new ReservedWord();
 	}
 
 
 	public int getNumberId(String lexeme) {
-		String aux = this.symbolTable.get(lexeme).getId();
+		String aux = this.symbolTable.get(lexeme).get(0).getId();
 		return this.reservedword.getReservedId(aux);
 	}
 	
 	
 	public void add(String lexeme, Attribute attribute) {
-		if(!symbolTable.containsKey(lexeme)) {
-			symbolTable.put(lexeme, attribute);
+		List<Attribute> attributes = new ArrayList<>();
+		if(!this.symbolTable.containsKey(lexeme)) {
+			attributes.add(attribute);
+			this.symbolTable.put(lexeme, attributes);
 		}else{
-			symbolTable.get(lexeme).increaseAmount();
+			attributes = this.symbolTable.get(lexeme);
+			boolean found = false;
+			int count = 0;
+			while(!found && attributes.size() > count){
+				if(attributes.get(count).getScope().equals(attribute.getScope())) {
+					//if(attributes.get(count).getUse() == Use.nombre_procedimiento ||
+					//		attributes.get(count).getUse() == Use.llamado_procedimiento)
+					//	this.symbolTable.get(lexeme).add(attribute);
+					found = true;
+					this.symbolTable.get(lexeme).get(count).increaseAmount();
+				}
+				count++;
+			}
+			if(!found){
+				this.symbolTable.get(lexeme).add(attribute);
+			}
+
 		}
 	}
 
-	public Hashtable<String,Attribute> getSymbolTable(){
-		Hashtable<String,Attribute> symbolTable = new Hashtable<>(this.symbolTable);
+	public Hashtable<String,List<Attribute>> getSymbolTable(){
+		Hashtable<String,List<Attribute>> symbolTable = new Hashtable<>(this.symbolTable);
 		return symbolTable;
 	}
 
 	public String printSymbolTable(){
 		String salida="";
 		for(String key : this.symbolTable.keySet()){
-			 salida+="Lexema: " + key + " Identificador: " + this.symbolTable.get(key).getId() +
-					 " - Uso: " + this.symbolTable.get(key).getUse() + " - Tipo: " + this.symbolTable.get(key).getType() +
-					 " - Amount: " + this.symbolTable.get(key).getAmount() + "\n";
+			salida += "Lexema: " + key;
+			for(Attribute a : this.symbolTable.get(key)) {
+				salida += 	" Ambito: " + a.getScope() +
+							" - Identificador: " + a.getId() +
+							" - Uso: " + a.getUse() + " - Tipo: " + a.getType() +
+							" - Amount: " + a.getAmount() + "\n";
+			}
 		}
 		return salida;
 	}
 
 	public void deleteSymbolTableEntry(String lexeme){
-		Attribute removedAttribute = this.symbolTable.remove(lexeme);
+		List<Attribute> removedAttribute = this.symbolTable.remove(lexeme);
 	}
 
 

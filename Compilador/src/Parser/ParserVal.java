@@ -44,14 +44,14 @@ public class ParserVal
     public SyntacticTree tree;
 
     /**
-     * attribute value of this 'union'
-     */
-    public Attribute attribute;
-
-    /**
      * list attribute value of this 'union'
      */
     public List<Attribute> attributes;
+
+    /**
+     * attributesSetteable value of this 'union'
+     */
+    public List<String> attributesSetteable;
 
     /**
      * use value of this 'union'
@@ -111,9 +111,9 @@ public class ParserVal
     /**
      * Initialize me as an Attribute
      */
-    public ParserVal(Attribute val)
+    public ParserVal(List<Attribute> val)
     {
-        attribute=val;
+        attributes=val;
     }
 
     /**

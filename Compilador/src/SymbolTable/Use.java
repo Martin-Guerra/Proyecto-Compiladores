@@ -7,4 +7,5 @@ public enum Use {
     nombre_parametro,
     numero_anidamiento,
     nombre_procedimiento,
+    llamado_procedimiento,
 }

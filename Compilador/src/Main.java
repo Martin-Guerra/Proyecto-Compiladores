@@ -58,10 +58,10 @@ public class Main {
             Parser parser = new Parser(lexerAnalyzer);
             parser.run();
 
-            List<String> recognizedTokens = lexerAnalyzer.getRecognizedTokens();
+            /*List<String> recognizedTokens = lexerAnalyzer.getRecognizedTokens();
             for (String t: recognizedTokens){
                 System.out.println(t);
-            }
+            }*/
 
             System.out.println("************* Tabla de simbolos *************"+"\n");
             System.out.println(lexerAnalyzer.printSymbolTable()+"\n"+"\n");//cargue tabal de simbolos
