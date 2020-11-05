@@ -23,9 +23,12 @@ public class SymbolTable {
 		String aux = this.symbolTable.get(lexeme).get(0).getId();
 		return this.reservedword.getReservedId(aux);
 	}
-	
-	
-	public void add(String lexeme, Attribute attribute) {
+
+	//if(attributes.get(count).getUse().equals(attribute.getUse()))
+	//if(attributes.get(count).getUse() == Use.nombre_procedimiento ||
+	//		attributes.get(count).getUse() == Use.llamado_procedimiento)
+	//	this.symbolTable.get(lexeme).add(attribute);
+	/*	public void add(String lexeme, Attribute attribute) {
 		List<Attribute> attributes = new ArrayList<>();
 		if(!this.symbolTable.containsKey(lexeme)) {
 			attributes.add(attribute);
@@ -35,19 +38,25 @@ public class SymbolTable {
 			boolean found = false;
 			int count = 0;
 			while(!found && attributes.size() > count){
-				if(attributes.get(count).getScope().equals(attribute.getScope())) {
-					//if(attributes.get(count).getUse() == Use.nombre_procedimiento ||
-					//		attributes.get(count).getUse() == Use.llamado_procedimiento)
-					//	this.symbolTable.get(lexeme).add(attribute);
+				//if(attributes.get(count).getScope().equals(attribute.getScope())) {
 					found = true;
 					this.symbolTable.get(lexeme).get(count).increaseAmount();
-				}
+				//}
 				count++;
 			}
 			if(!found){
 				this.symbolTable.get(lexeme).add(attribute);
 			}
 
+		}
+	}*/
+	public void add(String lexeme, Attribute attribute) {
+		List<Attribute> attributes = new ArrayList<>();
+		if(!this.symbolTable.containsKey(lexeme)) {
+			attributes.add(attribute);
+			this.symbolTable.put(lexeme, attributes);
+		}else{
+			this.symbolTable.get(lexeme).add(attribute);
 		}
 	}
 
@@ -64,7 +73,8 @@ public class SymbolTable {
 				salida += 	" Ambito: " + a.getScope() +
 							" - Identificador: " + a.getId() +
 							" - Uso: " + a.getUse() + " - Tipo: " + a.getType() +
-							" - Amount: " + a.getAmount() + "\n";
+							" - Amount: " + a.getAmount() +
+							" - isDeclared? " + a.isDeclared() + "\n";
 			}
 		}
 		return salida;
@@ -74,6 +84,10 @@ public class SymbolTable {
 		List<Attribute> removedAttribute = this.symbolTable.remove(lexeme);
 	}
 
-
+	public void deleteLastElement(String lexeme){
+		List<Attribute> removedAttribute = this.symbolTable.get(lexeme);
+		removedAttribute.remove(removedAttribute.size()-1);
+		//this.symbolTable.replace(lexeme, removedAttribute);
+	}
 
 }

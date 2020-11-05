@@ -52,23 +52,23 @@ public class Main {
                     System.out.println("No se encuentra el archivo");
                     return;
                 }
-                
-            System.out.println("************* Tokens reconocidos *************"+"\n");
+
             LexerAnalyzer lexerAnalyzer = new LexerAnalyzer(source);
             Parser parser = new Parser(lexerAnalyzer);
             parser.run();
 
+            //System.out.println("************* Tokens reconocidos *************"+"\n");
             /*List<String> recognizedTokens = lexerAnalyzer.getRecognizedTokens();
             for (String t: recognizedTokens){
                 System.out.println(t);
             }*/
 
             System.out.println("************* Tabla de simbolos *************"+"\n");
-            System.out.println(lexerAnalyzer.printSymbolTable()+"\n"+"\n");//cargue tabal de simbolos
+            System.out.println(lexerAnalyzer.printSymbolTable()+"\n"+"\n");
 
             //textoSalida+="************* Errores Lexicos Reconocidos *************"+"\n";
             //textoSalida+=lexerAnalyzer.getErrors()+"\n";
-            System.out.println(lexerAnalyzer.getErrors());
+            //System.out.println(lexerAnalyzer.getErrors());
             //textoSalida+="*************	Warning  Reconocidos *************"+"\n";
             //textoSalida+=lexerAnalyzer.getWarning()+"\n";
 
@@ -81,10 +81,10 @@ public class Main {
                 System.out.println(parser.getErrors().get(i)+"\n");
 
             System.out.println("************* Arbol sintactico *************"+"\n");
-
-            //parser.printSyntacticTree();
+            parser.printSyntacticTree();
             //generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Salida.txt", textoSalida);
         	//}
+
        }
    }
 

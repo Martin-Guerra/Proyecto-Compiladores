@@ -2,10 +2,8 @@ package SymbolTable;
 
 public enum Use {
     variable,
-    constante,
-    atributo,
+    variable_en_uso,
     nombre_parametro,
-    numero_anidamiento,
     nombre_procedimiento,
     llamado_procedimiento,
 }

@@ -1,18 +1,9 @@
-PROC b (DOUBLE l) NA = 2_ul {
-	DOUBLE m;
-	PROC c (DOUBLE k) NA = 2_ul {
-		DOUBLE n;
-	};
-	
+DOUBLE a;
+DOUBLE c;
+a = c * a;
+a=2;
+PROC a () NA = 2_ul {
+	a = c * a;
 };
 
-
- 
-
-
-
-
-
-
-
-
+a();

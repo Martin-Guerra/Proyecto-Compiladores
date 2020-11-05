@@ -12,6 +12,7 @@ public class Attribute {
     private String id;
     private SyntacticTree tree;
     private int amount;
+    private boolean declared;
 
     public Attribute(String lexeme, Type type, Use use, String id, SyntacticTree tree) {
         this.scope = lexeme;
@@ -20,12 +21,14 @@ public class Attribute {
         this.id = id;
         this.tree = tree;
         this.amount = 1;
+        this.declared = false;
     }
 
     public Attribute(String lexeme, String id) {
         this.scope = lexeme;
         this.id = id;
         this.amount = 1;
+        this.declared = false;
     }
 
     public Attribute(String lexeme, String id, Type type) {
@@ -33,6 +36,7 @@ public class Attribute {
         this.type = type;
         this.id = id;
         this.amount = 1;
+        this.declared = false;
     }
 
     public String getScope() {
@@ -100,5 +104,17 @@ public class Attribute {
 
     public void setTree(SyntacticTree tree) {
         this.tree = tree;
+    }
+
+    public void setDeclared(){
+        this.declared = true;
+    }
+
+    public void setDeclaredFalse(){
+        this.declared = false;
+    }
+
+    public boolean isDeclared(){
+        return this.declared;
     }
 }
