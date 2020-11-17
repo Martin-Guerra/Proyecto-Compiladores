@@ -1,11 +1,12 @@
 package SymbolTable;
 
-import SyntacticTree.SyntacticTree;
-import org.w3c.dom.Attr;
+import SyntacticTree.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Attribute {
+    private String lexeme;
     private String scope;
     private Type type;
     private Use use;
@@ -13,9 +14,11 @@ public class Attribute {
     private SyntacticTree tree;
     private int amount;
     private boolean declared;
+    private List<Parameter> parameters = new ArrayList<Parameter>();
 
-    public Attribute(String lexeme, Type type, Use use, String id, SyntacticTree tree) {
-        this.scope = lexeme;
+    public Attribute(String lexeme, String scope, Type type, Use use, String id, SyntacticTree tree) {
+        this.lexeme = lexeme;
+        this.scope = scope;
         this.type = type;
         this.use = use;
         this.id = id;
@@ -24,23 +27,59 @@ public class Attribute {
         this.declared = false;
     }
 
-    public Attribute(String lexeme, String id) {
-        this.scope = lexeme;
+    public Attribute(String lexeme, String scope, String id) {
+        this.lexeme = lexeme;
+        this.scope = scope;
         this.id = id;
         this.amount = 1;
         this.declared = false;
     }
 
-    public Attribute(String lexeme, String id, Type type) {
-        this.scope = lexeme;
+    public Attribute(String lexeme, String scope, String id, Type type) {
+        this.lexeme = lexeme;
+        this.scope = scope;
         this.type = type;
         this.id = id;
         this.amount = 1;
         this.declared = false;
     }
 
+    public Attribute(String lexeme, String scope, String id, Type type, Use use) {
+        this.lexeme = lexeme;
+        this.scope = scope;
+        this.type = type;
+        this.id = id;
+        this.use = use;
+        this.amount = 1;
+        this.declared = false;
+    }
+
+    public Attribute(String lexeme) {
+        this.lexeme = lexeme;
+        this.amount = 1;
+        this.declared = false;
+    }
+
+    public Attribute(String lexeme, Type type) {
+        this.lexeme = lexeme;
+        this.type = type;
+        this.amount = 1;
+        this.declared = false;
+    }
+
+    public Attribute(String lexeme, Use use) {
+        this.lexeme = lexeme;
+        this.use = use;
+        this.amount = 1;
+        this.declared = false;
+    }
+
+    public String getLexeme() { return this.lexeme; }
+
+    public void setLexeme(String lexeme) { this.lexeme = lexeme; }
+
     public String getScope() {
-        return scope;
+        return this.scope;
     }
 
     public void setScope(String scope) {
@@ -58,11 +97,6 @@ public class Attribute {
         this.type = type;
     }
 
-    /*public static void setType(List<Attribute> entries, Type type) {
-        for (Attribute entry : entries) {
-            entry.setType(type);
-        }
-    }*/
 
     public Use getUse() {
         return use;
@@ -71,12 +105,6 @@ public class Attribute {
     public void setUse(Use use) {
         this.use = use;
     }
-
-    /*public static void setUse(List<Attribute> entries, Use use) {
-        for (Attribute entry : entries) {
-            entry.setUse(use);
-        }
-    }*/
 
     public String getId() {
         return id;
@@ -116,5 +144,41 @@ public class Attribute {
 
     public boolean isDeclared(){
         return this.declared;
+    }
+
+    public void addTreeParameter(SyntacticTree node){
+        if (this.tree.getLeft().getLeft() == null){
+            this.tree.getLeft().setLeft(node);
+        }
+        else{
+            if(this.tree.getLeft().getRight() == null){
+                this.tree.getLeft().setRigth(node);
+            }
+            else{
+                SyntacticTree auxNode = this.tree.getLeft().getRight();
+                Attribute attribute = new Attribute("PARAMETROS");
+                this.tree.getLeft().setRigth(new SyntacticTreeLeaf(null, null, attribute));
+                this.tree.getLeft().getRight().setLeft(auxNode);
+                this.tree.getLeft().getRight().setRigth(node);
+            }
+        }
+    }
+
+    public List<Parameter> getParameters(){
+       return new ArrayList<Parameter>(this.parameters);
+    }
+
+    public void setParameters(List<Parameter> parameters){
+        for (Parameter parameter: parameters) {
+            this.parameters.add(parameter);
+        }
+    }
+
+    public String printParameters(){
+        String salida = "";
+        for (Parameter parameter: this.parameters) {
+            salida += parameter.getLexeme() + "," ;
+        }
+        return salida;
     }
 }

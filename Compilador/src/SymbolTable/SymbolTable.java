@@ -24,32 +24,6 @@ public class SymbolTable {
 		return this.reservedword.getReservedId(aux);
 	}
 
-	//if(attributes.get(count).getUse().equals(attribute.getUse()))
-	//if(attributes.get(count).getUse() == Use.nombre_procedimiento ||
-	//		attributes.get(count).getUse() == Use.llamado_procedimiento)
-	//	this.symbolTable.get(lexeme).add(attribute);
-	/*	public void add(String lexeme, Attribute attribute) {
-		List<Attribute> attributes = new ArrayList<>();
-		if(!this.symbolTable.containsKey(lexeme)) {
-			attributes.add(attribute);
-			this.symbolTable.put(lexeme, attributes);
-		}else{
-			attributes = this.symbolTable.get(lexeme);
-			boolean found = false;
-			int count = 0;
-			while(!found && attributes.size() > count){
-				//if(attributes.get(count).getScope().equals(attribute.getScope())) {
-					found = true;
-					this.symbolTable.get(lexeme).get(count).increaseAmount();
-				//}
-				count++;
-			}
-			if(!found){
-				this.symbolTable.get(lexeme).add(attribute);
-			}
-
-		}
-	}*/
 	public void add(String lexeme, Attribute attribute) {
 		List<Attribute> attributes = new ArrayList<>();
 		if(!this.symbolTable.containsKey(lexeme)) {
@@ -68,9 +42,11 @@ public class SymbolTable {
 	public String printSymbolTable(){
 		String salida="";
 		for(String key : this.symbolTable.keySet()){
-			salida += "Lexema: " + key;
+			salida += "Lexema: " + key + "\n";
 			for(Attribute a : this.symbolTable.get(key)) {
-				salida += 	" Ambito: " + a.getScope() +
+				salida += 	" Lexeme ST: " + a.getLexeme() +
+							" - Ambito: " + a.getScope() +
+							" - Parametros: " + a.printParameters() +
 							" - Identificador: " + a.getId() +
 							" - Uso: " + a.getUse() + " - Tipo: " + a.getType() +
 							" - Amount: " + a.getAmount() +
@@ -87,7 +63,10 @@ public class SymbolTable {
 	public void deleteLastElement(String lexeme){
 		List<Attribute> removedAttribute = this.symbolTable.get(lexeme);
 		removedAttribute.remove(removedAttribute.size()-1);
-		//this.symbolTable.replace(lexeme, removedAttribute);
+	}
+
+	public List<Attribute> getAttributes(String lexeme){
+		return this.symbolTable.get(lexeme);
 	}
 
 }

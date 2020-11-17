@@ -1,9 +1,26 @@
-DOUBLE a;
-DOUBLE c;
-a = c * a;
-a=2;
-PROC a () NA = 2_ul {
-	a = c * a;
-};
+ULONGINT a, b, c, d, e, f, g, h, i;
 
-a();
+e = 2_ul;
+f = 5_ul;
+
+a = e + f;
+b = f + e;
+
+IF(a == b){
+	a = e / f * b - e;
+	FOR(d = 2_ul; d <= a; UP 1_ul){
+		h = h + 4_ul;
+	};
+}ELSE
+	h = 5_ul;
+END_IF;
+
+FOR(d = 1_ul; a >= d * e; UP 1_ul){
+	IF(a != b)
+		a = 0_ul;
+	ELSE{
+		i = 2_ul;
+		c = a - i;
+	}	
+	END_IF;		
+};

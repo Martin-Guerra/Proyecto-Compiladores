@@ -13,7 +13,7 @@ public class SemanticAction11 implements SemanticAction{
         la.setLexeme(la.getLexeme() + character);
         la.setPos(la.getPos() + 1);
         String lexeme = la.getLexeme();
-        Attribute attribute = new Attribute(lexeme,"CADENA");
+        Attribute attribute = new Attribute(lexeme,lexeme,"CADENA");
         la.addSymbolTable(lexeme, attribute);
         int idNumber = la.getNumberId(lexeme);
         la.setToken(idNumber, lexeme);

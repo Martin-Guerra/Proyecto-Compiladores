@@ -6,6 +6,7 @@ public class Type {
     private String name;
     public static final Type DOUBLE = new Type("DOUBLE");
     public static final Type ULONGINT = new Type("ULONGINT");
+    public static final Type ERROR = new Type("ERROR");
 
     public Type(String name) {
         this.name = name;

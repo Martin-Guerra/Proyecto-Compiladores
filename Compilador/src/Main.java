@@ -1,7 +1,9 @@
+
 import Lexer.LexerAnalyzer;
 import Lexer.Token;
 import Parser.Parser;
 import SyntacticTree.SyntacticTree;
+import AssemblerGenerator.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -80,10 +82,24 @@ public class Main {
             for(int i=0;i<parser.getErrors().size();i++)
                 System.out.println(parser.getErrors().get(i)+"\n");
 
-            System.out.println("************* Arbol sintactico *************"+"\n");
-            parser.printSyntacticTree();
+            if(parser.getErrors().size() == 0){
+                System.out.println("************* Arbol sintactico *************"+"\n");
+                parser.printSyntacticTree();
+
+                System.out.println('\n'+"************* Arbol sintactico procedimientos *************"+"\n");
+                parser.printPROCtree();
+                List<SyntacticTree> PROCtrees = parser.getPROCtreeList();
+
+                System.out.println('\n'+"************* ASSEMBLER *************"+"\n");
+                RegisterContainer registerContainer = new RegisterContainer();
+                SyntacticTree syntacticTree = parser.returnTree();
+                AssemblerGenerator ag = new AssemblerGenerator(syntacticTree);
+                String assembler = ag.printAssembler(PROCtrees, syntacticTree, registerContainer);
+                generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\assembler.asm", assembler);
+            }
             //generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Salida.txt", textoSalida);
         	//}
+
 
        }
    }
