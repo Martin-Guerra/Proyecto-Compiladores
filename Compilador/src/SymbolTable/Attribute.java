@@ -13,6 +13,7 @@ public class Attribute {
     private String id;
     private SyntacticTree tree;
     private int amount;
+    private int flag;
     private boolean declared;
     private List<Parameter> parameters = new ArrayList<Parameter>();
 
@@ -24,6 +25,7 @@ public class Attribute {
         this.id = id;
         this.tree = tree;
         this.amount = 1;
+        this.flag = 0;
         this.declared = false;
     }
 
@@ -32,6 +34,7 @@ public class Attribute {
         this.scope = scope;
         this.id = id;
         this.amount = 1;
+        this.flag = 0;
         this.declared = false;
     }
 
@@ -41,6 +44,7 @@ public class Attribute {
         this.type = type;
         this.id = id;
         this.amount = 1;
+        this.flag = 0;
         this.declared = false;
     }
 
@@ -51,12 +55,14 @@ public class Attribute {
         this.id = id;
         this.use = use;
         this.amount = 1;
+        this.flag = 0;
         this.declared = false;
     }
 
     public Attribute(String lexeme) {
         this.lexeme = lexeme;
         this.amount = 1;
+        this.flag = 0;
         this.declared = false;
     }
 
@@ -64,6 +70,7 @@ public class Attribute {
         this.lexeme = lexeme;
         this.type = type;
         this.amount = 1;
+        this.flag = 0;
         this.declared = false;
     }
 
@@ -71,6 +78,7 @@ public class Attribute {
         this.lexeme = lexeme;
         this.use = use;
         this.amount = 1;
+        this.flag = 0;
         this.declared = false;
     }
 
@@ -87,6 +95,10 @@ public class Attribute {
             this.scope = this.scope + scope;
         else
             this.scope = this.scope + scope;
+    }
+
+    public void setScopePROC(String scope){
+        this.scope = scope;
     }
 
     public Type getType() {
@@ -144,6 +156,13 @@ public class Attribute {
 
     public boolean isDeclared(){
         return this.declared;
+    }
+
+    public int getFlag(){
+        return this.flag;
+    }
+    public void setFlag(){
+        this.flag = 1;
     }
 
     public void addTreeParameter(SyntacticTree node){

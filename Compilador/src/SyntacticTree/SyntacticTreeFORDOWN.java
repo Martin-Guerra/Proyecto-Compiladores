@@ -21,9 +21,9 @@ public class SyntacticTreeFORDOWN extends SyntacticTree{
     public String generateAssemblerCode(RegisterContainer resgisterContainer) {
         String assembler = "";
         String register = resgisterContainer.getRegister();
-        assembler += "MOV " + register + ", _" + SyntacticTreeFOR.ID.getLexeme();
-        assembler += "SUB " + register + ", _" + this.getLeft().getLexeme();
-        assembler += "MOV _" + SyntacticTreeFOR.ID.getLexeme() + ", " + register;
+        assembler += "MOV " + register + ", _" + SyntacticTreeFOR.ID.getScope();
+        assembler += "SUB " + register + ", _" + this.getLeft().getAttribute().getScope();
+        assembler += "MOV _" + SyntacticTreeFOR.ID.getScope() + ", " + register;
         resgisterContainer.setAverableRegister(register);
 
         return assembler;

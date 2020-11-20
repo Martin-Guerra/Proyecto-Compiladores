@@ -26,15 +26,15 @@ public class SyntacticTreeDIV extends SyntacticTree{
         String aux = "";
         if(this.getRight().getAttribute().getUse().equals(Use.constante)) {
             register = resgisterContainer.forceRegister();
-            assembler += "MOV " + register + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
+            assembler += "MOV " + register + ", _" + this.getRight().getAttribute().getScope() + '\n';
             aux = "DIV " + register + '\n';
             resgisterContainer.setAverableRegister(register);
         }else
-            aux = "DIV _" + this.getRight().getAttribute().getLexeme() + '\n';
+            aux = "DIV _" + this.getRight().getAttribute().getScope() + '\n';
 
         if(!this.getLeft().getAttribute().getLexeme().equals("EAX")) {
             resgisterContainer.setNotAverableRegister(0);
-            assembler += "MOV EAX" + ", _" + this.getLeft().getAttribute().getLexeme() + '\n';
+            assembler += "MOV EAX" + ", _" + this.getLeft().getAttribute().getScope() + '\n';
             if(this.getLeft().getAttribute().getUse().equals(Use.registro))
                 resgisterContainer.setAverableRegister(this.getLeft().getAttribute().getLexeme());
         }

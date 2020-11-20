@@ -5,8 +5,8 @@ public class Parameter {
     private String scope;
     private Type type;
 
-    public Parameter(String lexeme, Type type) {
-        this.scope = lexeme;
+    public Parameter(String scope, Type type) {
+        this.scope = scope;
         this.type = type;
     }
 
@@ -14,8 +14,8 @@ public class Parameter {
         return this.scope;
     }
 
-    public void setLexeme(String lexeme) {
-        this.scope = lexeme;
+    public void setLexeme(String scope) {
+        this.scope = scope;
     }
 
     public Type getType() {

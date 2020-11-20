@@ -10,7 +10,9 @@ import Lexer.Token;
 import SymbolTable.Attribute;
 import SymbolTable.Type;
 import SymbolTable.Use;
-import SyntacticTree.SyntacticTree;
+import SymbolTable.Parameter;
+import SymbolTable.Parameter;
+import SyntacticTree.*;
 
 
 %}
@@ -24,90 +26,83 @@ import SyntacticTree.SyntacticTree;
 /* Comienzo del programa */
 
 %%
-programa				: lista_sentencias
+programa				: lista_sentencias_declarativas lista_sentencias_ejecutables
 						{
-							syntacticTree = $1.tree;
+							syntacticTree = $2.tree;
 						}
 						; 
 
-lista_sentencias		: sentencia 
-						{
-							$$.tree = $1.tree;
-						}
-						| lista_sentencias sentencia 
-						{
-							$$.tree = new SyntacticTree($1.tree, $2.tree, "LISTA SENTENCIAS");
-						}
-						| error ';'
-						;
 
-sentencia 				:sent_declarativa ';'
-						{
-							$$.tree = $1.tree;
+lista_sentencias_declarativas		: sent_declarativa
+									| lista_sentencias_declarativas sent_declarativa 
+									|error ';'{addError("Error Sintactico en linea "+ la.getNroLinea() +": se espera sentencia/lista de sentencias");}
+									;
 
-						}
-						|sent_ejecutable 
-						{
-							$$.tree = $1.tree;
-						}
-						;
+lista_sentencias_ejecutables		: sent_ejecutable 
+									{
+										$$.tree = $1.tree;
+									}
+									| lista_sentencias_ejecutables sent_ejecutable 
+									{
+										Attribute attribute = new Attribute("LISTA SENTENCIAS");
+										$$.tree = new SyntacticTreeSentence($1.tree, $2.tree, attribute);
+									}
 
-sent_declarativa		: tipo lista_variables
+									|error ';'{addError("Error Sintactico en linea "+ la.getNroLinea() +": se espera sentencia/lista de sentencias");}
+									;
+
+
+sent_declarativa		:tipo lista_variables ';'
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia declarativa - Variable/s.");
-		                    $$ = $2;
+							$$ = $2;
 		                    Type type = new Type($1.type.getName());
 		                    for(String lexeme : $$.attributesSetteable){
 		                        List<Attribute> attributes = la.getAttribute(lexeme);
 		                        attributes.get(attributes.size() - 1).setUse(Use.variable);
 		                        attributes.get(attributes.size() - 1).setType(type);
 
-		                        attributes = getListUse(attributes, Use.variable);
+		                    	List<Attribute> variables = getListUse(attributes, Use.variable);
+			                    List<Attribute> parametros = getListUse(attributes, Use.nombre_parametro);
+
+			                    boolean encontro = false;
+
+			                    if(variables.size() > 0){
+			                    	if(parametros.size() > 0){
+			                    		parametros.addAll(variables);
+			                    		attributes = parametros;
+			                   		}else{
+			                   			attributes = variables;
+			                    	}
+			                    }else{
+			                   		if(parametros.size() > 0) {
+			                    		attributes = parametros;
+			                    	}else {
+			                    		attributes = null;
+			                    	}
+			                    }
+
 		                        this.isRedeclared(attributes, lexeme, "Sentencia declarativa - Redefinicion de  VARIABLE/S");
 
 		                        attributes.get(attributes.size()-1).setScope(this.globalScope);
 							}
-								
+							$$ = $2;	
 						}
-						
-						| procedimiento
+
+						|procedimiento ';'
 						{
-							$$.tree = $1.tree;
-							$$ = $1;
 							this.decreaseScope();
-						}
+							this.counter--;
+							this.PROCtreesAux.get(this.counter).setLeft($1.tree);
+							$$.tree = null;
+							if(this.counter == 0){
+		                        this.PROCtrees.addAll(this.PROCtreesAux);
+		                        this.PROCtreesAux.clear();
+                    		}
 
-						| tipo error ';' {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia declarativa - Falta definir la/s VARIABLE/S."); }
-						;
-
-sent_ejecutable			:sentencia_if ';'
-						{
-							$$.tree = $1.tree;
 						}
 						
-						|sentencia_control
-						{
-							$$.tree = $1.tree;
-						}
-
-						|asignacion ';'
-						{
-							$$.tree = new SyntacticTree($1.tree, "ASIGNACION");
-						}
-						|asignacion error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia ejecutable asignacion - Falta ;"); }
-
-						|imprimir ';'
-						{
-							$$.tree = $1.tree;
-						}
-						|imprimir error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia ejecutable OUT - Falta ;"); }
-
-						|llamado_PROC ';'
-						{
-							$$.tree = $1.tree;
-						}
-
-						|llamado_PROC error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia ejecutable llamado a procedimiento - Falta ;"); }
+						| tipo error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia declarativa - Falta definir la/s VARIABLE/S."); }
 						;
 
 /* PROCEDIMIENTO */
@@ -115,7 +110,8 @@ procedimiento 			:encabezado cuerpo_procedimiento
 						{
 							addRule("Linea "+ la.getNroLinea() +": Procedimiento");
 							this.sa.deleteNA();
-							$$.tree = $2.tree;
+							Attribute attribute = new Attribute("INICIO PROCEDIMIENTO");
+							$$.tree = new SyntacticTreePROCHEAD($2.tree, attribute);
 						}
 						|encabezado error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Procedimiento - Se espera CUERPO del PROCEDIMIENTO"); }
 						;
@@ -131,16 +127,22 @@ encabezado_PROC			:PROC ID
 							addRule("Linea "+ la.getNroLinea() +": PROC ID");
 
 							$$.attributes = $2.attributes;
-							String[] scope = $2.attributes.get(0).getScope().split("@");
+							String lexeme = $2.attributes.get(0).getLexeme();
 
-							List<Attribute> attributes = la.getAttribute(scope[0]);
+							List<Attribute> attributes = la.getAttribute(lexeme);
 		                    attributes.get(attributes.size() - 1).setUse(Use.nombre_procedimiento);
 		                    attributes.get(attributes.size() - 1).setScope(this.globalScope);
 
 		                    $2.attributes = getListUse($2.attributes, Use.nombre_procedimiento);
-							this.isRedeclared($2.attributes, scope[0], "Sentencia declarativa - Redefinicion de ID procedimiento");
+							this.isRedeclared($2.attributes, lexeme, "Sentencia declarativa - Redefinicion de ID procedimiento");
 
-		                    this.globalScope += "@" + scope[0];
+		                    this.globalScope += "@" + lexeme;
+
+		                    Attribute attribute = $2.attributes.get($2.attributes.size()-1);
+		                   	SyntacticTree root = new SyntacticTreePROCHEAD(null, attribute);
+		                   	this.PROCtreesAux.add(root);
+		                   	this.counter++;
+
 						}
 						;
 
@@ -149,73 +151,72 @@ parametro_PROC			:'(' parametro ')'
 							addRule("Linea "+ la.getNroLinea() +": Procedimiento - un parametro");
 
 							this.setScopeProcParam($2.attributesSetteable);
-							$2.attributes = getListUse($2.attributes, Use.nombre_parametro);
-							String[] scope = $2.attributes.get(0).getScope().split("@");
-							this.isRedeclared($2.attributes, scope[0], "Sentencia declarativa - Redefinicion de parametro");
+
+							String[] scope = this.globalScope.split("@");
+							String lexeme = scope[scope.length - 1];
+							List<Attribute> attributes = getListUse(la.getSt().getSymbolTable().get(lexeme), Use.nombre_procedimiento);
+
+							List<Parameter> parameters = new ArrayList<>(); 
+
+							parameters.add(new Parameter($2.attributes.get($2.attributes.size()-1).getScope(), $2.attributes.get($2.attributes.size()-1).getType()));
+
+							attributes.get(attributes.size()-1).setParameters(parameters);
 						}
+
 						|'(' parametro ',' parametro ')'
 						{
 							addRule("Linea "+ la.getNroLinea() +": Procedimiento - dos parametros");
 
 							this.setScopeProcParam($2.attributesSetteable);
-							$2.attributes = getListUse($2.attributes, Use.nombre_parametro);
-							String[] scope = $2.attributes.get(0).getScope().split("@");
-							this.isRedeclared($2.attributes, scope[0], "Sentencia declarativa - Redefinicion de parametro");
-
 							this.setScopeProcParam($4.attributesSetteable);
-							$4.attributes = getListUse($4.attributes, Use.nombre_parametro);
-							scope = $4.attributes.get(0).getScope().split("@");
-							this.isRedeclared($4.attributes, scope[0], "Sentencia declarativa - Redefinicion de parametro");
+							String lexemeParam1 = $2.attributes.get(0).getLexeme();
+							String lexemeParam2 = $4.attributes.get(0).getLexeme();
+
+							if(lexemeParam1.equals(lexemeParam2)){
+								addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia declarativa - Redefinicion de parametro"); 
+							}
+
+							String[] scope = this.globalScope.split("@");
+							String lexeme = scope[scope.length - 1];
+							List<Attribute> attributes = getListUse(la.getSt().getSymbolTable().get(lexeme), Use.nombre_procedimiento);
+
+							List<Parameter> parameters = new ArrayList<>(); 
+
+							parameters.add(new Parameter($2.attributes.get($2.attributes.size()-1).getScope(), $2.attributes.get($2.attributes.size()-1).getType()));
+							parameters.add(new Parameter($4.attributes.get($4.attributes.size()-1).getScope(), $4.attributes.get($4.attributes.size()-1).getType()));
+							
+							attributes.get(attributes.size()-1).setParameters(parameters);
 
 						}
 						|'(' parametro ',' parametro ',' parametro ')'
 						{
+							addRule("Linea "+ la.getNroLinea() +": Procedimiento - dos parametros");
+
 							this.setScopeProcParam($2.attributesSetteable);
-							$2.attributes = getListUse($2.attributes, Use.nombre_parametro);
-							String[] scope = $2.attributes.get(0).getScope().split("@");
-							this.isRedeclared($2.attributes, scope[0], "Sentencia declarativa - Redefinicion de parametro");
-
 							this.setScopeProcParam($4.attributesSetteable);
-							$4.attributes = getListUse($4.attributes, Use.nombre_parametro);
-							scope = $4.attributes.get(0).getScope().split("@");
-							this.isRedeclared($4.attributes, scope[0], "Sentencia declarativa - Redefinicion de parametro");
-
 							this.setScopeProcParam($6.attributesSetteable);
-							$6.attributes = getListUse($6.attributes, Use.nombre_parametro);
-							scope = $6.attributes.get(0).getScope().split("@");
-							this.isRedeclared($6.attributes, scope[0], "Sentencia declarativa - Redefinicion de parametro");
+							String lexemeParm1 = $2.attributes.get(0).getLexeme();
+							String lexemeParm2 = $4.attributes.get(0).getLexeme();
+							String lexemeParm3 = $6.attributes.get(0).getLexeme();
+
+							if(lexemeParm1.equals(lexemeParm2) || lexemeParm1.equals(lexemeParm3) || lexemeParm2.equals(lexemeParm3)){
+								addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia declarativa - Redefinicion de parametro"); 
+							}
+
+							String[] scope = this.globalScope.split("@");
+							String lexeme = scope[scope.length - 1];
+							List<Attribute> attributes = getListUse(la.getSt().getSymbolTable().get(lexeme), Use.nombre_procedimiento);
+
+							List<Parameter> parameters = new ArrayList<>(); 
+
+							parameters.add(new Parameter($2.attributes.get($2.attributes.size()-1).getScope(), $2.attributes.get($2.attributes.size()-1).getType()));
+							parameters.add(new Parameter($4.attributes.get($4.attributes.size()-1).getScope(), $4.attributes.get($4.attributes.size()-1).getType()));
+							parameters.add(new Parameter($6.attributes.get($6.attributes.size()-1).getScope(), $6.attributes.get($6.attributes.size()-1).getType()));
+							
+							attributes.get(attributes.size()-1).setParameters(parameters);
 						}
+
 						| '(' ')'
-						;
-
-cuerpo_procedimiento	:'{' bloque_procedimiento '}'
-						{
-							$$.tree = $2.tree;
-						}
-
-						|'{' bloque_procedimiento error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Cuerpo procedimiento - Se espera }"); }
-						|'{' error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Cuerpo procedimiento - Se espera bloque cuerpo procedimiento"); }
-						; 
-
-
-bloque_procedimiento	:sentencia 
-						{
-							$$.tree = new SyntacticTree($1.tree, "CUERPO PROCEDIMIENTO SENTENCIA");
-							$$ = $1;
-						} 
-						|bloque_procedimiento sentencia
-						{
-							$$.tree = new SyntacticTree($1.tree, $2.tree, "CUERPO PROCEDIMIENTO SENTENCIA COMPUESTA");
-							$$ = $1;
-						}
-						|procedimiento
-						{
-							$$ = $1;
-						}
-						|bloque_procedimiento procedimiento
-						{
-							$$ = $1;
-						}
 						;
 
 asignacion_NA  			:NA '=' NRO_ULONGINT 
@@ -236,98 +237,249 @@ asignacion_NA  			:NA '=' NRO_ULONGINT
 						|NA error NRO_ULONGINT {addError("Error Sintactico en linea "+ la.getNroLinea() +": Asignacion NA procedimiento - Se espera ="); }
 						;
 
+cuerpo_procedimiento	:'{' bloque_procedimiento '}'
+						{
+							$$.tree = $2.tree;
+						}
+
+						|'{' bloque_procedimiento error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Cuerpo procedimiento - Se espera }"); }
+						; 
+
+bloque_procedimiento	:sent_ejecutable 
+						{
+							$$.tree = $1.tree;
+						}
+						|bloque_procedimiento sent_ejecutable
+						{
+							Attribute attribute = new Attribute("SENTENCIA EJECUTABLE");
+							$$.tree = new SyntacticTreeBODY($1.tree, $2.tree, attribute);
+						}
+						|sent_declarativa
+						{
+							$$.tree = $1.tree;
+						}
+						|bloque_procedimiento sent_declarativa
+						{
+							Attribute attribute = new Attribute("SENTENCIA DECLARATIVA");
+							$$.tree = new SyntacticTreeBODY($1.tree, $2.tree, attribute);
+						}
+						;
+
+						
+
 /* PARAMETROS */
 parametro 				:tipo ID
 						{
 							$$ = $2;
 
 							$$.attributesSetteable = new ArrayList<>(); 
-							String scope = $2.attributes.get(0).getScope();
-							String[] lexeme = scope.split("@");
-							$$.attributesSetteable.add(lexeme[0]);
+							String lexeme = $2.attributes.get(0).getLexeme();
+							$$.attributesSetteable.add(lexeme);
 
 							Type type = new Type($1.type.getName());
 							$2.attributes.get($2.attributes.size()-1).setType(type);
 							$2.attributes.get($2.attributes.size()-1).setUse(Use.nombre_parametro);
+							$2.attributes.get($2.attributes.size()-1).setFlag();
  						}
 						;
 
-parametro_invocacion 	: ID 
-						{ 
+
+sent_ejecutable			:sentencia_if ';'
+						{
+							$$.tree = $1.tree;
 						}
-						| ID ',' ID
-						{ 
+						
+						|sentencia_control
+						{
+							$$.tree = $1.tree;
 						}
-						| ID ',' ID ',' ID
+
+						|asignacion ';'
+						{
+							//Attribute attribute = new Attribute("ASIGNACION");
+							//$$.tree = new SyntacticTreeASIG($1.tree, attribute);
+							$$.tree = $1.tree;
+						}
+						|asignacion error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia ejecutable asignacion - Falta ;"); }
+
+						|imprimir ';'
+						{
+							$$.tree = $1.tree;
+						}
+						|imprimir error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia ejecutable OUT - Falta ;"); }
+
+						|llamado_PROC ';'
+						{
+							$$.tree = $1.tree;
+						}
+
+						|llamado_PROC error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia ejecutable llamado a procedimiento - Falta ;"); }
 						;
+
 
 /* Sentencias declarativas */
 
 lista_variables 		: ID
 						{ 
 							$$.attributesSetteable = new ArrayList<>(); 
-							String scope = $1.attributes.get(0).getScope();
-							String[] lexeme = scope.split("@");
-							$$.attributesSetteable.add(lexeme[0]);
+							String lexeme = $1.attributes.get(0).getLexeme();
+							$1.attributes.get($1.attributes.size()-1).setFlag();
+							$$.attributesSetteable.add(lexeme);
 
                         }
 						| lista_variables ',' ID
 						{ 
 							$$ = $1; 
-							String scope = $3.attributes.get(0).getScope();
-							String[] lexeme = scope.split("@");
-							$$.attributesSetteable.add(lexeme[0]);
-
+							String lexeme = $3.attributes.get(0).getLexeme();
+							$3.attributes.get($3.attributes.size()-1).setFlag();
+							$$.attributesSetteable.add(lexeme);
 						}
 						;
 
 tipo					: ULONGINT 
 						{
 							$$.type = Type.ULONGINT;
-							$$.tree  = new SyntacticTree(null, null, "ULONGINT");
+							Attribute attribute = new Attribute("ULONGINT");
+							$$.tree  = new SyntacticTreeCONV(null, null, attribute);
 
 						}					
 						| DOUBLE
 						{
 							$$.type = Type.DOUBLE;
-							$$.tree  = new SyntacticTree(null, null, "DOUBLE");
+							Attribute attribute = new Attribute("DOUBLE");
+							$$.tree = new SyntacticTreeCONV(null, null, attribute);
 						}
 						;
 
 /* Sentencias Ejecutables */
-llamado_PROC 			: ID '(' parametro_invocacion ')' 
+llamado_PROC 			: ID '(' ID ')' 
+						{ 
+							addRule("Linea "+ la.getNroLinea() +": Llamado a procedimiento con un parametro");
+							String lexeme = $1.attributes.get(0).getLexeme();
+							String lexemeParam = $3.attributes.get(0).getLexeme();
+
+							$1.attributes.get($1.attributes.size()-1).setUse(Use.llamado_procedimiento);
+
+			                List<Parameter> formalParameters = checkIDPROC($1.attributes, lexeme);
+
+			                String scope = $1.attributes.get(0).getLexeme() + this.globalScope;
+			               	$1.attributes.get($1.attributes.size()-1).setScopePROC(scope);
+
+			                List<Type> types = new ArrayList<>();
+
+			                lexeme = $3.attributes.get(0).getLexeme();
+
+			                Attribute attribute = this.checkID($3.attributes, lexeme);
+			                Parameter ID1 = new Parameter(attribute.getScope(), attribute.getType());
+                    		if(attribute != null)
+                        		types.add(attribute.getType());
+
+                        	this.checkParameters(formalParameters, types);
+
+                        	List<Parameter> parameters = new ArrayList<>();
+                        	parameters.add(ID1);
+			                $1.attributes.get($1.attributes.size()-1).setParameters(parameters);
+
+                        	Attribute ID = $1.attributes.get($1.attributes.size()-1);
+                        	ID.setScopePROC(this.PROCscope);
+							$$.tree = new SyntacticTreeCALL($1.tree, ID, formalParameters);
+
+						}
+						|ID '(' ID ',' ID ')' 
 						{ 
 							addRule("Linea "+ la.getNroLinea() +": Llamado a procedimiento con parametros");
-							//$$.tree = new SyntacticTree(new SyntacticTree(null, null, $1.attribute.getLexeme()), $3.tree,"LLAMADO PROC SIN PAR");
+							String lexeme = $1.attributes.get(0).getLexeme();
+
+			                $1.attributes.get($1.attributes.size()-1).setUse(Use.llamado_procedimiento);
+
+			                List<Parameter> formalParameters = checkIDPROC($1.attributes, lexeme);
+
+			                String scope = $1.attributes.get(0).getLexeme() + this.globalScope;
+			               	$1.attributes.get($1.attributes.size()-1).setScopePROC(scope);
+
+			                List<Type> types = new ArrayList<>();
+
+			                Attribute attribute = this.checkID($3.attributes, $3.attributes.get(0).getLexeme());
+			                Parameter ID1 = new Parameter(attribute.getScope(), attribute.getType());
+                    		if(attribute != null)
+                        		types.add(attribute.getType());
+
+                    		attribute = this.checkID($5.attributes, $5.attributes.get(0).getLexeme());
+                    		Parameter ID2 = new Parameter(attribute.getScope(), attribute.getType());
+                    		if(attribute != null)
+                        		types.add(attribute.getType());
+
+                        	this.checkParameters(formalParameters, types);
+
+                        	List<Parameter> parameters = new ArrayList<>();
+			               	parameters.add(ID1);
+			               	parameters.add(ID2);
+			                $1.attributes.get($1.attributes.size()-1).setParameters(parameters);
+							Attribute ID = $1.attributes.get($1.attributes.size()-1);
+							ID.setScopePROC(this.PROCscope);
+							$$.tree = new SyntacticTreeCALL($1.tree, ID, formalParameters);
+						}
+
+						|ID '(' ID ',' ID ',' ID ')' 
+						{ 
+							addRule("Linea "+ la.getNroLinea() +": Llamado a procedimiento con parametros");
+							String lexeme = $1.attributes.get(0).getLexeme();
+
+			                $1.attributes.get($1.attributes.size()-1).setUse(Use.llamado_procedimiento);
+			                List<Parameter> formalParameters = checkIDPROC($1.attributes, lexeme);
+
+			                String scope = $1.attributes.get(0).getLexeme() + this.globalScope;
+			               	$1.attributes.get($1.attributes.size()-1).setScopePROC(scope);
+
+			                List<Type> types = new ArrayList<>();
+
+			                Attribute attribute = this.checkID($3.attributes, $3.attributes.get(0).getLexeme());
+			                Parameter ID1 = new Parameter(attribute.getScope(), attribute.getType());
+                    		if(attribute != null)
+                        		types.add(attribute.getType());
+
+                    		attribute = this.checkID($5.attributes, $5.attributes.get(0).getLexeme());
+                    		Parameter ID2 = new Parameter(attribute.getScope(), attribute.getType());
+                    		if(attribute != null)
+                        		types.add(attribute.getType());
+
+                        	attribute = this.checkID($7.attributes, $7.attributes.get(0).getLexeme());
+                        	Parameter ID3 = new Parameter(attribute.getScope(), attribute.getType());
+                    		if(attribute != null)
+                        		types.add(attribute.getType());
+
+			                this.checkParameters(formalParameters, types);
+
+			               	List<Parameter> parameters = new ArrayList<>();
+			               	parameters.add(ID1);
+			               	parameters.add(ID2);
+			               	parameters.add(ID3);
+			                $1.attributes.get($1.attributes.size()-1).setParameters(parameters);
+							Attribute ID = $1.attributes.get($1.attributes.size()-1);
+							ID.setScopePROC(this.PROCscope);
+
+							$$.tree = new SyntacticTreeCALL($1.tree, ID, formalParameters);
 
 						}
 						| ID '(' ')' 
 						{ 
 							addRule("Linea "+ la.getNroLinea() +": Llamado a procedimiento sin parametros");
-							//$$.tree = new SyntacticTree(new SyntacticTree(null, null, $1.attributes.get(0).getScope()), "LLAMADO PROC SIN PAR");
+							String lexeme = $1.attributes.get(0).getLexeme();
 
-							$1.attributes.get($1.attributes.size()-1).setUse(Use.llamado_procedimiento);
-			                $1.attributes = getListUse($1.attributes, Use.nombre_procedimiento);
-			                boolean encontro = false;
-			                if($1.attributes.isEmpty())
-			                    encontro = false;
-			                else {
-			                    String[] scope = $1.attributes.get(0).getScope().split("@");
-			                    String lexeme = scope[0];
+			                $1.attributes.get($1.attributes.size()-1).setUse(Use.llamado_procedimiento);
+			                List<Parameter> formalParameters = checkIDPROC($1.attributes, lexeme);
 
-			                    for (Attribute attribute : $1.attributes) {
-			                        encontro = sa.isRedeclared(this.globalScope, lexeme, attribute);
-			                        if (encontro) {
-			                            break;
-			                        }
-			                    }
-			                }
-			                if(!encontro){
-			                    addError("Error Semántico en línea "+ la.getNroLinea() +": No se encuentra declaración de procedimiento al alcance");
-			                }
+			                String scope = $1.attributes.get(0).getLexeme() + this.globalScope;
+			               	$1.attributes.get($1.attributes.size()-1).setScopePROC(scope);
+
+			                List<Type> types = new ArrayList<>();
+
+			                this.checkParameters(formalParameters, types);
+
+			                Attribute ID = $1.attributes.get($1.attributes.size()-1);
+			                ID.setScopePROC(this.PROCscope);
+							$$.tree = new SyntacticTreeCALL($1.tree, ID);	
 						}
-
-						|ID '(' parametro_invocacion error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Llamado a procedimiento - Se espera )"); }
 						;
 
 /* IF */
@@ -335,7 +487,8 @@ llamado_PROC 			: ID '(' parametro_invocacion ')'
 sentencia_if			:IF condicion_IF cuerpo END_IF
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia IF");
-							$$.tree = new SyntacticTree($2.tree, $3.tree, "IF");
+							Attribute IF = new Attribute("IF");
+							$$.tree = new SyntacticTreeIF($2.tree, $3.tree, IF);
 						}
 
 						|IF condicion_IF cuerpo error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF - Se espera END_IF"); }
@@ -346,45 +499,89 @@ sentencia_if			:IF condicion_IF cuerpo END_IF
 cuerpo 					:bloque_IF bloque_else
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia IF ELSE - Cuerpo");
-							$$.tree = new SyntacticTree($1.tree, $2.tree, "CUERPO_IF_ELSE");
+							Attribute CUERPO_IF_ELSE = new Attribute("CUERPO_IF_ELSE");
+							$$.tree = new SyntacticTreeIFBODY($1.tree, $2.tree, CUERPO_IF_ELSE);
 						}
 						|bloque_IF
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Cuerpo");
-							$$.tree = new SyntacticTree($1.tree, "CUERPO_IF");
+							Attribute CUERPO_IF = new Attribute("CUERPO_IF");
+							$$.tree = new SyntacticTreeIFBODY($1.tree, CUERPO_IF);
 						}
 						;
 
 
 condicion_IF 			:'(' expresion '<' expresion ')'
 						{
-							addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Condicion <.");
-							$$.tree = new SyntacticTree(new SyntacticTree($2.tree, $4.tree, "<"), "COND");
+							addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Condicion <");
+
+			                Attribute MENOR = new Attribute("<");
+
+			                $$.tree = new SyntacticTreeIFCMP($2.tree, $4.tree, MENOR);
+
+							if(!this.checkType($$.tree.getLeft())){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion IF < - Incompatibilidad de tipos");
+							}
 						}
 						|'(' expresion '>' expresion ')'
 						{
 							addRule("Linea "+ la.getNroLinea() +":Sentencia IF - Condicion >.");
-							$$.tree = new SyntacticTree(new SyntacticTree($2.tree, $4.tree, ">"), "COND");
+
+			                Attribute MAYOR = new Attribute(">");
+
+			                $$.tree = new SyntacticTreeIFCMP($2.tree, $4.tree, MAYOR);
+
+							if(!this.checkType($$.tree.getLeft())){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion IF > - Incompatibilidad de tipos");
+							}
 						}
 						|'('expresion IGUAL expresion ')'
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Condicion ==.");
-							$$.tree = new SyntacticTree(new SyntacticTree($2.tree, $4.tree, "=="), "COND");
+
+			                Attribute IGUAL = new Attribute("==");
+
+			                $$.tree = new SyntacticTreeIFCMP($2.tree, $4.tree, IGUAL);
+
+							if(!this.checkType($$.tree.getLeft())){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion IF == - Incompatibilidad de tipos");
+							}
 						}
 						|'('expresion MAYOR_IGUAL expresion ')'
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Condicion >=.");
-							$$.tree = new SyntacticTree(new SyntacticTree($2.tree, $4.tree, ">="), "COND");
+
+			                Attribute MAYOR_IGUAL = new Attribute(">=");
+
+			                $$.tree = new SyntacticTreeIFCMP($2.tree, $4.tree, MAYOR_IGUAL);
+
+							if(!this.checkType($$.tree.getLeft())){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion IF >= - Incompatibilidad de tipos");
+							}
 						}
 						|'('expresion MENOR_IGUAL expresion ')'
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Condicion <=.");
-							$$.tree = new SyntacticTree(new SyntacticTree($2.tree, $4.tree, "<="), "COND");
+
+			                Attribute MENOR_IGUAL = new Attribute("<=");
+
+			                $$.tree = new SyntacticTreeIFCMP($2.tree, $4.tree, MENOR_IGUAL);
+
+							if(!this.checkType($$.tree.getLeft())){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion IF <= - Incompatibilidad de tipos");
+							}
 						}
 						|'('expresion DISTINTO expresion ')'
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Condicion !=.");
-							$$.tree = new SyntacticTree(new SyntacticTree($2.tree, $4.tree, "!="), "COND");
+							
+			                Attribute DISTINTO = new Attribute("!=");
+
+			                $$.tree = new SyntacticTreeIFCMP($2.tree, $4.tree, DISTINTO);
+
+							if(!this.checkType($$.tree.getLeft())){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion IF != - Incompatibilidad de tipos");
+							}
 						}
 
 						|'(' expresion '<' expresion error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera )"); }
@@ -404,29 +601,35 @@ condicion_IF 			:'(' expresion '<' expresion ')'
 						|'(' expresion error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera comparador"); }
 
 						|'(' error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera expresion izquierda"); }
-
-						| error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera ("); }
 						;
 
 
 bloque_IF 				:'{' cuerpo_ejecutable '}'
 						{ 
 							addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Bloque de sentencias");
-							$$.tree = new SyntacticTree($2.tree, "BLOQUE_IF");
+							Attribute attribute = new Attribute("BLOQUE THEN");
+							$$.tree = new SyntacticTreeIFTHEN($2.tree, attribute);
 						}
 						|sent_ejecutable 
 						{
-							$$.tree = $1.tree;
+							Attribute attribute = new Attribute("BLOQUE THEN");
+							$$.tree = new SyntacticTreeIFTHEN($1.tree, attribute);
 						}
 
 						|'{' cuerpo_ejecutable error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF bloque - Se espera } finalizacion BLOQUE IF");}
 						|'{' error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF bloque - Se espera cuerpo_ejecutable");}
 						;
 
-bloque_else				:ELSE bloque_IF
+bloque_else				:ELSE '{' cuerpo_ejecutable '}'
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia IF ELSE - bloque de sentencias ELSE");
-							$$.tree = new SyntacticTree($2.tree, "BLOQUE_ELSE");
+							Attribute attribute = new Attribute("BLOQUE ELSE");
+							$$.tree = new SyntacticTreeIFELSE($3.tree, attribute);
+						}
+						|ELSE sent_ejecutable
+						{
+							Attribute attribute = new Attribute("BLOQUE ELSE");
+							$$.tree = new SyntacticTreeIFELSE($2.tree, attribute);
 						}
 
 						|ELSE error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF ELSE - Se espera bloque de sentencias");}
@@ -435,7 +638,7 @@ bloque_else				:ELSE bloque_IF
 bloque_FOR 				:'{' cuerpo_ejecutable '}' ';'
 						{ 
 							addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Bloque de sentencias");
-							$$.tree = new SyntacticTree($2.tree, "BLOQUE_FOR");
+							$$.tree = $2.tree;
 						}
 						|sent_ejecutable 
 						{
@@ -453,15 +656,22 @@ cuerpo_ejecutable 		:sent_ejecutable
 						}
 						|cuerpo_ejecutable sent_ejecutable
 						{
-							$$.tree = new SyntacticTree($1.tree, $2.tree, "SENTENCIA");
+							Attribute attribute = new Attribute("SENTENCIA");
+							$$.tree = new SyntacticTreeBODY($1.tree, $2.tree, attribute);
 						}
 						;
 
 
-asignacion 				:tipo_ID '=' expresion {
-												addRule("Linea "+ la.getNroLinea() +": Asignacion");
-												$$.tree = new SyntacticTree($1.tree, $3.tree, "=");
-												}
+asignacion 				:tipo_ID '=' expresion 
+						{
+							addRule("Linea "+ la.getNroLinea() +": Asignacion");
+							Attribute attribute = new Attribute("=");
+							$$.tree = new SyntacticTreeASIG($1.tree, $3.tree, attribute);
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Asignacion - Incompatibilidad de tipos");
+							}
+
+						}
 
 						|tipo_ID '=' error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Asignacion - Se espera expresion lado derecho");}
 						|tipo_ID error expresion {addError("Error Sintactico en linea "+ la.getNroLinea() +": Asignacion - Se espera =");}
@@ -469,41 +679,32 @@ asignacion 				:tipo_ID '=' expresion {
 						;
 
 /* FOR */
-
-sentencia_control 		:FOR '(' asignacion_FOR ';' condicion_FOR_dos
+sentencia_control		:FOR '(' asignacion_FOR ';' comparacion_FOR ';' incr_decr ')' bloque_FOR
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia FOR");
-							$$.tree = new SyntacticTree($3.tree, $5.tree, "FOR_ASIGNACION");
+							Attribute headFor = new Attribute("INICIO FOR");
+							Attribute FOR = new Attribute("FOR");
+							Attribute bodyFor = new Attribute("CUERPO FOR");
+							SyntacticTree node = new SyntacticTreeFORBODY($9.tree, $7.tree, bodyFor);
+							$$.tree = new SyntacticTreeFORHEAD($3.tree, new SyntacticTreeFOR($5.tree, node, FOR), headFor);
 						}
-
-						|FOR '(' asignacion_FOR error { addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR - Se espera ;."); }
-						|FOR '(' error { addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR - Se espera asignacion"); }
-						|FOR error { addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR - Se espera ("); }
 						;
-
-condicion_FOR_dos		: comparacion_FOR ';' condicion_FOR_tres 
-						{
-							$$.tree = new SyntacticTree(new SyntacticTree($1.tree, "COMPARACION"), new SyntacticTree($3.tree, "CUERPO"), "FOR");
-						}
-						|comparacion_FOR error condicion_FOR_tres {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera ;"); }
-						|error ';' condicion_FOR_tres {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera condicion antes de ;"); }
-						;
-
-condicion_FOR_tres		: incr_decr ')' bloque_FOR
-						{
-							$$.tree = new SyntacticTree($1.tree, $3.tree, "SENTENCIAS_FOR");
-						}
-						|error ')' bloque_FOR {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera UP/DOWN NRO_ULONGINT"); }
-						|incr_decr error bloque_FOR {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera )"); }
-						|incr_decr ')' error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera bloque_FOR"); }
-						;
-
 
 asignacion_FOR 			:ID '=' NRO_ULONGINT
 						{
 							addRule("Linea "+ la.getNroLinea() +": ASIGNACION_FOR");
+							String lexeme = $1.attributes.get(0).getLexeme();
 
-							$$.tree = new SyntacticTree(new SyntacticTree(null, null, $1.attributes.get(0).getScope()), new SyntacticTree(null, null, $3.attributes.get(0).getScope()), "=");
+			                Attribute ID = this.checkID($1.attributes, lexeme);
+
+			                Attribute NRO_ULONGINT = $3.attributes.get($3.attributes.size()-1);
+			                Attribute ASIGNACION = new Attribute("=");
+
+							$$.tree = new SyntacticTreeFORASIG(new SyntacticTreeLeaf(null, null, ID), new SyntacticTreeLeaf(null, null, NRO_ULONGINT), ASIGNACION);
+
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Asignacion - Incompatibilidad de tipos");
+							}
 						}
 
 						|ID '=' error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR asignacion - Se espera NRO_ULONGINT lado derecho"); }
@@ -514,58 +715,114 @@ asignacion_FOR 			:ID '=' NRO_ULONGINT
 comparacion_FOR			:ID '<' expresion
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion <.");
-							//$$.tree = new SyntacticTree(new SyntacticTree(null, null, $1.attributes.get(0).getScope()), $3.tree, "<");
+							String lexeme = $1.attributes.get(0).getLexeme();
+
+			                Attribute attribute = this.checkID($1.attributes, lexeme);
+
+			                Attribute ID = $1.attributes.get($1.attributes.size()-1);
+			                ID.setFlag();
+			                Attribute MENOR = new Attribute("<");
+
+							$$.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), $3.tree, MENOR);
+
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion FOR < - Incompatibilidad de tipos");
+							}
 						}
 						|ID '>' expresion
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion >");
-							//$$.tree = new SyntacticTree(new SyntacticTree(null, null, $1.attributes.get(0).getScope()), $3.tree, ">");
+							String lexeme = $1.attributes.get(0).getLexeme();
+
+			                Attribute attribute = this.checkID($1.attributes, lexeme);
+
+			                Attribute ID = $1.attributes.get($1.attributes.size()-1);
+			                ID.setFlag();
+			                Attribute MAYOR = new Attribute(">");
+
+							$$.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), $3.tree, MAYOR);
+
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion FOR > - Incompatibilidad de tipos");
+							}
 						}
 						|ID IGUAL expresion
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion ==");
-							//$$.tree = new SyntacticTree(new SyntacticTree(null, null, $1.attributes.get(0).getScope()), $3.tree, "==");
+							String lexeme = $1.attributes.get(0).getLexeme();
+
+			                Attribute attribute = this.checkID($1.attributes, lexeme);
+
+			                Attribute ID = $1.attributes.get($1.attributes.size()-1);
+			                ID.setFlag();
+			                Attribute MENOR_IGUAL = new Attribute("==");
+
+							$$.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), $3.tree, MENOR_IGUAL);
+
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion FOR == - Incompatibilidad de tipos");
+							}
 						}
 						|ID MAYOR_IGUAL expresion
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion >=");
-							//$$.tree = new SyntacticTree(new SyntacticTree(null, null, $1.attributes.get(0).getScope()), $3.tree, ">=");
+							String lexeme = $1.attributes.get(0).getLexeme();
+
+			                Attribute attribute = this.checkID($1.attributes, lexeme);
+
+			                Attribute ID = $1.attributes.get($1.attributes.size()-1);
+			                ID.setFlag();
+			                Attribute MENOR_IGUAL = new Attribute(">=");
+
+							$$.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), $3.tree, MENOR_IGUAL);
+
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion FOR >= - Incompatibilidad de tipos");
+							}
 						}
 						|ID MENOR_IGUAL expresion
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion <=");
-							//$$.tree = new SyntacticTree(new SyntacticTree(null, null, $1.attributes.get(0).getScope()), $3.tree, "<=");
+							String lexeme = $1.attributes.get(0).getLexeme();
+
+			                Attribute attribute = this.checkID($1.attributes, lexeme);
+
+			                Attribute ID = $1.attributes.get($1.attributes.size()-1);
+			                ID.setFlag();
+			                Attribute MENOR_IGUAL = new Attribute("<=");
+
+							$$.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), $3.tree, MENOR_IGUAL);
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion FOR <= - Incompatibilidad de tipos");
+							}
 						}
 						|ID DISTINTO expresion
 						{
 							addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion !=");
-							$$.tree = new SyntacticTree(new SyntacticTree(null, null, $1.attributes.get(0).getScope()), $3.tree, "!=");
+							String lexeme = $1.attributes.get(0).getLexeme();
+
+			                Attribute attribute = this.checkID($1.attributes, lexeme);
+
+			                Attribute ID = $1.attributes.get($1.attributes.size()-1);
+			                ID.setFlag();
+			                Attribute DISTINTO = new Attribute("!=");
+
+							$$.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), $3.tree, DISTINTO);
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Condicion FOR != - Incompatibilidad de tipos");
+							}
 						}
-
-						|ID '<' error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera expresion lado derecho comparacion"); }
-						|ID '>' error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera expresion lado derecho comparacion"); }
-						|ID IGUAL error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera expresion lado derecho comparacion"); }
-						|ID MAYOR_IGUAL error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera expresion lado derecho comparacion"); }
-						|ID MENOR_IGUAL error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera expresion lado derecho comparacion"); }
-						|ID DISTINTO error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera expresion lado derecho comparacion"); }
-
-						|ID error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera comparador"); }
-
-						|error '<' expresion {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera ID lado izquierdo comparacion"); }
-						|error '>' expresion {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera ID lado izquierdo comparacion"); }
-						|error IGUAL expresion {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera ID lado izquierdo comparacion"); }
-						|error MAYOR_IGUAL expresion {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera ID lado izquierdo comparacion"); }
-						|error MENOR_IGUAL expresion {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera ID lado izquierdo comparacion"); }
-						|error DISTINTO expresion {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR condicion - Se espera ID lado izquierdo comparacion"); }
 						;
 
 incr_decr				: UP NRO_ULONGINT
 						{
-							$$.tree  = new SyntacticTree(new SyntacticTree(null, null, $2.attributes.get(0).getScope()), "UP");
+							Attribute attribute = new Attribute("UP");
+							$$.tree  = new SyntacticTreeFORUP(new SyntacticTreeLeaf(null, null, $2.attributes.get(0)), attribute);
 						}
 						| DOWN NRO_ULONGINT
 						{
-							$$.tree  = new SyntacticTree(new SyntacticTree(null, null, $2.attributes.get(0).getScope()), "DOWN");
+							Attribute attribute = new Attribute("DOWN");
+							$$.tree  = new SyntacticTreeFORDOWN(new SyntacticTreeLeaf(null, null, $2.attributes.get(0)), attribute);
 						}
 
 						|DOWN error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR decremento - Se espera NRO_ULONGINT"); }
@@ -579,7 +836,9 @@ imprimir 				: OUT '(' CADENA ')'
 						{	
 							System.out.println($3.attributes.get(0).getScope());
 							addRule("Linea "+ la.getNroLinea() +": Sentencia OUT");
-							$$.tree  = new SyntacticTree(new SyntacticTree(null, null, $3.attributes.get(0).getScope()), "IMPRIMIR");
+							Attribute cadena = new Attribute($3.attributes.get(0).getLexeme());
+							Attribute OUT = new Attribute("IMPRIMIR");
+							$$.tree  = new SyntacticTreeOUT(new SyntacticTreeLeaf(null, null, cadena), OUT);
 						}
 
 						| OUT '(' CADENA error  { addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia OUT - Se espera ')'."); }
@@ -593,8 +852,20 @@ imprimir 				: OUT '(' CADENA ')'
 
 conversion_explicita	:tipo '(' expresion ')'
 						{
-							addRule("Linea "+ la.getNroLinea() +": Conversion explicita");		
-							$$.tree  = new SyntacticTree($1.tree, $3.tree, "CONVERSION");
+							addRule("Linea "+ la.getNroLinea() +": Conversion explicita");	
+							Attribute attribute = new Attribute("CONVERSION");	
+							$$.tree  = new SyntacticTreeCONV($1.tree, attribute);
+							
+							if(!this.checkType($3.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Conversion explicita - Incompatibilidad de tipos");
+								$$.tree.getAttribute().setType(Type.ERROR);
+							}else{
+								if(!$1.tree.getType().getName().equals($3.tree.getType().getName()))
+									$$.tree.getAttribute().setType($1.tree.getType());
+								else
+									addError("Error Semántico en linea "+ la.getNroLinea() +": Conversion explicita - Se quiere convertir a un mismo tipo");
+									$$.tree.getAttribute().setType(Type.ERROR);
+							}
 						}
 
 						|tipo '(' expresion error {addError("Error Sintactico en linea "+ la.getNroLinea() +": Conversion explicita - Se espera ')'."); }
@@ -606,18 +877,22 @@ conversion_explicita	:tipo '(' expresion ')'
 expresion 				: expresion '+' termino 
 						{
 							addRule("Linea "+ la.getNroLinea() +": Suma");
-							$$.tree = new SyntacticTree($1.tree, $3.tree, "+");
+							Attribute attribute = new Attribute("+");
+							$$.tree = new SyntacticTreeADD($1.tree, $3.tree, attribute);
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Suma - Incompatibilidad de tipos");
+							}
 						}
 						| expresion '-' termino 
 						{
 							addRule("Linea "+ la.getNroLinea() +": Resta");
-							$$.tree = new SyntacticTree($1.tree, $3.tree, "-");
+							Attribute attribute = new Attribute("-");
+							$$.tree = new SyntacticTreeSUB($1.tree, $3.tree, attribute);
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Resta - Incompatibilidad de tipos");
+							}
 						}
 						|termino 
-						{
-							$$.tree = $1.tree;
-						}
-						|conversion_explicita
 						{
 							$$.tree = $1.tree;
 						}
@@ -631,13 +906,22 @@ expresion 				: expresion '+' termino
 termino 				:termino '*' factor 
 						{
 							addRule("Linea "+ la.getNroLinea() +": Multiplicacion");
-							$$.tree = new SyntacticTree($1.tree, $3.tree, "*");
+							Attribute attribute = new Attribute("*");
+							$$.tree = new SyntacticTreeMUL($1.tree, $3.tree, attribute);
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Multiplicacion - Incompatibilidad de tipos");
+							}
 						}
 						|termino '/' factor 
 						{
 							addRule("Linea "+ la.getNroLinea() +": Division");
-							$$.tree = new SyntacticTree($1.tree, $3.tree, "/");
+							Attribute attribute = new Attribute("/");
+							$$.tree = new SyntacticTreeDIV($1.tree, $3.tree, attribute);
+							if(!this.checkType($$.tree)){
+								addError("Error Semántico en linea "+ la.getNroLinea() +": Division - Incompatibilidad de tipos");
+							}
 						}
+
 						|factor 
 						{
 							$$.tree = $1.tree;
@@ -652,33 +936,44 @@ termino 				:termino '*' factor
 factor 					:NRO_ULONGINT 
 						{
 							addRule("Linea "+ la.getNroLinea() +": NRO_ULONGINT.");
-
-							$$.tree  = new SyntacticTree(null, null, $1.attributes.get(0).getScope());
+							$1.attributes.get($1.attributes.size()-1).setFlag();
+							$$.tree  = new SyntacticTreeLeaf(null, null, $1.attributes.get($1.attributes.size()-1));
 						}
 						|NRO_DOUBLE
 						{
-							$$.tree  = new SyntacticTree(null, null, $1.attributes.get(0).getScope());
-
 							addRule("Linea "+ la.getNroLinea() +": NRO_DOUBLE.");
-							$$.tree = new SyntacticTree(null, null, $1.attributes.get(0).getScope());
+							$1.attributes.get($1.attributes.size()-1).setFlag();
+							$$.tree  = new SyntacticTreeLeaf(null, null, $1.attributes.get($1.attributes.size()-1));
 						}
-						|'-' NRO_DOUBLE {
-										String lexeme = $2.attributes.get(0).getScope();
-										boolean check = la.checkNegativeDouble(lexeme);
-										if(check){
-											addError("Error Sintáctico en línea "+ la.getNroLinea() +": DOUBLE fuera de rango.");
-										}else{
-											addRule("Linea "+ la.getNroLinea() +": NRO_DOUBLE negativo.");
-											Attribute attribute = new Attribute(lexeme,"NRO_DOUBLE", Type.DOUBLE);
-											la.addSymbolTable(lexeme, attribute);
-											$2.attributes.get(0).decreaseAmount();
-											int amount = la.getAttribute(lexeme).get(0).getAmount();
-											if(amount == 0){
-												la.getSt().deleteSymbolTableEntry(lexeme);
-											}
-										}
-										}
+
+						|'-' NRO_DOUBLE 
+						{
+							String lexeme = "-" + $2.attributes.get(0).getLexeme();
+							Attribute attribute = new Attribute(lexeme, lexeme,"NRO_DOUBLE", Type.DOUBLE, Use.constante);
+							attribute.setFlag();
+							boolean check = la.checkNegativeDouble(lexeme);
+							if(check){
+								addError("Error Sintáctico en línea "+ la.getNroLinea() +": DOUBLE fuera de rango.");
+							}else{
+								addRule("Linea "+ la.getNroLinea() +": NRO_DOUBLE negativo.");
+								la.addSymbolTable(lexeme, attribute);
+								$2.attributes.get(0).decreaseAmount();
+								String positiveLexeme = $2.attributes.get(0).getLexeme();
+								int amount = la.getAttribute(positiveLexeme).get(0).getAmount();
+								if(amount == 0){
+									la.getSt().deleteSymbolTableEntry(positiveLexeme);
+								}
+							}
+
+							$$.tree  = new SyntacticTreeLeaf(null, null, attribute);
+						}
+
 						| tipo_ID 
+						{
+							$$.tree = $1.tree;
+						}
+
+						|conversion_explicita
 						{
 							$$.tree = $1.tree;
 						}
@@ -688,13 +983,28 @@ tipo_ID					:ID PUNTO_PUNTO ID
 						{
 							addRule("Linea "+ la.getNroLinea() +": ID PUNTO_PUNTO ID");
 
-							String[] scopeIz = $1.attributes.get(0).getScope().split("@");
-			                String lexemeIz = scopeIz[0];
+							String lexemeIz = $1.attributes.get(0).getLexeme();
 
-							String[] scopeDer = $3.attributes.get(0).getScope().split("@");
-			                String lexemeDer = scopeDer[0];
+							String lexemeDer = $3.attributes.get(0).getLexeme();
 
-			             	$$.tree  = new SyntacticTree(new SyntacticTree(null, null, lexemeIz), new SyntacticTree(null, null, lexemeDer), "::");
+			                $1.attributes.get($1.attributes.size()-1).setUse(Use.llamado_procedimiento_variable);
+			                
+			                List<Parameter> parameters = this.checkIDPROC($1.attributes, lexemeIz);
+			                this.deleteSTEntry(lexemeIz, Use.llamado_procedimiento_variable);
+			                Attribute attribute = this.checkID($3.attributes, lexemeDer);
+			                attribute.setFlag();
+
+			                String scopePROC = $1.attributes.get($1.attributes.size()-1).getScope();
+			                $3.attributes = getListUse($3.attributes, Use.variable);
+			                
+			                Type type = this.checkIDdospuntosID(scopePROC, lexemeDer, $3.attributes);
+
+			                if(attribute == null){
+		                    	attribute = new Attribute(lexemeDer);
+		                    	attribute.setType(Type.ERROR);
+		                    }
+
+			             	$$.tree  = new SyntacticTreeLeaf(null, null, attribute);
 						}
 
 						|ID PUNTO_PUNTO error {addError("Error Sintáctico en linea "+ la.getNroLinea() + ": Tipo ID - Se espera ID luego de ::");}
@@ -703,49 +1013,17 @@ tipo_ID					:ID PUNTO_PUNTO ID
 						{
 							addRule("Linea "+ la.getNroLinea() +": ID");
 
-							String[] scope = $1.attributes.get(0).getScope().split("@");
-			                String lexeme = scope[0];
+							String lexeme = $1.attributes.get(0).getLexeme();
 
-			                $$.tree  = new SyntacticTree(null, null, lexeme);
+		                    Attribute attribute = this.checkID($1.attributes, lexeme);
+		                    attribute.setFlag();
 
-		                    $1.attributes.get($1.attributes.size()-1).setUse(Use.variable_en_uso);
-		                    List<Attribute> variables = getListUse($1.attributes, Use.variable);
-		                    List<Attribute> parametros = getListUse($1.attributes, Use.nombre_parametro);
-
-		                    boolean encontro = false;
-
-		                    if(variables.size() > 0){
-		                    	if(parametros.size() > 0){
-		                    		parametros.addAll(variables);
-		                    		$1.attributes = parametros;
-		                   		}else{
-		                   			$1.attributes = variables;
-		                    	}
-		                    }else{
-		                   		if(parametros.size() > 0) {
-		                    		$1.attributes = parametros;
-		                    	}else {
-		                    		$1.attributes = null;
-		                    	}
+		                    if(attribute == null){
+		                    	attribute = new Attribute(lexeme);
+		                    	attribute.setType(Type.ERROR);
 		                    }
 
-		                    if($1.attributes == null){
-		                        encontro = false;
-		                    }else{	                    
-			                    for (Attribute attribute : $1.attributes) {
-			                        encontro = sa.isRedeclared(this.globalScope, lexeme, attribute);
-			                        if (encontro) {
-                               			
-                                		break;
-                            		}
-                        		}
-                        	}
-
-			                if(!encontro){
-			                    addError("Error Semántico en línea "+ la.getNroLinea() +": No se encuentra variable al alcance");
-			                }
-
-			                this.deleteSTEntry(lexeme);
+			                $$.tree  = new SyntacticTreeLeaf(null, null, attribute);
 						}
 						;
 
@@ -758,6 +1036,10 @@ private List<String> errors;
 private List<String> rules;
 private SyntacticTree syntacticTree;
 private String globalScope = "";
+private String PROCscope = "";
+private List<SyntacticTree> PROCtrees = new ArrayList<>();
+private List<SyntacticTree> PROCtreesAux = new ArrayList<>();
+private int counter = 0;
 
 public Parser(LexerAnalyzer la){
 	this.errors = new ArrayList<String>();
@@ -803,6 +1085,14 @@ public void printSyntacticTree(){
 	this.syntacticTree.printTree(this.syntacticTree);
 }
 
+public SyntacticTree returnTree(){
+	return this.syntacticTree;
+}
+
+public boolean checkType(SyntacticTree root){
+	return root.checkType(root);
+}
+
 public void setScopeProcID(Attribute attribute){
 	attribute.setUse(Use.nombre_procedimiento);
 	attribute.setScope(globalScope);
@@ -839,31 +1129,30 @@ public List<Attribute> getListUse(List<Attribute> list, Use use){
 }
 
 public void isRedeclared(List<Attribute> attributes, String lexeme, String error){
-    boolean found = false;
-    Attribute attributeParam;
-    if(!this.globalScope.isEmpty() || !(attributes.size() == 1)) {
-        if (attributes.size() == 1) {
-            attributes.get(attributes.size() - 1).setDeclared();
-            found = true;
-        }else{
-            attributeParam = attributes.get(attributes.size() - 2);
-            if (sa.isRedeclared(this.globalScope, lexeme, attributeParam)) {
-                attributes.get(attributes.size() - 1).decreaseAmount();
-                addError("Error Semantico en linea " + la.getNroLinea() + ":" + error);
-                la.getSt().deleteLastElement(lexeme);
+        boolean found = false;
+        if(!this.globalScope.isEmpty() || !(attributes.size() == 1)) {
+            if (attributes.size() == 1) {
+                attributes.get(attributes.size() - 1).setDeclared();
                 found = true;
+            }else{
+                if (sa.isRedeclared(this.globalScope, lexeme, attributes)) {
+                    attributes.get(attributes.size() - 1).decreaseAmount();
+                    addError("Error Semantico en linea " + la.getNroLinea() + ":" + error);
+                    la.getSt().deleteLastElement(lexeme);
+                    found = true;
+                }
             }
         }
+        if(!found){
+            attributes.get(attributes.size()-1).setDeclared();
+        }
     }
-    if(!found){
-        attributes.get(attributes.size()-1).setDeclared();
-    }
-}
 
-public void deleteSTEntry(String lexeme){
+//Elimina de la tabla de símbolos los atributos de un lexema, que coinciden con el uso pasado por parámetro
+public void deleteSTEntry(String lexeme, Use use){
 	List<Attribute> listAttributes = la.getSymbolTable().getSymbolTable().get(lexeme);
     for (int i=0; i<listAttributes.size(); i++){
-        if(listAttributes.get(i).getUse().equals(Use.variable_en_uso)){
+        if(listAttributes.get(i).getUse().equals(use)){
             listAttributes.remove(i);
             i--;
 		}
@@ -871,3 +1160,126 @@ public void deleteSTEntry(String lexeme){
 	la.getSymbolTable().getSymbolTable().replace(lexeme, listAttributes);
 }
 
+//Chequea si existe una variable al alcance 
+public Attribute checkID(List<Attribute> attributes, String lexeme){
+
+	attributes.remove(attributes.size()-1);
+    List<Attribute> variables = getListUse(attributes, Use.variable);
+    List<Attribute> parametros = getListUse(attributes, Use.nombre_parametro);
+
+    Attribute att = null;
+
+    boolean encontro = false;
+
+    if(variables.size() > 0){
+    	if(parametros.size() > 0){
+    		parametros.addAll(variables);
+    		attributes = parametros;
+   		}else{
+   			attributes = variables;
+    	}
+    }else{
+   		if(parametros.size() > 0) {
+    		attributes = parametros;
+    	}else {
+    		attributes = null;
+    	}
+    }
+
+    if(attributes == null){
+        encontro = false;
+    }else{	
+    	for(Attribute attribute : attributes) {                  
+       		encontro = sa.isReachable(this.globalScope, lexeme, attribute);
+       		if(encontro){
+       			att = attribute;
+       			break;
+       		}
+       	}
+	}
+
+    if(!encontro){
+        addError("Error Semántico en línea "+ la.getNroLinea() +": No se encuentra variable al alcance");
+    }
+
+    return att;
+	
+}
+
+//Chequea si existe un procedimiento al alcance para ser llamado
+public List<Parameter> checkIDPROC(List<Attribute> attributes, String lexeme){
+    attributes = getListUse(attributes, Use.nombre_procedimiento);
+    List<Parameter> parameters = new ArrayList<>();
+    boolean encontro = false;
+    if(attributes.isEmpty())
+        encontro = false;
+    else {
+    	for(Attribute attribute : attributes) { 
+			encontro = sa.isReachable(this.globalScope, lexeme, attribute);
+			if(encontro){
+				this.PROCscope = attribute.getScope();
+				parameters = attribute.getParameters();
+				break;
+			}
+       			 
+		}
+    }
+    if(!encontro){
+        addError("Error Semántico en línea "+ la.getNroLinea() +": No se encuentra declaración de procedimiento al alcance");
+    }
+
+    return parameters;
+}
+
+
+//Chequear que exista una variable en el ámbito del procedimiento
+public Type checkIDdospuntosID(String scopePROC, String lexeme, List<Attribute> attributes){
+	String[] scopeSplit = scopePROC.split("@");
+	String scope = lexeme + "@";
+	for(int i = 1; i < scopeSplit.length; i++)
+		scope += scopeSplit[i] + "@";
+	scope += scopeSplit[0];
+	boolean encontro = false;
+	for(int i = attributes.size()-1; i >= 0; i--){
+		if (attributes.get(i).getScope().equals(scope))
+			return attributes.get(i).getType();	
+	}
+
+	if(!encontro)
+		  addError("Error Semántico en línea "+ la.getNroLinea() +": No se encuentra variable al alcance (ID::ID)");
+
+	return Type.ERROR;
+
+}
+
+
+public void checkParameters(List<Parameter> formalParameters, List<Type> types){
+	if(formalParameters.isEmpty() && !types.isEmpty() || !formalParameters.isEmpty() && types.isEmpty()){
+		addError("Error Semantico en linea "+ la.getNroLinea() +": Llamado a procedimiento con numero erroneo de parametros");
+	}else{
+		if(types.size() != formalParameters.size())
+				addError("Error Semantico en linea "+ la.getNroLinea() +": Llamado a procedimiento con distinto numero de parametros");
+			else{
+				if(!formalParameters.isEmpty() && !types.isEmpty()){
+					for(int i=0; i < formalParameters.size(); i++){
+						if(!formalParameters.get(i).getType().getName().equals(types.get(i).getName())){
+							addError("Error Semantico en linea "+ la.getNroLinea() +": Llamado a procedimiento con parametro cuyo tipo no coincide");
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+public List<SyntacticTree> getPROCtreeList(){
+	List<SyntacticTree> list = new ArrayList<>(this.PROCtrees);
+	return list;
+}
+
+public void printPROCtree(){
+	for(SyntacticTree node : this.PROCtrees){
+    	node.printTree(node);
+	}
+}					

@@ -2,6 +2,8 @@
 import Lexer.LexerAnalyzer;
 import Lexer.Token;
 import Parser.Parser;
+import SymbolTable.Attribute;
+import SymbolTable.SymbolTable;
 import SyntacticTree.SyntacticTree;
 import AssemblerGenerator.*;
 
@@ -14,6 +16,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Hashtable;
 import java.util.List;
 
 public class Main {
@@ -94,7 +97,8 @@ public class Main {
                 RegisterContainer registerContainer = new RegisterContainer();
                 SyntacticTree syntacticTree = parser.returnTree();
                 AssemblerGenerator ag = new AssemblerGenerator(syntacticTree);
-                String assembler = ag.printAssembler(PROCtrees, syntacticTree, registerContainer);
+                SymbolTable st = lexerAnalyzer.getSt();
+                String assembler = ag.printAssembler(PROCtrees, syntacticTree, registerContainer, st);
                 generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\assembler.asm", assembler);
             }
             //generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Salida.txt", textoSalida);

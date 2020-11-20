@@ -26,8 +26,8 @@ public class SyntacticTreeSUB extends SyntacticTree{
         if(checkChildrenUse()) {
             register = resgisterContainer.getRegister();
             attribute = new Attribute(register, Use.registro);
-            assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getLexeme() + '\n';
-            assembler += "SUB " + register + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
+            assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getScope() + '\n';
+            assembler += "SUB " + register + ", _" + this.getRight().getAttribute().getScope() + '\n';
         }
 
         //if(izquierdo es menor que el derecho) then activo flag (saltar a fin de programa)
@@ -39,12 +39,12 @@ public class SyntacticTreeSUB extends SyntacticTree{
             attribute = this.getLeft().getAttribute();
         }else{
             if(this.getLeft().getAttribute().getUse().equals(Use.registro)) {
-                assembler += "SUB " + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
+                assembler += "SUB " + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getScope() + '\n';
                 attribute = this.getLeft().getAttribute();
             }else {
                 if (this.getRight().getAttribute().getUse().equals(Use.registro)) {
                     register = resgisterContainer.getRegister();
-                    assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getLexeme() + '\n';
+                    assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getScope() + '\n';
                     assembler += "SUB " + register + ", " + this.getRight().getAttribute().getLexeme() + '\n';
                     resgisterContainer.setAverableRegister(this.getRight().getAttribute().getLexeme());
                     attribute = new Attribute(register, Use.registro);
@@ -56,34 +56,3 @@ public class SyntacticTreeSUB extends SyntacticTree{
         return assembler;
     }
 }
-/*
-     String assembler = "";
-        String register = "";
-        Attribute attribute = null;
-        if(checkChildrenUse()) {
-            register = resgisterContainer.getRegister();
-            attribute = new Attribute(register, Use.registro);
-            assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getLexeme() + '\n';
-            assembler += "ADD " + register + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
-        }
-
-        if(this.getLeft().getAttribute().getUse().equals(Use.registro) &&
-        this.getRight().getAttribute().getUse().equals(Use.registro)) {
-            assembler += "ADD " + this.getLeft().getAttribute().getLexeme() + ", " + this.getRight().getAttribute().getLexeme() + '\n';
-            resgisterContainer.setAverableRegister(this.getRight().getAttribute().getLexeme()) ;
-            attribute = this.getLeft().getAttribute();
-        }else
-            if(this.getLeft().getAttribute().getUse().equals(Use.registro)) {
-                assembler += "ADD " + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
-                attribute = this.getLeft().getAttribute();
-            }else{
-                if(this.getRight().getAttribute().getUse().equals(Use.registro)){
-                    assembler += "ADD " + this.getRight().getAttribute().getLexeme() + ", _" + this.getLeft().getAttribute().getLexeme() + '\n';
-                    attribute = this.getRight().getAttribute();
-                }
-            }
-
-        this.deleteChildren(this);
-        this.replaceRoot(this, attribute);
-        return assembler;
- */

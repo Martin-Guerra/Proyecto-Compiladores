@@ -23,22 +23,20 @@ public class SyntacticTreeFORCMP extends SyntacticTree{
     @Override
     public String generateAssemblerCode(RegisterContainer resgisterContainer) {
         String assembler = "";
-        String register = "";
-        Attribute attribute = null;
 
         if(this.getRight().getAttribute().getUse().equals(Use.registro)) {
-            assembler += "CMP _" + this.getLeft().getAttribute().getLexeme() + ", " + this.getRight().getAttribute().getLexeme() + '\n';
+            assembler += "CMP _" + this.getLeft().getAttribute().getScope() + ", " + this.getRight().getAttribute().getLexeme() + '\n';
             resgisterContainer.setAverableRegister(this.getRight().getAttribute().getLexeme());
         }else
-                assembler += "CMP _" + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
+                assembler += "CMP _" + this.getLeft().getAttribute().getScope() + ", _" + this.getRight().getAttribute().getScope() + '\n';
 
         String label = "FOR_CMP" + ++counter;
-        assembler += getAssemblerIfCondition() + label + '\n';
+        assembler += getAssemblerFORCondition() + label + '\n';
         SyntacticTreeFOR.jLabel.push(label);
         return assembler;
     }
 
-    public String getAssemblerIfCondition(){
+    public String getAssemblerFORCondition(){
         String assembler;
         switch(this.getLexeme())
         {

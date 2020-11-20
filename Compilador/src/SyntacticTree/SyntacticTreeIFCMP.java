@@ -28,7 +28,7 @@ public class SyntacticTreeIFCMP extends SyntacticTree{
         if(this.getLeft().getAttribute().getUse().equals(Use.constante)) {
             register = resgisterContainer.getRegister();
             attribute = new Attribute(register, Use.registro);
-            assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getLexeme() + '\n';
+            assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getScope() + '\n';
             this.replaceRoot(this.getLeft(), attribute);
         }
 
@@ -39,33 +39,24 @@ public class SyntacticTreeIFCMP extends SyntacticTree{
                 resgisterContainer.setAverableRegister(this.getRight().getAttribute().getLexeme());
         }else {
             if (this.getLeft().getAttribute().getUse().equals(Use.registro)) {
-                assembler += "CMP " + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
+                assembler += "CMP " + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getScope() + '\n';
                 resgisterContainer.setAverableRegister(this.getLeft().getAttribute().getLexeme());
             } else {
                 if (this.getRight().getAttribute().getUse().equals(Use.registro)) {
-                    assembler += "CMP " + register + ", " + this.getLeft().getAttribute().getLexeme() + '\n';
+                    assembler += "CMP " + this.getRight().getAttribute().getLexeme() + ", _" + this.getLeft().getAttribute().getScope() + '\n';
                     resgisterContainer.setAverableRegister(this.getRight().getAttribute().getLexeme());
-                } else {
-                    if ((this.getLeft().getAttribute().getUse().equals(Use.variable) &&
-                            this.getRight().getAttribute().getUse().equals(Use.variable))) {
-                        assembler += "CMP _" + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
-                    }else{
-                        if ((this.getLeft().getAttribute().getUse().equals(Use.variable) &&
-                            this.getRight().getAttribute().getUse().equals(Use.constante))) {
-                            assembler += "CMP _" + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
-                        }
-                    }
-                }
+                } else
+                    assembler += "CMP _" + this.getLeft().getAttribute().getScope() + ", _" + this.getRight().getAttribute().getScope() + '\n';
             }
         }
 
         String label = "IF_CMP" + ++counter;
-        assembler += getAssemblerIfCondition() + label + '\n';
+        assembler += getAssemblerIFCondition() + label + '\n';
         SyntacticTreeIF.jLabel.push(label);
         return assembler;
     }
 
-    public String getAssemblerIfCondition(){
+    public String getAssemblerIFCondition(){
         String assembler = "";
         switch(this.getLexeme())
         {

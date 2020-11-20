@@ -22,9 +22,9 @@ public class SyntacticTreeFORUP extends SyntacticTree{
     public String generateAssemblerCode(RegisterContainer resgisterContainer) {
         String assembler = "";
         String register = resgisterContainer.getRegister();
-        assembler += "MOV " + register + ", _" + SyntacticTreeFOR.ID.getLexeme() + '\n';
-        assembler += "ADD " + register + ", _" + this.getLeft().getLexeme() + '\n';
-        assembler += "MOV _" + SyntacticTreeFOR.ID.getLexeme() + ", " + register + '\n';
+        assembler += "MOV " + register + ", _" + SyntacticTreeFOR.ID.getScope() + '\n';
+        assembler += "ADD " + register + ", _" + this.getLeft().getAttribute().getScope() + '\n';
+        assembler += "MOV _" + SyntacticTreeFOR.ID.getScope() + ", " + register + '\n';
         resgisterContainer.setAverableRegister(register);
 
         return assembler;

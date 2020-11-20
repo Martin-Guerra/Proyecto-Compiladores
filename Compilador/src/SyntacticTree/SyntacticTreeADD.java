@@ -27,22 +27,22 @@ public class SyntacticTreeADD extends SyntacticTree{
         if(checkChildrenUse()) {
             register = resgisterContainer.getRegister();
             attribute = new Attribute(register, Use.registro);
-            assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getLexeme() + '\n';
-            assembler += "ADD " + register + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
+            assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getScope() + '\n';
+            assembler += "ADD " + register + ", _" + this.getRight().getAttribute().getScope() + '\n';
         }
 
         if(this.getLeft().getAttribute().getUse().equals(Use.registro) &&
         this.getRight().getAttribute().getUse().equals(Use.registro)) {
             assembler += "ADD " + this.getLeft().getAttribute().getLexeme() + ", " + this.getRight().getAttribute().getLexeme() + '\n';
-            resgisterContainer.setAverableRegister(this.getRight().getAttribute().getLexeme()) ;
+            resgisterContainer.setAverableRegister(this.getRight().getAttribute().getLexeme());
             attribute = this.getLeft().getAttribute();
         }else
             if(this.getLeft().getAttribute().getUse().equals(Use.registro)) {
-                assembler += "ADD " + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
+                assembler += "ADD " + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getScope() + '\n';
                 attribute = this.getLeft().getAttribute();
             }else{
                 if(this.getRight().getAttribute().getUse().equals(Use.registro)){
-                    assembler += "ADD " + this.getRight().getAttribute().getLexeme() + ", _" + this.getLeft().getAttribute().getLexeme() + '\n';
+                    assembler += "ADD " + this.getRight().getAttribute().getLexeme() + ", _" + this.getLeft().getAttribute().getScope() + '\n';
                     attribute = this.getRight().getAttribute();
                 }
             }

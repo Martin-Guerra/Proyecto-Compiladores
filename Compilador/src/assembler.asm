@@ -5,33 +5,20 @@ include \masm32\include\windows.inc
 include \masm32\include\kernel32.inc
 include \masm32\include\user32.inc
 includelib \masm32\lib\kernel32.lib
-includelib \masm32\lib\user32.lib.data
+includelib \masm32\lib\user32.lib
+.data
+_b@main DQ ?
+_a@main DQ ?
+_a@main@a DQ ?
+_3.0 DQ 3.0
 .code
 START:
-MOV EAX, _2
-MOV _e, EAX
-MOV EAX, _5
-MOV _f, EAX
-MOV EAX, _e
-ADD EAX, _f
-MOV _a, EAX
-MOV EAX, _f
-ADD EAX, _e
-MOV _b, EAX
-CMP _a, _b
-JNE IF_CMP1
-MOV _d, 1
-FOR_INICIO1:
-MOV EAX, _d
-MUL EAX, _e
-CMP _a, EAX
-JA FOR_CMP1
-CMP _a, _b
-JE IF_CMP2
-MOV EAX, _d
-ADD EAX, _1
-MOV _d, EAX
-JMP FOR_INICIO1
-FOR_CMP1:
+a@main: 
+MOV EAX, _3.0
+MOV _a@main@a, EAX
+END
+RET
+MOV _a@main@a, _b@main
+CALL a@main
 invoke ExitProcess, 0
 END START

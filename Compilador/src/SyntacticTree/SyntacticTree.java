@@ -83,7 +83,7 @@ public abstract class SyntacticTree {
     }
 
     public boolean isLeaf(){
-        return (this.getLeft() == null & this.getRight() == null);
+        return (this.getLeft() == null && this.getRight() == null);
     }
 
     private void tab(int cant, String lexeme, Type type){
@@ -120,14 +120,7 @@ public abstract class SyntacticTree {
     }
 
     public boolean checkChildrenUse() {
-        if ((this.getLeft().getAttribute().getUse().equals(Use.variable) &&
-            this.getRight().getAttribute().getUse().equals(Use.variable)) ||
-                (this.getLeft().getAttribute().getUse().equals(Use.variable) &&
-            this.getRight().getAttribute().getUse().equals(Use.constante)) ||
-                (this.getLeft().getAttribute().getUse().equals(Use.constante) &&
-            this.getRight().getAttribute().getUse().equals(Use.variable)) ||
-                (this.getLeft().getAttribute().getUse().equals(Use.constante) &&
-            this.getRight().getAttribute().getUse().equals(Use.constante)))
+        if(this.getLeft().getAttribute().getFlag() == 1 && this.getRight().getAttribute().getFlag() == 1)
                 return true;
         return false;
     }

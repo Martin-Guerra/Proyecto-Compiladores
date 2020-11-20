@@ -3,7 +3,8 @@ package AssemblerGenerator;
 //ULONGINT: registros del procesador (EAX, EBX, ECX Y EDX o AX, BX, CX y DX) y seguimiento de registros.
 //DOUBLE: co-procesador 80X87, y variables auxiliares.
 
-import SymbolTable.Type;
+import SymbolTable.SymbolTable;
+import SymbolTable.Use;
 import SyntacticTree.SyntacticTree;
 
 import java.util.List;
@@ -35,21 +36,19 @@ public class AssemblerGenerator {
         this.assembler += ".386" + '\n' + ".model flat, stdcall" + '\n' + "option casemap :none" + '\n' +
         "include \\masm32\\include\\windows.inc" + '\n' + "include \\masm32\\include\\kernel32.inc" + '\n' +
         "include \\masm32\\include\\user32.inc" + '\n' + "includelib \\masm32\\lib\\kernel32.lib" + '\n' +
-        "includelib \\masm32\\lib\\user32.lib";
+        "includelib \\masm32\\lib\\user32.lib" + '\n';
     }
 
-    private void concatenateDataSection() {
+    private void concatenateDataSection(SymbolTable st) {
         this.assembler += ".data" + '\n';
-
-        //TABLA DE SIMBOLOS?
+        this.assembler += st.generateAssemblerCode();
 
     }
     public void concatenatePROCAssembler(List<SyntacticTree> PROCtrees, RegisterContainer registerContainer) {
         for (SyntacticTree root : PROCtrees) {
             this.assembler += root.getAttribute().getScope() + ": \n";
             this.getMostLeftTreePROC(root, registerContainer);
-            this.assembler += "RET \n";
-            System.out.println("Assembler: " + this.assembler);
+            this.assembler += "END\nRET\n";
         }
     }
 
@@ -72,34 +71,49 @@ public class AssemblerGenerator {
                     this.assembler += root.generateAssemblerCode(registerContainer);
                 }
             } else {
-                if (root.getLeft().isLeaf()) {
+                if (root.getLeft().isLeaf())
+                    this.assembler += root.generateAssemblerCode(registerContainer);
+                else{
+                    this.getMostLeftTree(root.getLeft(), registerContainer);
                     this.assembler += root.generateAssemblerCode(registerContainer);
                 }
             }
+        }else{
+            if(root.isLeaf() && root.getAttribute().getUse().equals(Use.llamado_procedimiento))
+                this.assembler += root.generateAssemblerCode(registerContainer);
         }
     }
 
     public void getMostLeftTreePROC(SyntacticTree root, RegisterContainer registerContainer) {
         if (root != null && !root.isLeaf()) {
-            if ((root.getRight() != null)) {
-                if (root.getLeft().isLeaf() && root.getRight().isLeaf()) {
+            if ((root.getRight() != null) && (root.getLeft() != null)) {
+                if (root.getLeft().isLeaf() && root.getRight().isLeaf())
                     this.assembler += root.generateAssemblerCode(registerContainer);
-                } else {
-                    this.getMostLeftTree(root.getLeft(), registerContainer);
-                    this.getMostLeftTree(root.getRight(), registerContainer);
+                else {
+                    this.getMostLeftTreePROC(root.getLeft(), registerContainer);
+                    this.getMostLeftTreePROC(root.getRight(), registerContainer);
                     this.assembler += root.generateAssemblerCode(registerContainer);
                 }
             } else {
-                if (root.getLeft().isLeaf()) {
+                if (root.getRight() != null) {
+                    this.getMostLeftTreePROC(root.getRight(), registerContainer);
                     this.assembler += root.generateAssemblerCode(registerContainer);
+                }else{
+                    if(root.getLeft() != null){
+                        this.getMostLeftTreePROC(root.getLeft(), registerContainer);
+                        this.assembler += root.generateAssemblerCode(registerContainer);
+                    }
                 }
             }
+        }else{
+            if(root.isLeaf() && root.getAttribute().getUse().equals(Use.llamado_procedimiento))
+                this.assembler += root.generateAssemblerCode(registerContainer);
         }
     }
 
-    public String printAssembler(List<SyntacticTree> PROCtrees, SyntacticTree root, RegisterContainer registerContainer){
+    public String printAssembler(List<SyntacticTree> PROCtrees, SyntacticTree root, RegisterContainer registerContainer, SymbolTable st){
         concatenateMainHeader();
-        concatenateDataSection();
+        concatenateDataSection(st);
         concatenateCodeSection(PROCtrees, root, registerContainer);
         System.out.println(this.assembler);
         return this.assembler;

@@ -26,9 +26,8 @@ public class SyntacticTreeASIG extends SyntacticTree{
 
         if (checkChildrenUse()) {
             register = resgisterContainer.getRegister();
-            //attribute = new Attribute(register, Use.registro);
-            assembler += "MOV " + register + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
-            assembler += "MOV _" + this.getLeft().getAttribute().getLexeme() + ", " + register + '\n';
+            assembler += "MOV " + register + ", _" + this.getRight().getAttribute().getScope() + '\n';
+            assembler += "MOV _" + this.getLeft().getAttribute().getScope() + ", " + register + '\n';
             resgisterContainer.setAverableRegister(register);
         }else {
             if (this.getLeft().getAttribute().getUse().equals(Use.registro) &&
@@ -37,11 +36,11 @@ public class SyntacticTreeASIG extends SyntacticTree{
                 resgisterContainer.setAverableRegister(this.getRight().getAttribute().getLexeme());
                 resgisterContainer.setAverableRegister(this.getLeft().getAttribute().getLexeme());
             } else if (this.getLeft().getAttribute().getUse().equals(Use.registro)) {
-                assembler += "MOV " + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
+                assembler += "MOV " + this.getLeft().getAttribute().getLexeme() + ", _" + this.getRight().getAttribute().getScope() + '\n';
                 resgisterContainer.setAverableRegister(this.getLeft().getAttribute().getLexeme());
             } else {
                 if (this.getRight().getAttribute().getUse().equals(Use.registro)) {
-                    assembler += "MOV _" + this.getLeft().getAttribute().getLexeme() + ", " + this.getRight().getAttribute().getLexeme() + '\n';
+                    assembler += "MOV _" + this.getLeft().getAttribute().getScope() + ", " + this.getRight().getAttribute().getLexeme() + '\n';
                     resgisterContainer.setAverableRegister(this.getRight().getAttribute().getLexeme());
                 }
             }

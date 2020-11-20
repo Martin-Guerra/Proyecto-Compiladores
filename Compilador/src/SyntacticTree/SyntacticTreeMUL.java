@@ -29,20 +29,23 @@ public class SyntacticTreeMUL extends SyntacticTree{
             register = resgisterContainer.forceRegister();
             attribute = new Attribute(register, Use.registro);
             this.getRight().setAttribute(attribute);
-            assembler += "MOV " + register + ", _" + this.getRight().getAttribute().getLexeme() + '\n';
+            assembler += "MOV " + register + ", _" + this.getRight().getAttribute().getScope() + '\n';
             resgisterContainer.setAverableRegister(register);
         }
 
         if(!this.getLeft().getAttribute().getLexeme().equals("EAX")) {
             resgisterContainer.setNotAverableRegister(0);
-            assembler += "MOV EAX" + ", _" + this.getLeft().getAttribute().getLexeme() + '\n';
+            assembler += "MOV EAX" + ", _" + this.getLeft().getAttribute().getScope() + '\n';
             if(this.getLeft().getAttribute().getUse().equals(Use.registro))
                 resgisterContainer.setAverableRegister(this.getLeft().getAttribute().getLexeme());
         }
 
         assembler += "MOV EDX, 0" + '\n';
 
-        assembler += "MUL EAX, _" + this.getRight().getAttribute().getLexeme() + '\n';
+        if(this.getRight().getAttribute().getUse().equals(Use.registro))
+            assembler += "MUL EAX, " + this.getRight().getAttribute().getScope() + '\n';
+        else
+            assembler += "MUL EAX, _" + this.getRight().getAttribute().getScope() + '\n';
 
         resgisterContainer.setAverableRegister("EDX");
 

@@ -27,7 +27,7 @@ public class SyntacticTreeFORASIG extends SyntacticTree{
         String assembler = "";
 
         Attribute attribute = null;
-        assembler += "MOV _" + this.getLeft().getAttribute().getLexeme() + ", " + this.getRight().getAttribute().getLexeme()  + '\n';
+        assembler += "MOV _" + this.getLeft().getAttribute().getScope() + ", _" + this.getRight().getAttribute().getScope()  + '\n';
 
         String label = "FOR_INICIO" + ++counter;
         SyntacticTreeFOR.jLabel.push(label);

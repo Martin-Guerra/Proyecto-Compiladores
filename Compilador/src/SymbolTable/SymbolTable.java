@@ -49,6 +49,7 @@ public class SymbolTable {
 							" - Parametros: " + a.printParameters() +
 							" - Identificador: " + a.getId() +
 							" - Uso: " + a.getUse() + " - Tipo: " + a.getType() +
+							" - Flag: " + a.getFlag() +
 							" - Amount: " + a.getAmount() +
 							" - isDeclared? " + a.isDeclared() + "\n";
 			}
@@ -69,4 +70,36 @@ public class SymbolTable {
 		return this.symbolTable.get(lexeme);
 	}
 
+	public String generateAssemblerCode(){
+		String assembler ="";
+		String value = "";
+		for(String key : this.symbolTable.keySet()) {
+			System.out.println('\n' + "Lexeme: " + key + '\n');
+			for (Attribute a : this.symbolTable.get(key)) {
+				System.out.println("Uso: " + a.getUse() + " Flag: " + a.getFlag());
+				if (a.getFlag() == 1) {
+					if (a.getUse().equals(Use.variable) ||
+							a.getUse().equals(Use.nombre_parametro))
+						value = "?";
+					else {
+						if (a.getUse().equals(Use.constante))
+							value = a.getLexeme();
+					}
+
+					switch (a.getType().getName()) {
+						case "DOUBLE":
+							assembler += "_" + a.getScope() + " DQ " + value + '\n';
+							break;
+						case "ULONGINT":
+							assembler += "_" + a.getScope() + " DD " + value + '\n';
+							break;
+						case "STRING":
+							assembler += "_" + a.getScope() + " DB " + value + '\n';
+							break;
+					}
+				}
+			}
+		}
+		return assembler;
+	}
 }

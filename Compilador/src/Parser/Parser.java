@@ -30,10 +30,11 @@ import SymbolTable.Attribute;
 import SymbolTable.Type;
 import SymbolTable.Use;
 import SymbolTable.Parameter;
+import SymbolTable.Parameter;
 import SyntacticTree.*;
 
 
-//#line 34 "Parser.java"
+//#line 35 "Parser.java"
 
 
 
@@ -630,7 +631,7 @@ public class Parser
             "tipo_ID : ID",
     };
 
-//#line 979 "G08 - Gramatica - 25102020.y"
+//#line 1031 "G08 - Gramatica - 25102020.y"
 
 
     private LexerAnalyzer la;
@@ -639,6 +640,7 @@ public class Parser
     private List<String> rules;
     private SyntacticTree syntacticTree;
     private String globalScope = "";
+    private String PROCscope = "";
     private List<SyntacticTree> PROCtrees = new ArrayList<>();
     private List<SyntacticTree> PROCtreesAux = new ArrayList<>();
     private int counter = 0;
@@ -819,6 +821,7 @@ public class Parser
             for(Attribute attribute : attributes) {
                 encontro = sa.isReachable(this.globalScope, lexeme, attribute);
                 if(encontro){
+                    this.PROCscope = attribute.getScope();
                     parameters = attribute.getParameters();
                     break;
                 }
@@ -884,7 +887,7 @@ public class Parser
             node.printTree(node);
         }
     }
-    //#line 816 "Parser.java"
+    //#line 819 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1039,34 +1042,34 @@ public class Parser
             {
 //########## USER-SUPPLIED ACTIONS ##########
                 case 1:
-//#line 29 "G08 - Gramatica - 25102020.y"
+//#line 30 "G08 - Gramatica - 25102020.y"
                 {
                     syntacticTree = val_peek(0).tree;
                 }
                 break;
                 case 4:
-//#line 37 "G08 - Gramatica - 25102020.y"
+//#line 38 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": se espera sentencia/lista de sentencias");}
                 break;
                 case 5:
-//#line 41 "G08 - Gramatica - 25102020.y"
+//#line 42 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(0).tree;
                 }
                 break;
                 case 6:
-//#line 45 "G08 - Gramatica - 25102020.y"
+//#line 46 "G08 - Gramatica - 25102020.y"
                 {
                     Attribute attribute = new Attribute("LISTA SENTENCIAS");
                     yyval.tree = new SyntacticTreeSentence(val_peek(1).tree, val_peek(0).tree, attribute);
                 }
                 break;
                 case 7:
-//#line 50 "G08 - Gramatica - 25102020.y"
+//#line 51 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": se espera sentencia/lista de sentencias");}
                 break;
                 case 8:
-//#line 55 "G08 - Gramatica - 25102020.y"
+//#line 56 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia declarativa - Variable/s.");
                     yyval = val_peek(1);
@@ -1104,7 +1107,7 @@ public class Parser
                 }
                 break;
                 case 9:
-//#line 92 "G08 - Gramatica - 25102020.y"
+//#line 93 "G08 - Gramatica - 25102020.y"
                 {
                     this.decreaseScope();
                     this.counter--;
@@ -1118,11 +1121,11 @@ public class Parser
                 }
                 break;
                 case 10:
-//#line 104 "G08 - Gramatica - 25102020.y"
+//#line 105 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia declarativa - Falta definir la/s VARIABLE/S."); }
                 break;
                 case 11:
-//#line 109 "G08 - Gramatica - 25102020.y"
+//#line 110 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Procedimiento");
                     this.sa.deleteNA();
@@ -1131,17 +1134,17 @@ public class Parser
                 }
                 break;
                 case 12:
-//#line 115 "G08 - Gramatica - 25102020.y"
+//#line 116 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Procedimiento - Se espera CUERPO del PROCEDIMIENTO"); }
                 break;
                 case 13:
-//#line 119 "G08 - Gramatica - 25102020.y"
+//#line 120 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Encabezado procedimiento");
                 }
                 break;
                 case 14:
-//#line 125 "G08 - Gramatica - 25102020.y"
+//#line 126 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": PROC ID");
 
@@ -1165,7 +1168,7 @@ public class Parser
                 }
                 break;
                 case 15:
-//#line 149 "G08 - Gramatica - 25102020.y"
+//#line 150 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Procedimiento - un parametro");
 
@@ -1183,7 +1186,7 @@ public class Parser
                 }
                 break;
                 case 16:
-//#line 166 "G08 - Gramatica - 25102020.y"
+//#line 167 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Procedimiento - dos parametros");
 
@@ -1210,7 +1213,7 @@ public class Parser
                 }
                 break;
                 case 17:
-//#line 191 "G08 - Gramatica - 25102020.y"
+//#line 192 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Procedimiento - dos parametros");
 
@@ -1239,7 +1242,7 @@ public class Parser
                 }
                 break;
                 case 19:
-//#line 222 "G08 - Gramatica - 25102020.y"
+//#line 223 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Procedimiento - Asignacion NA");
 
@@ -1254,51 +1257,51 @@ public class Parser
                 }
                 break;
                 case 20:
-//#line 235 "G08 - Gramatica - 25102020.y"
+//#line 236 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Asignacion NA procedimiento - Se espera NRO_ULONGINT"); }
                 break;
                 case 21:
-//#line 236 "G08 - Gramatica - 25102020.y"
+//#line 237 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Asignacion NA procedimiento - Se espera ="); }
                 break;
                 case 22:
-//#line 240 "G08 - Gramatica - 25102020.y"
+//#line 241 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(1).tree;
                 }
                 break;
                 case 23:
-//#line 244 "G08 - Gramatica - 25102020.y"
+//#line 245 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Cuerpo procedimiento - Se espera }"); }
                 break;
                 case 24:
-//#line 248 "G08 - Gramatica - 25102020.y"
+//#line 249 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(0).tree;
                 }
                 break;
                 case 25:
-//#line 252 "G08 - Gramatica - 25102020.y"
+//#line 253 "G08 - Gramatica - 25102020.y"
                 {
                     Attribute attribute = new Attribute("SENTENCIA EJECUTABLE");
                     yyval.tree = new SyntacticTreeBODY(val_peek(1).tree, val_peek(0).tree, attribute);
                 }
                 break;
                 case 26:
-//#line 257 "G08 - Gramatica - 25102020.y"
+//#line 258 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(0).tree;
                 }
                 break;
                 case 27:
-//#line 261 "G08 - Gramatica - 25102020.y"
+//#line 262 "G08 - Gramatica - 25102020.y"
                 {
                     Attribute attribute = new Attribute("SENTENCIA DECLARATIVA");
                     yyval.tree = new SyntacticTreeBODY(val_peek(1).tree, val_peek(0).tree, attribute);
                 }
                 break;
                 case 28:
-//#line 271 "G08 - Gramatica - 25102020.y"
+//#line 272 "G08 - Gramatica - 25102020.y"
                 {
                     yyval = val_peek(0);
 
@@ -1309,22 +1312,23 @@ public class Parser
                     Type type = new Type(val_peek(1).type.getName());
                     val_peek(0).attributes.get(val_peek(0).attributes.size()-1).setType(type);
                     val_peek(0).attributes.get(val_peek(0).attributes.size()-1).setUse(Use.nombre_parametro);
+                    val_peek(0).attributes.get(val_peek(0).attributes.size()-1).setFlag();
                 }
                 break;
                 case 29:
-//#line 286 "G08 - Gramatica - 25102020.y"
+//#line 288 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(1).tree;
                 }
                 break;
                 case 30:
-//#line 291 "G08 - Gramatica - 25102020.y"
+//#line 293 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(0).tree;
                 }
                 break;
                 case 31:
-//#line 296 "G08 - Gramatica - 25102020.y"
+//#line 298 "G08 - Gramatica - 25102020.y"
                 {
                     /*Attribute attribute = new Attribute("ASIGNACION");
                      */
@@ -1334,48 +1338,50 @@ public class Parser
                 }
                 break;
                 case 32:
-//#line 301 "G08 - Gramatica - 25102020.y"
+//#line 303 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia ejecutable asignacion - Falta ;"); }
                 break;
                 case 33:
-//#line 304 "G08 - Gramatica - 25102020.y"
+//#line 306 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(1).tree;
                 }
                 break;
                 case 34:
-//#line 307 "G08 - Gramatica - 25102020.y"
+//#line 309 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia ejecutable OUT - Falta ;"); }
                 break;
                 case 35:
-//#line 310 "G08 - Gramatica - 25102020.y"
+//#line 312 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(1).tree;
                 }
                 break;
                 case 36:
-//#line 314 "G08 - Gramatica - 25102020.y"
+//#line 316 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia ejecutable llamado a procedimiento - Falta ;"); }
                 break;
                 case 37:
-//#line 321 "G08 - Gramatica - 25102020.y"
+//#line 323 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.attributesSetteable = new ArrayList<>();
                     String lexeme = val_peek(0).attributes.get(0).getLexeme();
+                    val_peek(0).attributes.get(val_peek(0).attributes.size()-1).setFlag();
                     yyval.attributesSetteable.add(lexeme);
 
                 }
                 break;
                 case 38:
-//#line 328 "G08 - Gramatica - 25102020.y"
+//#line 331 "G08 - Gramatica - 25102020.y"
                 {
                     yyval = val_peek(2);
                     String lexeme = val_peek(0).attributes.get(0).getLexeme();
+                    val_peek(0).attributes.get(val_peek(0).attributes.size()-1).setFlag();
                     yyval.attributesSetteable.add(lexeme);
                 }
                 break;
                 case 39:
-//#line 336 "G08 - Gramatica - 25102020.y"
+//#line 340 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.type = Type.ULONGINT;
                     Attribute attribute = new Attribute("ULONGINT");
@@ -1384,7 +1390,7 @@ public class Parser
                 }
                 break;
                 case 40:
-//#line 343 "G08 - Gramatica - 25102020.y"
+//#line 347 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.type = Type.DOUBLE;
                     Attribute attribute = new Attribute("DOUBLE");
@@ -1392,7 +1398,7 @@ public class Parser
                 }
                 break;
                 case 41:
-//#line 352 "G08 - Gramatica - 25102020.y"
+//#line 356 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Llamado a procedimiento con un parametro");
                     String lexeme = val_peek(3).attributes.get(0).getLexeme();
@@ -1402,23 +1408,32 @@ public class Parser
 
                     List<Parameter> formalParameters = checkIDPROC(val_peek(3).attributes, lexeme);
 
+                    String scope = val_peek(3).attributes.get(0).getLexeme() + this.globalScope;
+                    val_peek(3).attributes.get(val_peek(3).attributes.size()-1).setScopePROC(scope);
+
                     List<Type> types = new ArrayList<>();
 
                     lexeme = val_peek(1).attributes.get(0).getLexeme();
 
                     Attribute attribute = this.checkID(val_peek(1).attributes, lexeme);
+                    Parameter ID1 = new Parameter(attribute.getScope(), attribute.getType());
                     if(attribute != null)
                         types.add(attribute.getType());
 
                     this.checkParameters(formalParameters, types);
 
+                    List<Parameter> parameters = new ArrayList<>();
+                    parameters.add(ID1);
+                    val_peek(3).attributes.get(val_peek(3).attributes.size()-1).setParameters(parameters);
+
                     Attribute ID = val_peek(3).attributes.get(val_peek(3).attributes.size()-1);
-                    yyval.tree = new SyntacticTreeCALL(val_peek(3).tree, ID);
+                    ID.setScopePROC(this.PROCscope);
+                    yyval.tree = new SyntacticTreeCALL(val_peek(3).tree, ID, formalParameters);
 
                 }
                 break;
                 case 42:
-//#line 376 "G08 - Gramatica - 25102020.y"
+//#line 389 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Llamado a procedimiento con parametros");
                     String lexeme = val_peek(5).attributes.get(0).getLexeme();
@@ -1427,24 +1442,34 @@ public class Parser
 
                     List<Parameter> formalParameters = checkIDPROC(val_peek(5).attributes, lexeme);
 
+                    String scope = val_peek(5).attributes.get(0).getLexeme() + this.globalScope;
+                    val_peek(5).attributes.get(val_peek(5).attributes.size()-1).setScopePROC(scope);
+
                     List<Type> types = new ArrayList<>();
 
                     Attribute attribute = this.checkID(val_peek(3).attributes, val_peek(3).attributes.get(0).getLexeme());
+                    Parameter ID1 = new Parameter(attribute.getScope(), attribute.getType());
                     if(attribute != null)
                         types.add(attribute.getType());
 
                     attribute = this.checkID(val_peek(1).attributes, val_peek(1).attributes.get(0).getLexeme());
+                    Parameter ID2 = new Parameter(attribute.getScope(), attribute.getType());
                     if(attribute != null)
                         types.add(attribute.getType());
 
                     this.checkParameters(formalParameters, types);
 
+                    List<Parameter> parameters = new ArrayList<>();
+                    parameters.add(ID1);
+                    parameters.add(ID2);
+                    val_peek(5).attributes.get(val_peek(5).attributes.size()-1).setParameters(parameters);
                     Attribute ID = val_peek(5).attributes.get(val_peek(5).attributes.size()-1);
-                    yyval.tree = new SyntacticTreeCALL(val_peek(5).tree, ID);
+                    ID.setScopePROC(this.PROCscope);
+                    yyval.tree = new SyntacticTreeCALL(val_peek(5).tree, ID, formalParameters);
                 }
                 break;
                 case 43:
-//#line 401 "G08 - Gramatica - 25102020.y"
+//#line 424 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Llamado a procedimiento con parametros");
                     String lexeme = val_peek(7).attributes.get(0).getLexeme();
@@ -1452,29 +1477,42 @@ public class Parser
                     val_peek(7).attributes.get(val_peek(7).attributes.size()-1).setUse(Use.llamado_procedimiento);
                     List<Parameter> formalParameters = checkIDPROC(val_peek(7).attributes, lexeme);
 
+                    String scope = val_peek(7).attributes.get(0).getLexeme() + this.globalScope;
+                    val_peek(7).attributes.get(val_peek(7).attributes.size()-1).setScopePROC(scope);
+
                     List<Type> types = new ArrayList<>();
 
                     Attribute attribute = this.checkID(val_peek(5).attributes, val_peek(5).attributes.get(0).getLexeme());
+                    Parameter ID1 = new Parameter(attribute.getScope(), attribute.getType());
                     if(attribute != null)
                         types.add(attribute.getType());
 
                     attribute = this.checkID(val_peek(3).attributes, val_peek(3).attributes.get(0).getLexeme());
+                    Parameter ID2 = new Parameter(attribute.getScope(), attribute.getType());
                     if(attribute != null)
                         types.add(attribute.getType());
 
                     attribute = this.checkID(val_peek(1).attributes, val_peek(1).attributes.get(0).getLexeme());
+                    Parameter ID3 = new Parameter(attribute.getScope(), attribute.getType());
                     if(attribute != null)
                         types.add(attribute.getType());
 
                     this.checkParameters(formalParameters, types);
 
+                    List<Parameter> parameters = new ArrayList<>();
+                    parameters.add(ID1);
+                    parameters.add(ID2);
+                    parameters.add(ID3);
+                    val_peek(7).attributes.get(val_peek(7).attributes.size()-1).setParameters(parameters);
                     Attribute ID = val_peek(7).attributes.get(val_peek(7).attributes.size()-1);
-                    yyval.tree = new SyntacticTreeCALL(val_peek(7).tree, ID);
+                    ID.setScopePROC(this.PROCscope);
+
+                    yyval.tree = new SyntacticTreeCALL(val_peek(7).tree, ID, formalParameters);
 
                 }
                 break;
                 case 44:
-//#line 429 "G08 - Gramatica - 25102020.y"
+//#line 465 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Llamado a procedimiento sin parametros");
                     String lexeme = val_peek(2).attributes.get(0).getLexeme();
@@ -1482,16 +1520,20 @@ public class Parser
                     val_peek(2).attributes.get(val_peek(2).attributes.size()-1).setUse(Use.llamado_procedimiento);
                     List<Parameter> formalParameters = checkIDPROC(val_peek(2).attributes, lexeme);
 
+                    String scope = val_peek(2).attributes.get(0).getLexeme() + this.globalScope;
+                    val_peek(2).attributes.get(val_peek(2).attributes.size()-1).setScopePROC(scope);
+
                     List<Type> types = new ArrayList<>();
 
                     this.checkParameters(formalParameters, types);
 
                     Attribute ID = val_peek(2).attributes.get(val_peek(2).attributes.size()-1);
+                    ID.setScopePROC(this.PROCscope);
                     yyval.tree = new SyntacticTreeCALL(val_peek(2).tree, ID);
                 }
                 break;
                 case 45:
-//#line 448 "G08 - Gramatica - 25102020.y"
+//#line 488 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia IF");
                     Attribute IF = new Attribute("IF");
@@ -1499,19 +1541,19 @@ public class Parser
                 }
                 break;
                 case 46:
-//#line 454 "G08 - Gramatica - 25102020.y"
+//#line 494 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF - Se espera END_IF"); }
                 break;
                 case 47:
-//#line 455 "G08 - Gramatica - 25102020.y"
+//#line 495 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF - Se espera cuerpo"); }
                 break;
                 case 48:
-//#line 456 "G08 - Gramatica - 25102020.y"
+//#line 496 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF - Se espera condicion"); }
                 break;
                 case 49:
-//#line 460 "G08 - Gramatica - 25102020.y"
+//#line 500 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia IF ELSE - Cuerpo");
                     Attribute CUERPO_IF_ELSE = new Attribute("CUERPO_IF_ELSE");
@@ -1519,7 +1561,7 @@ public class Parser
                 }
                 break;
                 case 50:
-//#line 466 "G08 - Gramatica - 25102020.y"
+//#line 506 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Cuerpo");
                     Attribute CUERPO_IF = new Attribute("CUERPO_IF");
@@ -1527,7 +1569,7 @@ public class Parser
                 }
                 break;
                 case 51:
-//#line 475 "G08 - Gramatica - 25102020.y"
+//#line 515 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Condicion <");
 
@@ -1541,7 +1583,7 @@ public class Parser
                 }
                 break;
                 case 52:
-//#line 487 "G08 - Gramatica - 25102020.y"
+//#line 527 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +":Sentencia IF - Condicion >.");
 
@@ -1555,7 +1597,7 @@ public class Parser
                 }
                 break;
                 case 53:
-//#line 499 "G08 - Gramatica - 25102020.y"
+//#line 539 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Condicion ==.");
 
@@ -1569,7 +1611,7 @@ public class Parser
                 }
                 break;
                 case 54:
-//#line 511 "G08 - Gramatica - 25102020.y"
+//#line 551 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Condicion >=.");
 
@@ -1583,7 +1625,7 @@ public class Parser
                 }
                 break;
                 case 55:
-//#line 523 "G08 - Gramatica - 25102020.y"
+//#line 563 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Condicion <=.");
 
@@ -1597,7 +1639,7 @@ public class Parser
                 }
                 break;
                 case 56:
-//#line 535 "G08 - Gramatica - 25102020.y"
+//#line 575 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Condicion !=.");
 
@@ -1611,63 +1653,63 @@ public class Parser
                 }
                 break;
                 case 57:
-//#line 547 "G08 - Gramatica - 25102020.y"
+//#line 587 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera )"); }
                 break;
                 case 58:
-//#line 548 "G08 - Gramatica - 25102020.y"
+//#line 588 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera )"); }
                 break;
                 case 59:
-//#line 549 "G08 - Gramatica - 25102020.y"
+//#line 589 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera )"); }
                 break;
                 case 60:
-//#line 550 "G08 - Gramatica - 25102020.y"
+//#line 590 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera )"); }
                 break;
                 case 61:
-//#line 551 "G08 - Gramatica - 25102020.y"
+//#line 591 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera )"); }
                 break;
                 case 62:
-//#line 552 "G08 - Gramatica - 25102020.y"
+//#line 592 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera )"); }
                 break;
                 case 63:
-//#line 554 "G08 - Gramatica - 25102020.y"
+//#line 594 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera expresion derecha"); }
                 break;
                 case 64:
-//#line 555 "G08 - Gramatica - 25102020.y"
+//#line 595 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera expresion derecha"); }
                 break;
                 case 65:
-//#line 556 "G08 - Gramatica - 25102020.y"
+//#line 596 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera expresion derecha"); }
                 break;
                 case 66:
-//#line 557 "G08 - Gramatica - 25102020.y"
+//#line 597 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera expresion derecha"); }
                 break;
                 case 67:
-//#line 558 "G08 - Gramatica - 25102020.y"
+//#line 598 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera expresion derecha"); }
                 break;
                 case 68:
-//#line 559 "G08 - Gramatica - 25102020.y"
+//#line 599 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera expresion derecha"); }
                 break;
                 case 69:
-//#line 561 "G08 - Gramatica - 25102020.y"
+//#line 601 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera comparador"); }
                 break;
                 case 70:
-//#line 563 "G08 - Gramatica - 25102020.y"
+//#line 603 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF condicion - Se espera expresion izquierda"); }
                 break;
                 case 71:
-//#line 568 "G08 - Gramatica - 25102020.y"
+//#line 608 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia IF - Bloque de sentencias");
                     Attribute attribute = new Attribute("BLOQUE THEN");
@@ -1675,22 +1717,22 @@ public class Parser
                 }
                 break;
                 case 72:
-//#line 574 "G08 - Gramatica - 25102020.y"
+//#line 614 "G08 - Gramatica - 25102020.y"
                 {
                     Attribute attribute = new Attribute("BLOQUE THEN");
                     yyval.tree = new SyntacticTreeIFTHEN(val_peek(0).tree, attribute);
                 }
                 break;
                 case 73:
-//#line 579 "G08 - Gramatica - 25102020.y"
+//#line 619 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF bloque - Se espera } finalizacion BLOQUE IF");}
                 break;
                 case 74:
-//#line 580 "G08 - Gramatica - 25102020.y"
+//#line 620 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF bloque - Se espera cuerpo_ejecutable");}
                 break;
                 case 75:
-//#line 584 "G08 - Gramatica - 25102020.y"
+//#line 624 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia IF ELSE - bloque de sentencias ELSE");
                     Attribute attribute = new Attribute("BLOQUE ELSE");
@@ -1698,56 +1740,56 @@ public class Parser
                 }
                 break;
                 case 76:
-//#line 590 "G08 - Gramatica - 25102020.y"
+//#line 630 "G08 - Gramatica - 25102020.y"
                 {
                     Attribute attribute = new Attribute("BLOQUE ELSE");
                     yyval.tree = new SyntacticTreeIFELSE(val_peek(0).tree, attribute);
                 }
                 break;
                 case 77:
-//#line 595 "G08 - Gramatica - 25102020.y"
+//#line 635 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia IF ELSE - Se espera bloque de sentencias");}
                 break;
                 case 78:
-//#line 599 "G08 - Gramatica - 25102020.y"
+//#line 639 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Bloque de sentencias");
                     yyval.tree = val_peek(2).tree;
                 }
                 break;
                 case 79:
-//#line 604 "G08 - Gramatica - 25102020.y"
+//#line 644 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(0).tree;
                 }
                 break;
                 case 80:
-//#line 608 "G08 - Gramatica - 25102020.y"
+//#line 648 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR bloque - Se espera ;");}
                 break;
                 case 81:
-//#line 609 "G08 - Gramatica - 25102020.y"
+//#line 649 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR bloque - Se espera } ");}
                 break;
                 case 82:
-//#line 610 "G08 - Gramatica - 25102020.y"
+//#line 650 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR bloque - Se espera cuerpo_ejecutable ");}
                 break;
                 case 83:
-//#line 614 "G08 - Gramatica - 25102020.y"
+//#line 654 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(0).tree;
                 }
                 break;
                 case 84:
-//#line 618 "G08 - Gramatica - 25102020.y"
+//#line 658 "G08 - Gramatica - 25102020.y"
                 {
                     Attribute attribute = new Attribute("SENTENCIA");
                     yyval.tree = new SyntacticTreeBODY(val_peek(1).tree, val_peek(0).tree, attribute);
                 }
                 break;
                 case 85:
-//#line 626 "G08 - Gramatica - 25102020.y"
+//#line 666 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Asignacion");
                     Attribute attribute = new Attribute("=");
@@ -1759,19 +1801,19 @@ public class Parser
                 }
                 break;
                 case 86:
-//#line 636 "G08 - Gramatica - 25102020.y"
+//#line 676 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Asignacion - Se espera expresion lado derecho");}
                 break;
                 case 87:
-//#line 637 "G08 - Gramatica - 25102020.y"
+//#line 677 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Asignacion - Se espera =");}
                 break;
                 case 88:
-//#line 638 "G08 - Gramatica - 25102020.y"
+//#line 678 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Asignacion - Se espera ID lado izquierdo");}
                 break;
                 case 89:
-//#line 643 "G08 - Gramatica - 25102020.y"
+//#line 683 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia FOR");
                     Attribute headFor = new Attribute("INICIO FOR");
@@ -1782,7 +1824,7 @@ public class Parser
                 }
                 break;
                 case 90:
-//#line 654 "G08 - Gramatica - 25102020.y"
+//#line 694 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": ASIGNACION_FOR");
                     String lexeme = val_peek(2).attributes.get(0).getLexeme();
@@ -1800,19 +1842,19 @@ public class Parser
                 }
                 break;
                 case 91:
-//#line 670 "G08 - Gramatica - 25102020.y"
+//#line 710 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR asignacion - Se espera NRO_ULONGINT lado derecho"); }
                 break;
                 case 92:
-//#line 671 "G08 - Gramatica - 25102020.y"
+//#line 711 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR asignacion - Se espera ="); }
                 break;
                 case 93:
-//#line 672 "G08 - Gramatica - 25102020.y"
+//#line 712 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR asignacion - Se espera ID lado izquierdo"); }
                 break;
                 case 94:
-//#line 676 "G08 - Gramatica - 25102020.y"
+//#line 716 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion <.");
                     String lexeme = val_peek(2).attributes.get(0).getLexeme();
@@ -1820,6 +1862,7 @@ public class Parser
                     Attribute attribute = this.checkID(val_peek(2).attributes, lexeme);
 
                     Attribute ID = val_peek(2).attributes.get(val_peek(2).attributes.size()-1);
+                    ID.setFlag();
                     Attribute MENOR = new Attribute("<");
 
                     yyval.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), val_peek(0).tree, MENOR);
@@ -1830,7 +1873,7 @@ public class Parser
                 }
                 break;
                 case 95:
-//#line 692 "G08 - Gramatica - 25102020.y"
+//#line 733 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion >");
                     String lexeme = val_peek(2).attributes.get(0).getLexeme();
@@ -1838,6 +1881,7 @@ public class Parser
                     Attribute attribute = this.checkID(val_peek(2).attributes, lexeme);
 
                     Attribute ID = val_peek(2).attributes.get(val_peek(2).attributes.size()-1);
+                    ID.setFlag();
                     Attribute MAYOR = new Attribute(">");
 
                     yyval.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), val_peek(0).tree, MAYOR);
@@ -1848,7 +1892,7 @@ public class Parser
                 }
                 break;
                 case 96:
-//#line 708 "G08 - Gramatica - 25102020.y"
+//#line 750 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion ==");
                     String lexeme = val_peek(2).attributes.get(0).getLexeme();
@@ -1856,6 +1900,7 @@ public class Parser
                     Attribute attribute = this.checkID(val_peek(2).attributes, lexeme);
 
                     Attribute ID = val_peek(2).attributes.get(val_peek(2).attributes.size()-1);
+                    ID.setFlag();
                     Attribute MENOR_IGUAL = new Attribute("==");
 
                     yyval.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), val_peek(0).tree, MENOR_IGUAL);
@@ -1866,7 +1911,7 @@ public class Parser
                 }
                 break;
                 case 97:
-//#line 724 "G08 - Gramatica - 25102020.y"
+//#line 767 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion >=");
                     String lexeme = val_peek(2).attributes.get(0).getLexeme();
@@ -1874,6 +1919,7 @@ public class Parser
                     Attribute attribute = this.checkID(val_peek(2).attributes, lexeme);
 
                     Attribute ID = val_peek(2).attributes.get(val_peek(2).attributes.size()-1);
+                    ID.setFlag();
                     Attribute MENOR_IGUAL = new Attribute(">=");
 
                     yyval.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), val_peek(0).tree, MENOR_IGUAL);
@@ -1884,7 +1930,7 @@ public class Parser
                 }
                 break;
                 case 98:
-//#line 740 "G08 - Gramatica - 25102020.y"
+//#line 784 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion <=");
                     String lexeme = val_peek(2).attributes.get(0).getLexeme();
@@ -1892,6 +1938,7 @@ public class Parser
                     Attribute attribute = this.checkID(val_peek(2).attributes, lexeme);
 
                     Attribute ID = val_peek(2).attributes.get(val_peek(2).attributes.size()-1);
+                    ID.setFlag();
                     Attribute MENOR_IGUAL = new Attribute("<=");
 
                     yyval.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), val_peek(0).tree, MENOR_IGUAL);
@@ -1901,7 +1948,7 @@ public class Parser
                 }
                 break;
                 case 99:
-//#line 755 "G08 - Gramatica - 25102020.y"
+//#line 800 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Sentencia FOR - Condicion !=");
                     String lexeme = val_peek(2).attributes.get(0).getLexeme();
@@ -1909,6 +1956,7 @@ public class Parser
                     Attribute attribute = this.checkID(val_peek(2).attributes, lexeme);
 
                     Attribute ID = val_peek(2).attributes.get(val_peek(2).attributes.size()-1);
+                    ID.setFlag();
                     Attribute DISTINTO = new Attribute("!=");
 
                     yyval.tree = new SyntacticTreeFORCMP(new SyntacticTreeLeaf(null, null, ID), val_peek(0).tree, DISTINTO);
@@ -1918,33 +1966,33 @@ public class Parser
                 }
                 break;
                 case 100:
-//#line 772 "G08 - Gramatica - 25102020.y"
+//#line 818 "G08 - Gramatica - 25102020.y"
                 {
                     Attribute attribute = new Attribute("UP");
                     yyval.tree  = new SyntacticTreeFORUP(new SyntacticTreeLeaf(null, null, val_peek(0).attributes.get(0)), attribute);
                 }
                 break;
                 case 101:
-//#line 777 "G08 - Gramatica - 25102020.y"
+//#line 823 "G08 - Gramatica - 25102020.y"
                 {
                     Attribute attribute = new Attribute("DOWN");
                     yyval.tree  = new SyntacticTreeFORDOWN(new SyntacticTreeLeaf(null, null, val_peek(0).attributes.get(0)), attribute);
                 }
                 break;
                 case 102:
-//#line 782 "G08 - Gramatica - 25102020.y"
+//#line 828 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR decremento - Se espera NRO_ULONGINT"); }
                 break;
                 case 103:
-//#line 783 "G08 - Gramatica - 25102020.y"
+//#line 829 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR incremento - Se espera NRO_ULONGINT"); }
                 break;
                 case 104:
-//#line 784 "G08 - Gramatica - 25102020.y"
+//#line 830 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia FOR incre/decre - Se espera UP/DOWN"); }
                 break;
                 case 105:
-//#line 790 "G08 - Gramatica - 25102020.y"
+//#line 836 "G08 - Gramatica - 25102020.y"
                 {
                     System.out.println(val_peek(1).attributes.get(0).getScope());
                     addRule("Linea "+ la.getNroLinea() +": Sentencia OUT");
@@ -1954,27 +2002,27 @@ public class Parser
                 }
                 break;
                 case 106:
-//#line 798 "G08 - Gramatica - 25102020.y"
+//#line 844 "G08 - Gramatica - 25102020.y"
                 { addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia OUT - Se espera ')'."); }
                 break;
                 case 107:
-//#line 799 "G08 - Gramatica - 25102020.y"
+//#line 845 "G08 - Gramatica - 25102020.y"
                 { addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia OUT - Se espera '('."); }
                 break;
                 case 108:
-//#line 800 "G08 - Gramatica - 25102020.y"
+//#line 846 "G08 - Gramatica - 25102020.y"
                 { addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia OUT - Se espera una cadena de caracteres luego de '('."); }
                 break;
                 case 109:
-//#line 801 "G08 - Gramatica - 25102020.y"
+//#line 847 "G08 - Gramatica - 25102020.y"
                 { addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia OUT - falta cadena"); }
                 break;
                 case 110:
-//#line 802 "G08 - Gramatica - 25102020.y"
+//#line 848 "G08 - Gramatica - 25102020.y"
                 { addError("Error Sintactico en linea "+ la.getNroLinea() +": Sentencia OUT - Se espera '('."); }
                 break;
                 case 111:
-//#line 808 "G08 - Gramatica - 25102020.y"
+//#line 854 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Conversion explicita");
                     Attribute attribute = new Attribute("CONVERSION");
@@ -1993,15 +2041,15 @@ public class Parser
                 }
                 break;
                 case 112:
-//#line 825 "G08 - Gramatica - 25102020.y"
+//#line 871 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Conversion explicita - Se espera ')'."); }
                 break;
                 case 113:
-//#line 826 "G08 - Gramatica - 25102020.y"
+//#line 872 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintactico en linea "+ la.getNroLinea() +": Conversion explicita - Se espera expresion.");}
                 break;
                 case 114:
-//#line 832 "G08 - Gramatica - 25102020.y"
+//#line 878 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Suma");
                     Attribute attribute = new Attribute("+");
@@ -2012,7 +2060,7 @@ public class Parser
                 }
                 break;
                 case 115:
-//#line 841 "G08 - Gramatica - 25102020.y"
+//#line 887 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Resta");
                     Attribute attribute = new Attribute("-");
@@ -2023,29 +2071,29 @@ public class Parser
                 }
                 break;
                 case 116:
-//#line 850 "G08 - Gramatica - 25102020.y"
+//#line 896 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(0).tree;
                 }
                 break;
                 case 117:
-//#line 854 "G08 - Gramatica - 25102020.y"
+//#line 900 "G08 - Gramatica - 25102020.y"
                 { addError("Error Sintáctico en linea "+ la.getNroLinea() + ": Suma - Se espera un termino luego del '+'."); }
                 break;
                 case 118:
-//#line 855 "G08 - Gramatica - 25102020.y"
+//#line 901 "G08 - Gramatica - 25102020.y"
                 { addError("Error Sintáctico en linea "+ la.getNroLinea() + ": Suma - Se espera una expresion antes del '+'."); }
                 break;
                 case 119:
-//#line 856 "G08 - Gramatica - 25102020.y"
+//#line 902 "G08 - Gramatica - 25102020.y"
                 { addError("Error Sintáctico en linea "+ la.getNroLinea() + ": Resta - Se espera un termino luego del '-'."); }
                 break;
                 case 120:
-//#line 857 "G08 - Gramatica - 25102020.y"
+//#line 903 "G08 - Gramatica - 25102020.y"
                 { addError("Error Sintáctico en linea "+ la.getNroLinea() + ": Resta - Se espera una expresion antes del '-'."); }
                 break;
                 case 121:
-//#line 861 "G08 - Gramatica - 25102020.y"
+//#line 907 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Multiplicacion");
                     Attribute attribute = new Attribute("*");
@@ -2056,7 +2104,7 @@ public class Parser
                 }
                 break;
                 case 122:
-//#line 870 "G08 - Gramatica - 25102020.y"
+//#line 916 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": Division");
                     Attribute attribute = new Attribute("/");
@@ -2067,46 +2115,49 @@ public class Parser
                 }
                 break;
                 case 123:
-//#line 880 "G08 - Gramatica - 25102020.y"
+//#line 926 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(0).tree;
                 }
                 break;
                 case 124:
-//#line 884 "G08 - Gramatica - 25102020.y"
+//#line 930 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintáctico en linea "+ la.getNroLinea() + ": Multiplicacion - Se espera un factor luego de * ");}
                 break;
                 case 125:
-//#line 885 "G08 - Gramatica - 25102020.y"
+//#line 931 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintáctico en linea "+ la.getNroLinea() + ": Division - Se espera un factor luego de /");}
                 break;
                 case 126:
-//#line 886 "G08 - Gramatica - 25102020.y"
+//#line 932 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintáctico en linea "+ la.getNroLinea() + ": Multiplicacion - Se espera un termino antes de * ");}
                 break;
                 case 127:
-//#line 887 "G08 - Gramatica - 25102020.y"
+//#line 933 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintáctico en linea "+ la.getNroLinea() + ": Division - Se espera un termino antes de /");}
                 break;
                 case 128:
-//#line 891 "G08 - Gramatica - 25102020.y"
+//#line 937 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": NRO_ULONGINT.");
+                    val_peek(0).attributes.get(val_peek(0).attributes.size()-1).setFlag();
                     yyval.tree  = new SyntacticTreeLeaf(null, null, val_peek(0).attributes.get(val_peek(0).attributes.size()-1));
                 }
                 break;
                 case 129:
-//#line 896 "G08 - Gramatica - 25102020.y"
+//#line 943 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": NRO_DOUBLE.");
+                    val_peek(0).attributes.get(val_peek(0).attributes.size()-1).setFlag();
                     yyval.tree  = new SyntacticTreeLeaf(null, null, val_peek(0).attributes.get(val_peek(0).attributes.size()-1));
                 }
                 break;
                 case 130:
-//#line 902 "G08 - Gramatica - 25102020.y"
+//#line 950 "G08 - Gramatica - 25102020.y"
                 {
-                    String lexeme = val_peek(0).attributes.get(0).getLexeme();
-                    Attribute attribute = new Attribute(lexeme, lexeme,"NRO_DOUBLE", Type.DOUBLE);
+                    String lexeme = "-" + val_peek(0).attributes.get(0).getLexeme();
+                    Attribute attribute = new Attribute(lexeme, lexeme,"NRO_DOUBLE", Type.DOUBLE, Use.constante);
+                    attribute.setFlag();
                     boolean check = la.checkNegativeDouble(lexeme);
                     if(check){
                         addError("Error Sintáctico en línea "+ la.getNroLinea() +": DOUBLE fuera de rango.");
@@ -2114,9 +2165,10 @@ public class Parser
                         addRule("Linea "+ la.getNroLinea() +": NRO_DOUBLE negativo.");
                         la.addSymbolTable(lexeme, attribute);
                         val_peek(0).attributes.get(0).decreaseAmount();
-                        int amount = la.getAttribute(lexeme).get(0).getAmount();
+                        String positiveLexeme = val_peek(0).attributes.get(0).getLexeme();
+                        int amount = la.getAttribute(positiveLexeme).get(0).getAmount();
                         if(amount == 0){
-                            la.getSt().deleteSymbolTableEntry(lexeme);
+                            la.getSt().deleteSymbolTableEntry(positiveLexeme);
                         }
                     }
 
@@ -2124,19 +2176,19 @@ public class Parser
                 }
                 break;
                 case 131:
-//#line 922 "G08 - Gramatica - 25102020.y"
+//#line 972 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(0).tree;
                 }
                 break;
                 case 132:
-//#line 927 "G08 - Gramatica - 25102020.y"
+//#line 977 "G08 - Gramatica - 25102020.y"
                 {
                     yyval.tree = val_peek(0).tree;
                 }
                 break;
                 case 133:
-//#line 933 "G08 - Gramatica - 25102020.y"
+//#line 983 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": ID PUNTO_PUNTO ID");
 
@@ -2149,6 +2201,7 @@ public class Parser
                     List<Parameter> parameters = this.checkIDPROC(val_peek(2).attributes, lexemeIz);
                     this.deleteSTEntry(lexemeIz, Use.llamado_procedimiento_variable);
                     Attribute attribute = this.checkID(val_peek(0).attributes, lexemeDer);
+                    attribute.setFlag();
 
                     String scopePROC = val_peek(2).attributes.get(val_peek(2).attributes.size()-1).getScope();
                     val_peek(0).attributes = getListUse(val_peek(0).attributes, Use.variable);
@@ -2164,17 +2217,18 @@ public class Parser
                 }
                 break;
                 case 134:
-//#line 959 "G08 - Gramatica - 25102020.y"
+//#line 1010 "G08 - Gramatica - 25102020.y"
                 {addError("Error Sintáctico en linea "+ la.getNroLinea() + ": Tipo ID - Se espera ID luego de ::");}
                 break;
                 case 135:
-//#line 962 "G08 - Gramatica - 25102020.y"
+//#line 1013 "G08 - Gramatica - 25102020.y"
                 {
                     addRule("Linea "+ la.getNroLinea() +": ID");
 
                     String lexeme = val_peek(0).attributes.get(0).getLexeme();
 
                     Attribute attribute = this.checkID(val_peek(0).attributes, lexeme);
+                    attribute.setFlag();
 
                     if(attribute == null){
                         attribute = new Attribute(lexeme);
@@ -2184,7 +2238,7 @@ public class Parser
                     yyval.tree  = new SyntacticTreeLeaf(null, null, attribute);
                 }
                 break;
-//#line 2109 "Parser.java"
+//#line 2163 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
             }//switch
             //#### Now let's reduce... ####
