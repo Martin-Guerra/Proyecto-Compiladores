@@ -17,7 +17,18 @@ public class SyntacticTreeCONV extends SyntacticTree{
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
-        return null;
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
+        String assembler = "";
+        Attribute attribute = this.getLeft().getAttribute();
+        this.deleteLeftChildren(this);
+        this.replaceRoot(this, attribute);
+        return assembler;
+    }
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
+        String assembler = "";
+        //FILD -> de entero a punto flotante
+        return assembler;
     }
 }

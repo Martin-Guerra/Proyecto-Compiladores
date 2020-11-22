@@ -4,6 +4,7 @@ import Lexer.LexerAnalyzer;
 import Lexer.State;
 import SymbolTable.Attribute;
 import SymbolTable.Type;
+import SymbolTable.Use;
 
 //Se reconoce la cadena de string
 public class SemanticAction11 implements SemanticAction{
@@ -14,7 +15,7 @@ public class SemanticAction11 implements SemanticAction{
         la.setLexeme(la.getLexeme() + character);
         la.setPos(la.getPos() + 1);
         String lexeme = la.getLexeme();
-        Attribute attribute = new Attribute(lexeme,lexeme,"CADENA", Type.STRING);
+        Attribute attribute = new Attribute(lexeme,lexeme,"CADENA", Type.STRING, Use.cadena);
         la.addSymbolTable(lexeme, attribute);
         int idNumber = la.getNumberId(lexeme);
         la.setToken(idNumber, lexeme);

@@ -68,20 +68,36 @@ public class Main {
                 System.out.println(t);
             }*/
 
+            /*String textoSalida = "";
+
+            textoSalida+= "************* Tabla de simbolos *************"+"\n";
+            textoSalida+= lexerAnalyzer.printSymbolTable();
+            textoSalida+="************* Errores Lexicos Reconocidos *************"+"\n";
+            textoSalida+=lexerAnalyzer.getErrors()+"\n";
+            textoSalida+="*************	Warning  Reconocidos *************"+"\n";
+            textoSalida+=lexerAnalyzer.getWarning()+"\n";
+            textoSalida+="************* Reglas Reconocidas *************"+"\n";
+            for(int i=0;i<parser.getRules().size();i++)
+                textoSalida+=parser.getRules().get(i)+"\n";
+            textoSalida+="************* Errores Sintacticos y Semánticos Reconocidos *************"+"\n";
+            for(int i=0;i<parser.getErrors().size();i++)
+                textoSalida+=parser.getErrors().get(i)+"\n";
+            if(parser.getErrors().size() == 0){
+                textoSalida+="************* Arbol sintactico *************"+"\n";
+                textoSalida+=parser.printSyntacticTree();
+                textoSalida+='\n'+"************* Arbol sintactico procedimientos *************"+"\n";
+                textoSalida+=parser.printPROCtree();
+            }
+
+            System.out.println(textoSalida);*/
             System.out.println("************* Tabla de simbolos *************"+"\n");
             System.out.println(lexerAnalyzer.printSymbolTable()+"\n"+"\n");
-
-            //textoSalida+="************* Errores Lexicos Reconocidos *************"+"\n";
-            //textoSalida+=lexerAnalyzer.getErrors()+"\n";
-            //System.out.println(lexerAnalyzer.getErrors());
-            //textoSalida+="*************	Warning  Reconocidos *************"+"\n";
-            //textoSalida+=lexerAnalyzer.getWarning()+"\n";
-
+            System.out.println("************* Errores Lexicos Reconocidos *************"+"\n");
+            System.out.println(lexerAnalyzer.getErrors());
             System.out.println("************* Reglas Reconocidas *************"+"\n");
             for(int i=0;i<parser.getRules().size();i++)
                 System.out.println(parser.getRules().get(i)+"\n");
-
-            System.out.println("************* Errores Sintacticos Reconocidos *************"+"\n");
+            System.out.println("************* Errores Sintacticos y Semánticos Reconocidos *************"+"\n");
             for(int i=0;i<parser.getErrors().size();i++)
                 System.out.println(parser.getErrors().get(i)+"\n");
 

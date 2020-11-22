@@ -21,7 +21,7 @@ public class SyntacticTreeFORCMP extends SyntacticTree{
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
 
         if(this.getRight().getAttribute().getUse().equals(Use.registro)) {
@@ -31,29 +31,14 @@ public class SyntacticTreeFORCMP extends SyntacticTree{
                 assembler += "CMP _" + this.getLeft().getAttribute().getScope() + ", _" + this.getRight().getAttribute().getScope() + '\n';
 
         String label = "FOR_CMP" + ++counter;
-        assembler += getAssemblerFORCondition() + label + '\n';
+        assembler += getAssemblerConditionULONGINT() + label + '\n';
         SyntacticTreeFOR.jLabel.push(label);
         return assembler;
     }
 
-    public String getAssemblerFORCondition(){
-        String assembler;
-        switch(this.getLexeme())
-        {
-            case "<" : assembler = "JAE ";
-                break;
-            case ">" : assembler = "JBE ";
-                break;
-            case "==" : assembler = "JNE ";
-                break;
-            case ">=" : assembler = "JA ";
-                break;
-            case "<=" : assembler = "JB ";
-                break;
-            case "!=" : assembler = "JE ";
-                break;
-            default : assembler = "";
-        }
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
+        String assembler = "";
         return assembler;
     }
 }

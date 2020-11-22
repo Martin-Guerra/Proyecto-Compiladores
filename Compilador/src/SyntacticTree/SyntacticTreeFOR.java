@@ -24,10 +24,16 @@ public class SyntacticTreeFOR extends SyntacticTree{
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
         String label =  SyntacticTreeFOR.jLabel.pop();
         assembler += label + ":" + '\n';
+        return assembler;
+    }
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
+        String assembler = "";
         return assembler;
     }
 }

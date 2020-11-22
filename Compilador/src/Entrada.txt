@@ -1,6 +1,9 @@
-ULONGINT a, b, c, d, e, f, g, h, i;
+ULONGINT a, b, c, d, e, f, z, h;
+ULONGINT x, y;
 
-IF(a == b)
-	a = e;
-
+IF(a - b > c + 1_ul)
+	a = b + c;
+ELSE
+	a = b - c;
 END_IF;
+

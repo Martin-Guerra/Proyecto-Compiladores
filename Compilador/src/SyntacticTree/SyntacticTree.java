@@ -10,6 +10,9 @@ public abstract class SyntacticTree {
     private SyntacticTree rigth = null;
     private Attribute attribute = null;
     private int cant = 0;
+    private String printTree = "";
+    public static String assemblerData = "";
+    public static int counterVar = 0;
 
     public SyntacticTree(SyntacticTree left, SyntacticTree rigth, Attribute attribute) {
         this.left = left;
@@ -60,10 +63,14 @@ public abstract class SyntacticTree {
         return this.attribute;
     }
 
+    public String getPrintTree(){
+        return this.printTree;
+    }
+
     public void printTree(SyntacticTree node) {
         if (node != null) {
             if (node.isLeaf()) {
-                tab(cant, node.attribute.getLexeme(), node.attribute.getType());
+                this.printTree += tab(cant, node.attribute.getLexeme(), node.attribute.getType()) +'\n';
                 return;
             }
             tab(cant, node.getLexeme(), node.getType()); // mostrar datos del nodo
@@ -86,11 +93,16 @@ public abstract class SyntacticTree {
         return (this.getLeft() == null && this.getRight() == null);
     }
 
-    private void tab(int cant, String lexeme, Type type){
+    public String getAssemblerData(){
+        return this.assemblerData;
+    }
+
+    private String tab(int cant, String lexeme, Type type){
         for(int i=cant; i>0; i--){
             lexeme = '\t' + lexeme;
         }
         System.out.print(lexeme + " Type " + type +'\n');
+        return lexeme;
     }
 
     public boolean checkType(SyntacticTree root){
@@ -115,6 +127,10 @@ public abstract class SyntacticTree {
         root.setRigth(null);
     }
 
+    public void deleteLeftChildren(SyntacticTree root){
+        root.setLeft(null);
+    }
+
     public void replaceRoot(SyntacticTree root, Attribute attribute){
         root.setAttribute(attribute);
     }
@@ -125,5 +141,64 @@ public abstract class SyntacticTree {
         return false;
     }
 
-    public abstract String generateAssemblerCode(RegisterContainer resgisterContainer);
+    public abstract String generateAssemblerCodeRegister(RegisterContainer resgisterContainer);
+    public abstract String generateAssemblerCodeVariable(RegisterContainer resgisterContainer);
+
+    public String assemblerTechnique(RegisterContainer resgisterContainer){
+        String assembler = "";
+        //Casos especiales de nodos intermedios que no tienen tipo y el assembler se genera siempre igual
+        //nvocamos generateAssemblerCodeRegister y dejamos sin código generateAssemblerCodeVariable
+        if(this.getAttribute().getType() == null){
+            assembler += generateAssemblerCodeRegister(resgisterContainer);
+            return assembler;
+        }
+
+        if(this.getAttribute().getType().equals(Type.DOUBLE))
+            assembler += generateAssemblerCodeVariable(resgisterContainer);
+        else
+            assembler += generateAssemblerCodeRegister(resgisterContainer);
+        return assembler;
+    }
+
+    public String getAssemblerConditionDOUBLE(){
+        String assembler = "";
+        switch(this.getLexeme())
+        {
+            case "<" : assembler = "JGE ";
+                break;
+            case ">" : assembler = "JLE ";
+                break;
+            case "==" : assembler = "JNE ";
+                break;
+            case ">=" : assembler = "JL ";
+                break;
+            case "<=" : assembler = "JG ";
+                break;
+            case "!=" : assembler = "JE ";
+                break;
+            default : assembler = "";
+        }
+        return assembler;
+    }
+
+    public String getAssemblerConditionULONGINT(){
+        String assembler = "";
+        switch(this.getLexeme())
+        {
+            case "<" : assembler = "JAE ";
+                break;
+            case ">" : assembler = "JBE ";
+                break;
+            case "==" : assembler = "JNE ";
+                break;
+            case ">=" : assembler = "JA ";
+                break;
+            case "<=" : assembler = "JB ";
+                break;
+            case "!=" : assembler = "JE ";
+                break;
+            default : assembler = "";
+        }
+        return assembler;
+    }
 }

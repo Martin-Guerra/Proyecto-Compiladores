@@ -4,6 +4,7 @@ public enum Use {
     variable,
     constante,
     registro,
+    cadena,
     nombre_parametro,
     nombre_parametro_real,
     nombre_procedimiento,

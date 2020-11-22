@@ -3,6 +3,7 @@ package SyntacticTree;
 import AssemblerGenerator.RegisterContainer;
 import SymbolTable.Attribute;
 import SymbolTable.Parameter;
+import SymbolTable.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,16 +32,28 @@ public class SyntacticTreeCALL extends SyntacticTree{
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
 
         List<Parameter> realParameters = this.getAttribute().getParameters();
         for(int i=0; i < realParameters.size(); i++){
-            assembler += "MOV _" + this.formalParameters.get(i).getLexeme() +
-                        ", _" + realParameters.get(i).getLexeme() + '\n';
+            if(realParameters.get(i).getType().equals(Type.ULONGINT))
+                assembler += "MOV _" + this.formalParameters.get(i).getLexeme() +
+                         ", _" + realParameters.get(i).getLexeme() + '\n';
+            else {
+                assembler += "FLD _" + realParameters.get(i).getLexeme() + '\n';
+                assembler += "FSTP _" + this.formalParameters.get(i).getLexeme() + '\n';
+            }
+
         }
 
         assembler += "CALL " + this.getAttribute().getScope() + '\n';
+        return assembler;
+    }
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
+        String assembler = "";
         return assembler;
     }
 }

@@ -16,8 +16,20 @@ public class SyntacticTreeOUT extends SyntacticTree{
         super(left, attribute);
     }
 
+
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
-        return null;
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
+        String assembler = "";
+        System.out.println(this.getLeft().getLexeme());
+        Attribute attribute = this.getLeft().getAttribute();
+        this.deleteLeftChildren(this);
+        this.replaceRoot(this, attribute);
+        assembler += "invoke MessageBox, NULL, addr \"Messages\", addr _" + this.getLexeme() + ", MB_OK \n";
+        return assembler;
+    }
+
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer){
+        String assembler = "";
+        return assembler;
     }
 }

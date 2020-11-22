@@ -20,12 +20,18 @@ public class SyntacticTreeIFTHEN extends SyntacticTree{
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
         String label = "IF_THEN" + ++counter;
         assembler += "JMP " + label + '\n';
         assembler += SyntacticTreeIF.jLabel.pop() + ":" + '\n';
         SyntacticTreeIF.jLabel.push(label);
+        return assembler;
+    }
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
+        String assembler = "";
         return assembler;
     }
 }

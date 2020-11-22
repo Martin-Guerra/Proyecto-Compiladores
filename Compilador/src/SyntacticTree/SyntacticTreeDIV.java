@@ -18,12 +18,12 @@ public class SyntacticTreeDIV extends SyntacticTree{
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
 
-        //if(el divisor es cero) then activo flag (saltar a fin de programa)
         String assembler = "";
         String register = "";
         String aux = "";
+
         if(this.getRight().getAttribute().getUse().equals(Use.constante)) {
             register = resgisterContainer.forceRegister();
             assembler += "MOV " + register + ", _" + this.getRight().getAttribute().getScope() + '\n';
@@ -31,6 +31,9 @@ public class SyntacticTreeDIV extends SyntacticTree{
             resgisterContainer.setAverableRegister(register);
         }else
             aux = "DIV _" + this.getRight().getAttribute().getScope() + '\n';
+
+        assembler += "CMP " + this.getRight().getAttribute().getScope() + ", _ceroULONGINT" + '\n';
+        assembler += "JE Error_Division_Cero" + '\n';
 
         if(!this.getLeft().getAttribute().getLexeme().equals("EAX")) {
             resgisterContainer.setNotAverableRegister(0);
@@ -49,6 +52,32 @@ public class SyntacticTreeDIV extends SyntacticTree{
         this.deleteChildren(this);
         Attribute attribute = new Attribute("EAX", Use.registro);
         this.replaceRoot(this, attribute);
+        return assembler;
+    }
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
+
+        String assembler = "";
+
+        assembler += "FLD _" + this.getRight().getAttribute().getScope() +'\n';
+        assembler += "FCOMP _ceroDOUBLE" + '\n';
+        assembler += "JE Error_Division_Cero" + '\n';
+
+        assembler += "FLD _" + this.getLeft().getAttribute().getScope() +'\n';
+        assembler += "FLD _" + this.getRight().getAttribute().getScope() +'\n';
+
+        assembler += "FDIV" + '\n';
+
+        String auxVar = "@aux" + this.counterVar;
+        assembler += "FSTP _" + auxVar +'\n';
+
+        this.assemblerData += "_" + auxVar + " DQ ?" + '\n';
+
+        this.deleteChildren(this);
+        Attribute attribute = new Attribute(auxVar, auxVar, Use.variable);
+        this.replaceRoot(this, attribute);
+        this.counterVar++;
         return assembler;
     }
 }

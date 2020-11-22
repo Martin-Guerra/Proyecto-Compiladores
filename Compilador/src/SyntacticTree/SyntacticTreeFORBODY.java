@@ -18,7 +18,7 @@ public class SyntacticTreeFORBODY extends SyntacticTree {
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgister) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgister) {
         String assembler = "";
         String auxLabel = SyntacticTreeFOR.jLabel.pop();
         String label = SyntacticTreeFOR.jLabel.pop();
@@ -26,5 +26,11 @@ public class SyntacticTreeFORBODY extends SyntacticTree {
         SyntacticTreeFOR.jLabel.push(auxLabel);
         return assembler;
 
+    }
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
+        String assembler = "";
+        return assembler;
     }
 }

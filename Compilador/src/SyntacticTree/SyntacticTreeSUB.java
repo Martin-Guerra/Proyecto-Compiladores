@@ -19,10 +19,11 @@ public class SyntacticTreeSUB extends SyntacticTree{
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
         String register = "";
         Attribute attribute = null;
+
         if(checkChildrenUse()) {
             register = resgisterContainer.getRegister();
             attribute = new Attribute(register, Use.registro);
@@ -30,7 +31,8 @@ public class SyntacticTreeSUB extends SyntacticTree{
             assembler += "SUB " + register + ", _" + this.getRight().getAttribute().getScope() + '\n';
         }
 
-        //if(izquierdo es menor que el derecho) then activo flag (saltar a fin de programa)
+        assembler += "CMP " + this.getLeft().getAttribute().getScope() + ", " + this.getRight().getAttribute().getScope() + '\n';
+        assembler += "JB Error_Resta_Negativa" + '\n';
 
         if(this.getLeft().getAttribute().getUse().equals(Use.registro) &&
             this.getRight().getAttribute().getUse().equals(Use.registro)) {
@@ -51,8 +53,28 @@ public class SyntacticTreeSUB extends SyntacticTree{
                 }
             }
         }
+
         this.deleteChildren(this);
         this.replaceRoot(this, attribute);
+        return assembler;
+    }
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
+        String assembler = "";
+        assembler += "FLD _" + this.getLeft().getAttribute().getScope() +'\n';
+        assembler += "FLD _" + this.getRight().getAttribute().getScope() +'\n';
+        assembler += "FSUB" +'\n';
+
+        String auxVar = "@aux" + this.counterVar;
+        assembler += "FSTP _" + auxVar + '\n';
+
+        this.assemblerData += "_" + auxVar + " DQ ?" + '\n';
+
+        this.deleteChildren(this);
+        Attribute attribute = new Attribute(auxVar,auxVar, Use.variable);
+        this.replaceRoot(this, attribute);
+        this.counterVar++;
         return assembler;
     }
 }

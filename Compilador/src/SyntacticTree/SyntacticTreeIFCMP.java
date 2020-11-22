@@ -21,7 +21,7 @@ public class SyntacticTreeIFCMP extends SyntacticTree{
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
         String register = "";
         Attribute attribute = null;
@@ -51,29 +51,34 @@ public class SyntacticTreeIFCMP extends SyntacticTree{
         }
 
         String label = "IF_CMP" + ++counter;
-        assembler += getAssemblerIFCondition() + label + '\n';
+        assembler += getAssemblerConditionULONGINT() + label + '\n';
         SyntacticTreeIF.jLabel.push(label);
         return assembler;
     }
 
-    public String getAssemblerIFCondition(){
+
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
         String assembler = "";
-        switch(this.getLexeme())
-        {
-            case "<" : assembler = "JAE ";
-                break;
-            case ">" : assembler = "JBE ";
-                break;
-            case "==" : assembler = "JNE ";
-                break;
-            case ">=" : assembler = "JA ";
-                break;
-            case "<=" : assembler = "JB ";
-                break;
-            case "!=" : assembler = "JE ";
-                break;
-            default : assembler = "";
-        }
+
+        assembler += "FLD _" + this.getLeft().getAttribute().getScope() + '\n';
+        assembler += "FCOMP _" + this.getRight().getAttribute().getScope() + '\n';
+
+        String auxVar = "@aux" + this.counterVar;
+
+        assembler += "FSTSW _" + auxVar + '\n';
+        assembler += "MOV AX, _" + auxVar + '\n';
+        assembler += "SAHF" + '\n';
+
+        this.assemblerData += "_" + auxVar + " DQ ?" + '\n';
+
+        String label = "IF_CMP" + ++counter;
+        assembler += getAssemblerConditionDOUBLE() + label + '\n';
+        SyntacticTreeIF.jLabel.push(label);
+        this.counterVar++;
         return assembler;
     }
+
+
 }

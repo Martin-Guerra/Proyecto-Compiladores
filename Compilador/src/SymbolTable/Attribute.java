@@ -82,6 +82,15 @@ public class Attribute {
         this.declared = false;
     }
 
+    public Attribute(String lexeme, String scope, Use use) {
+        this.lexeme = lexeme;
+        this.scope = scope;
+        this.use = use;
+        this.amount = 1;
+        this.flag = 0;
+        this.declared = false;
+    }
+
     public String getLexeme() { return this.lexeme; }
 
     public void setLexeme(String lexeme) { this.lexeme = lexeme; }

@@ -19,7 +19,7 @@ public class SyntacticTreeMUL extends SyntacticTree{
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
         String aux = "";
         String register;
@@ -52,6 +52,25 @@ public class SyntacticTreeMUL extends SyntacticTree{
         attribute = new Attribute("EAX", Use.registro);
         this.deleteChildren(this);
         this.replaceRoot(this, attribute);
+        return assembler;
+    }
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
+        String assembler = "";
+        assembler += "FLD _" + this.getLeft().getAttribute().getScope()+ '\n';
+        assembler += "FLD _" + this.getRight().getAttribute().getScope()+ '\n';
+        assembler += "FMUL" + '\n';
+
+        String auxVar = "@aux" + this.counterVar;
+        assembler += "FSTP _" + auxVar + '\n';
+
+        this.assemblerData += "_" + auxVar + " DQ ?" + '\n';
+
+        this.deleteChildren(this);
+        Attribute attribute = new Attribute(auxVar,auxVar, Use.variable);
+        this.replaceRoot(this, attribute);
+        this.counterVar++;
         return assembler;
     }
 }

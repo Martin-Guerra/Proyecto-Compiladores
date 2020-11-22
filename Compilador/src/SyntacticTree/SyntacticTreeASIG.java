@@ -18,7 +18,7 @@ public class SyntacticTreeASIG extends SyntacticTree{
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
 
         String assembler = "";
         Attribute attribute = null;
@@ -48,6 +48,19 @@ public class SyntacticTreeASIG extends SyntacticTree{
 
         this.deleteChildren(this);
         //this.replaceRoot(this, attribute);
+        return assembler;
+    }
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
+        String assembler = "";
+
+        String scope = this.getRight().getAttribute().getScope().substring(0, 1);
+        if(!scope.equals("_@"))
+            assembler += "FLD _" + this.getRight().getAttribute().getScope()+ '\n';
+
+        assembler += "FSTP _" + this.getLeft().getAttribute().getScope() + '\n';
+        this.deleteChildren(this);
         return assembler;
     }
 }

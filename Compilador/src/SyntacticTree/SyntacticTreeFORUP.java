@@ -19,7 +19,7 @@ public class SyntacticTreeFORUP extends SyntacticTree{
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgisterContainer) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
         String register = resgisterContainer.getRegister();
         assembler += "MOV " + register + ", _" + SyntacticTreeFOR.ID.getScope() + '\n';
@@ -27,6 +27,12 @@ public class SyntacticTreeFORUP extends SyntacticTree{
         assembler += "MOV _" + SyntacticTreeFOR.ID.getScope() + ", " + register + '\n';
         resgisterContainer.setAverableRegister(register);
 
+        return assembler;
+    }
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
+        String assembler = "";
         return assembler;
     }
 }

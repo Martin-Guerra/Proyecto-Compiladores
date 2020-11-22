@@ -18,7 +18,13 @@ public class SyntacticTreeFORHEAD extends SyntacticTree {
     }
 
     @Override
-    public String generateAssemblerCode(RegisterContainer resgister) {
+    public String generateAssemblerCodeRegister(RegisterContainer resgister) {
+        String assembler = "";
+        return assembler;
+    }
+
+    @Override
+    public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
         String assembler = "";
         return assembler;
     }
