@@ -2,6 +2,7 @@ package SyntacticTree;
 
 import AssemblerGenerator.RegisterContainer;
 import SymbolTable.Attribute;
+import SymbolTable.Use;
 
 public class SyntacticTreeCONV extends SyntacticTree{
     public SyntacticTreeCONV(SyntacticTree left, SyntacticTree rigth, Attribute attribute) {
@@ -19,7 +20,9 @@ public class SyntacticTreeCONV extends SyntacticTree{
     @Override
     public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
-        Attribute attribute = this.getLeft().getAttribute();
+        String register = resgisterContainer.getRegister();
+        assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getScope()+'\n'; //ULONGINT(expresion)
+        Attribute attribute = new Attribute(register, Use.registro);
         this.deleteLeftChildren(this);
         this.replaceRoot(this, attribute);
         return assembler;
@@ -28,7 +31,16 @@ public class SyntacticTreeCONV extends SyntacticTree{
     @Override
     public String generateAssemblerCodeVariable(RegisterContainer resgisterContainer) {
         String assembler = "";
-        //FILD -> de entero a punto flotante
+
+        assembler += "FILD _" + this.getLeft().getAttribute().getScope()+'\n'; //DOUBLE(expresion)
+        String auxVar = "@aux" + this.counterVar;
+        assembler += "FSTP _" + auxVar +'\n';
+
+        this.assemblerData += "_" + auxVar + " DQ ?" + '\n';
+
+        Attribute attribute = new Attribute(auxVar, auxVar, Use.variable);
+        this.deleteLeftChildren(this);
+        this.replaceRoot(this, attribute);
         return assembler;
     }
 }

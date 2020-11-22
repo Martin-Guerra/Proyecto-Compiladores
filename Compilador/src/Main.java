@@ -90,18 +90,23 @@ public class Main {
             }
 
             System.out.println(textoSalida);*/
+
             System.out.println("************* Tabla de simbolos *************"+"\n");
             System.out.println(lexerAnalyzer.printSymbolTable()+"\n"+"\n");
             System.out.println("************* Errores Lexicos Reconocidos *************"+"\n");
             System.out.println(lexerAnalyzer.getErrors());
+            System.out.println("*************	Warning  Reconocidos *************"+"\n");
+            System.out.println(lexerAnalyzer.getWarning()+"\n");
             System.out.println("************* Reglas Reconocidas *************"+"\n");
             for(int i=0;i<parser.getRules().size();i++)
                 System.out.println(parser.getRules().get(i)+"\n");
-            System.out.println("************* Errores Sintacticos y Semánticos Reconocidos *************"+"\n");
-            for(int i=0;i<parser.getErrors().size();i++)
-                System.out.println(parser.getErrors().get(i)+"\n");
+            if(lexerAnalyzer.getErrors().isBlank() ) {
+                System.out.println("************* Errores Sintacticos y Semánticos Reconocidos *************" + "\n");
+                for (int i = 0; i < parser.getErrors().size(); i++)
+                    System.out.println(parser.getErrors().get(i) + "\n");
+            }
 
-            if(parser.getErrors().size() == 0){
+            if(lexerAnalyzer.getErrors().isBlank() && parser.getErrors().size() == 0){
                 System.out.println("************* Arbol sintactico *************"+"\n");
                 parser.printSyntacticTree();
 

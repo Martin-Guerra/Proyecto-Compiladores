@@ -1,9 +1,16 @@
-ULONGINT a, b, c, d, e, f, z, h;
-ULONGINT x, y;
+PROC z (DOUBLE g) NA = 5_ul {
+	PROC c (DOUBLE m) NA = 0_ul {
+ULONGINT b;
+		b = 2.0;
+	};
+	PROC c () NA = 0_ul {
+		a = 2.0;
+	};
+};
 
-IF(a - b > c + 1_ul)
-	a = b + c;
-ELSE
-	a = b - c;
-END_IF;
+ULONGINT a;
+PROC d (DOUBLE b) NA = 0_ul {
+	a = 2.0; 
+};
 
+c(); 

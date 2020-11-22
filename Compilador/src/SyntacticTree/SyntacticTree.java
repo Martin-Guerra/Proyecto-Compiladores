@@ -70,10 +70,10 @@ public abstract class SyntacticTree {
     public void printTree(SyntacticTree node) {
         if (node != null) {
             if (node.isLeaf()) {
-                this.printTree += tab(cant, node.attribute.getLexeme(), node.attribute.getType()) +'\n';
+                this.printTree += tab(cant, node.attribute.getLexeme(), node.attribute.getType(), node.attribute.getUse()) +'\n';
                 return;
             }
-            tab(cant, node.getLexeme(), node.getType()); // mostrar datos del nodo
+            tab(cant, node.getLexeme(), node.getType(), node.attribute.getUse()); // mostrar datos del nodo
             cant++;
             printTree(node.getLeft()); //recorre subarbol izquierdo
             printTree(node.getRight()); //recorre subarbol derecho
@@ -97,16 +97,24 @@ public abstract class SyntacticTree {
         return this.assemblerData;
     }
 
-    private String tab(int cant, String lexeme, Type type){
+    private String tab(int cant, String lexeme, Type type, Use use){
         for(int i=cant; i>0; i--){
             lexeme = '\t' + lexeme;
         }
-        System.out.print(lexeme + " Type " + type +'\n');
+        System.out.print(lexeme + " Type " + type + " Use " + use + '\n');
         return lexeme;
     }
 
     public boolean checkType(SyntacticTree root){
         if (root != null && !root.isLeaf()) {
+            if(root.left == null){
+                root.attribute.setType(Type.ERROR);
+                return false;
+            }
+            if(root.rigth == null){
+                root.attribute.setType(Type.ERROR);
+                return false;
+            }
             if(root.left.attribute.getType().getName().equals(root.rigth.attribute.getType().getName())){
                 root.attribute.setType(root.left.attribute.getType());
                 return true; //Tipos compatibles

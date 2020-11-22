@@ -69,7 +69,7 @@ public class RegisterContainer {
         for(int i = 0; i < this.averableRegisters.size(); i++){
             if(this.averableRegisters.get(i)){
                 register = this.registers.get(i);
-                if(!register.equals("EAX") && !!register.equals("EDX")) {
+                if(!register.equals("EAX") && !register.equals("EDX")) {
                     this.setNotAverableRegister(i);
                     return register;
                 }
