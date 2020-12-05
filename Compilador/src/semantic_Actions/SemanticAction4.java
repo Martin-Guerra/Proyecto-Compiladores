@@ -4,7 +4,7 @@ import Lexer.LexerAnalyzer;
 import Lexer.State;
 
 //chequea las palabras reservadas
-public class SemanticAction4 implements SemanticAction{
+public class SemanticAction4 extends SemanticAction{
 
 	@Override
 	public void execute(char character, LexerAnalyzer la) {

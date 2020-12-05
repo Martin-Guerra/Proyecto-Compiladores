@@ -7,7 +7,7 @@ import SymbolTable.Type;
 import SymbolTable.Use;
 
 //Chequea que el punto venga solo para los double
-public class SemanticAction6 implements SemanticAction{
+public class SemanticAction6 extends SemanticAction{
 	private static final double POWERPOSITIVE =  Math.pow(10,308);
 	private static final double POWERNEGATIVE =  Math.pow(10,-308);
 	private static final double  TOPRANGEPOSITIVE = 1.7976931348623157 * POWERPOSITIVE;
@@ -51,7 +51,9 @@ public class SemanticAction6 implements SemanticAction{
 				la.setActualState(0);
 			}else {
 				lexeme = String.valueOf(num);
-				Attribute attribute = new Attribute(lexeme, lexeme,"NRO_DOUBLE", Type.DOUBLE, Use.constante);
+				String scope = "D" + SemanticAction.counter;
+				SemanticAction.counter++;
+				Attribute attribute = new Attribute(lexeme, scope,"NRO_DOUBLE", Type.DOUBLE, Use.constante);
 				la.addSymbolTable(lexeme, attribute);
 				int idNumber = la.getNumberId(lexeme);
 				la.setToken(idNumber, lexeme);

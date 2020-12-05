@@ -26,13 +26,17 @@ public class SyntacticTreeSUB extends SyntacticTree{
 
         if(checkChildrenUse()) {
             register = resgisterContainer.getRegister();
-            attribute = new Attribute(register, Use.registro);
+            attribute = new Attribute(register, register, Use.registro);
             assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getScope() + '\n';
-            assembler += "SUB " + register + ", _" + this.getRight().getAttribute().getScope() + '\n';
+            this.getLeft().setAttribute(attribute);
         }
 
-        assembler += "CMP " + this.getLeft().getAttribute().getScope() + ", " + this.getRight().getAttribute().getScope() + '\n';
-        assembler += "JB Error_Resta_Negativa" + '\n';
+        if(this.getRight().getAttribute().getUse().equals(Use.registro))
+            assembler += "CMP " + this.getLeft().getAttribute().getScope() + ", " + this.getRight().getAttribute().getScope() + '\n';
+        else
+            assembler += "CMP " + this.getLeft().getAttribute().getScope() + ", _" + this.getRight().getAttribute().getScope() + '\n';
+
+        assembler += "JNAE Error_Resta_Negativa" + '\n';
 
         if(this.getLeft().getAttribute().getUse().equals(Use.registro) &&
             this.getRight().getAttribute().getUse().equals(Use.registro)) {

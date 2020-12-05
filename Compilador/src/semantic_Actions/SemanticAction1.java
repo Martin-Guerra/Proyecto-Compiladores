@@ -4,7 +4,7 @@ import Lexer.LexerAnalyzer;
 import Lexer.State;
 
 //Caracteres que pasan directo
-public class SemanticAction1 implements SemanticAction{
+public class SemanticAction1 extends SemanticAction{
 
 	public SemanticAction1() {
 	}

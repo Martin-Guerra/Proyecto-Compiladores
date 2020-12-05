@@ -4,7 +4,7 @@ import Lexer.LexerAnalyzer;
 import Lexer.State;
 
 //Reconocemos saltos de lineas \n en el comentario
-public class SemanticAction8 implements SemanticAction{
+public class SemanticAction8 extends SemanticAction{
 	
 	public SemanticAction8() { }
 

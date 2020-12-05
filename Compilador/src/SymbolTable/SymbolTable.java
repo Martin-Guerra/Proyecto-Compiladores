@@ -71,26 +71,34 @@ public class SymbolTable {
 	public String generateAssemblerCode(){
 		String assembler ="";
 		String value = "";
+		int counter = 0;
 		for(String key : this.symbolTable.keySet()) {
 			for (Attribute a : this.symbolTable.get(key)) {
+				String scope = a.getScope();
 				if (a.getFlag() == 1) {
 					if (a.getUse().equals(Use.variable) ||
 							a.getUse().equals(Use.nombre_parametro))
 						value = "?";
 					else {
-						if (a.getUse().equals(Use.constante))
+						if (a.getUse().equals(Use.constante)) {
 							value = a.getLexeme();
+						} else {
+							if(a.getUse().equals(Use.cadena)){
+								value = "\"" + a.getLexeme() + "\"" + ", 0";
+							}
+						}
 					}
+
 
 					switch (a.getType().getName()) {
 						case "DOUBLE":
-							assembler += "_" + a.getScope() + " DQ " + value + '\n';
+							assembler += "_" + scope + " DQ " + value + '\n';
 							break;
 						case "ULONGINT":
-							assembler += "_" + a.getScope() + " DD " + value + '\n';
+							assembler += "_" + scope + " DD " + value + '\n';
 							break;
 						case "STRING":
-							assembler += "_" + a.getScope() + " DB " + value + '\n';
+							assembler += "_" + scope + " DB " + value + '\n';
 							break;
 					}
 				}

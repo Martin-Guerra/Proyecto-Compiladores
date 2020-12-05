@@ -4,7 +4,7 @@ import Lexer.LexerAnalyzer;
 import Lexer.State;
 
 // Caso especial de la barra sola
-public class SemanticAction17 implements SemanticAction{
+public class SemanticAction17 extends SemanticAction{
 
 	@Override
 	public void execute(char character, LexerAnalyzer la) {

@@ -3,7 +3,7 @@ package semantic_Actions;
 import Lexer.LexerAnalyzer;
 import Lexer.State;
 //Ingreso de caracteres que no son identificados por el autómata
-public class SemanticAction12 implements SemanticAction{
+public class SemanticAction12 extends SemanticAction{
     private static final String INCORRECTSIMBOL = "Caracter ingresado incorrecto: ";
 
     public SemanticAction12() {

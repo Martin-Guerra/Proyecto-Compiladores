@@ -7,13 +7,12 @@ import SymbolTable.Type;
 import SymbolTable.Use;
 
 //Chequea rango double
-public class SemanticAction3 implements SemanticAction{
+public class SemanticAction3 extends SemanticAction{
 
 	private static final double POWERPOSITIVE =  Math.pow(10,308);
 	private static final double POWERNEGATIVE =  Math.pow(10,-308);
 	private static final double  TOPRANGEPOSITIVE = 1.7976931348623157 * POWERPOSITIVE;
 	private static final double LOWRANGEPOSITIVE = 2.2250738585072014 * POWERNEGATIVE;
-
 
 	@Override
 	public void execute(char character, LexerAnalyzer la) {
@@ -54,7 +53,9 @@ public class SemanticAction3 implements SemanticAction{
 			la.setActualState(0);
 		}else {
 			lexeme = String.valueOf(num);
-			Attribute attribute = new Attribute(lexeme, lexeme,"NRO_DOUBLE", Type.DOUBLE, Use.constante);
+			String scope = "D" + SemanticAction.counter;
+			SemanticAction.counter++;
+			Attribute attribute = new Attribute(lexeme, scope,"NRO_DOUBLE", Type.DOUBLE, Use.constante);
 			la.addSymbolTable(lexeme, attribute);
 			int idNumber = la.getNumberId(lexeme);
 			la.setToken(idNumber, lexeme);

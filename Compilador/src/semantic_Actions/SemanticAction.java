@@ -2,7 +2,9 @@ package semantic_Actions;
 
 import Lexer.LexerAnalyzer;
 
-public interface SemanticAction {
+public abstract class SemanticAction {
+	public static int counter = 0;
+	public static int counterString = 0;
 
-	public void execute( char character, LexerAnalyzer la) ;
+	public abstract void execute( char character, LexerAnalyzer la) ;
 }

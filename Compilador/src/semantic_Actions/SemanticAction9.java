@@ -4,7 +4,7 @@ import Lexer.LexerAnalyzer;
 import Lexer.State;
 
 //Descartar el token porque terminamos de leer un comentario
-public class SemanticAction9 implements SemanticAction{
+public class SemanticAction9 extends SemanticAction{
 	
 	public SemanticAction9() { }
 

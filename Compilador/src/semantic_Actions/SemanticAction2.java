@@ -5,7 +5,7 @@ import Lexer.State;
 import SymbolTable.Attribute;
 
 //chequea largo de identificador < 20 (descarta lo que sobra)
-public class SemanticAction2 implements SemanticAction{
+public class SemanticAction2 extends SemanticAction{
 
 	private static final int LENGTH = 20;
 

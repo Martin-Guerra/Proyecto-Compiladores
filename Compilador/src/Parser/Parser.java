@@ -2263,7 +2263,7 @@ public class Parser
                     System.out.println(val_peek(1).attributes.get(0).getScope());
                     addRule("Linea "+ la.getNroLinea() +": Sentencia OUT");
                     val_peek(1).attributes.get(0).setFlag();
-                    Attribute cadena = new Attribute(val_peek(1).attributes.get(0).getLexeme());
+                    Attribute cadena = val_peek(1).attributes.get(0);
                     Attribute OUT = new Attribute("IMPRIMIR");
                     yyval.tree  = new SyntacticTreeOUT(new SyntacticTreeLeaf(null, null, cadena), OUT);
                 }

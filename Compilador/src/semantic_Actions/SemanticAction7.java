@@ -7,7 +7,7 @@ import SymbolTable.Type;
 import SymbolTable.Use;
 
 //Chequea rango de las constantes
-public class SemanticAction7 implements SemanticAction{
+public class SemanticAction7 extends SemanticAction{
 
 	public void execute(char character, LexerAnalyzer la) {
 

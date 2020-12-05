@@ -4,7 +4,7 @@ import Lexer.LexerAnalyzer;
 import Lexer.State;
 
 //Mueve y suma en caso de que entre \n, \s, \t
-public class SemanticAction13 implements SemanticAction{
+public class SemanticAction13 extends SemanticAction{
 
     @Override
     public void execute(char character, LexerAnalyzer la) {

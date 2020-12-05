@@ -3,7 +3,7 @@ package semantic_Actions;
 import Lexer.LexerAnalyzer;
 import Lexer.State;
 
-public class SemanticAction14 implements SemanticAction {
+public class SemanticAction14 extends SemanticAction {
 
 	 private static final String INCORRECTSIMBOL = "No se permiten salto de linea en las cadenas ";
 

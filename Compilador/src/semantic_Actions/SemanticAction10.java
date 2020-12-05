@@ -3,7 +3,7 @@ package semantic_Actions;
 import Lexer.LexerAnalyzer;
 import Lexer.State;
 //Reconoce condiciones
-public class SemanticAction10 implements SemanticAction{
+public class SemanticAction10 extends SemanticAction{
 
 	public SemanticAction10() { }
 

@@ -1,16 +1,19 @@
+DOUBLE a, r;
 PROC z (DOUBLE g) NA = 5_ul {
-	PROC c (DOUBLE m) NA = 0_ul {
-ULONGINT b;
-		b = 2.0;
-	};
-	PROC c () NA = 0_ul {
+	PROC c (DOUBLE m) NA = 1_ul {
+		DOUBLE a;
 		a = 2.0;
+		PROC d () NA = 0_ul {
+			a = r;
+		};	
+	};
+	PROC d () NA = 0_ul {
+		a = r;
 	};
 };
 
-ULONGINT a;
-PROC d (DOUBLE b) NA = 0_ul {
-	a = 2.0; 
+PROC d () NA = 0_ul {
+	a = r;
 };
 
-c(); 
+z(a); 

@@ -24,7 +24,8 @@ public class SyntacticTreeOUT extends SyntacticTree{
         Attribute attribute = this.getLeft().getAttribute();
         this.deleteLeftChildren(this);
         this.replaceRoot(this, attribute);
-        assembler += "invoke MessageBox, NULL, addr \"Messages\", addr _" + this.getLexeme() + ", MB_OK \n";
+        assembler += "invoke MessageBox, NULL, addr _" + this.getAttribute().getScope() +
+                        ", addr _" + this.getAttribute().getScope() + ", MB_OK \n";
         return assembler;
     }
 

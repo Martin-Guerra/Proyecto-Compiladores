@@ -4,6 +4,8 @@ import AssemblerGenerator.RegisterContainer;
 import SymbolTable.Attribute;
 import SymbolTable.Use;
 
+import java.util.Stack;
+
 public class SyntacticTreeDIV extends SyntacticTree{
     public SyntacticTreeDIV(SyntacticTree left, SyntacticTree rigth, Attribute attribute) {
         super(left, rigth, attribute);
@@ -24,7 +26,8 @@ public class SyntacticTreeDIV extends SyntacticTree{
         String register = "";
         String aux = "";
 
-        if(this.getRight().getAttribute().getUse().equals(Use.constante)) {
+        if(this.getRight().getAttribute().getUse().equals(Use.constante) ||
+                this.getRight().getAttribute().getUse().equals(Use.variable)) {
             register = resgisterContainer.forceRegister();
             assembler += "MOV " + register + ", _" + this.getRight().getAttribute().getScope() + '\n';
             aux = "DIV " + register + '\n';
@@ -32,7 +35,12 @@ public class SyntacticTreeDIV extends SyntacticTree{
         }else
             aux = "DIV _" + this.getRight().getAttribute().getScope() + '\n';
 
-        assembler += "CMP " + this.getRight().getAttribute().getScope() + ", _ceroULONGINT" + '\n';
+        if(this.getRight().getAttribute().getUse().equals(Use.registro))
+            assembler += "CMP " + this.getRight().getAttribute().getScope() + ", _ceroULONGINT" + '\n';
+        else{
+            assembler += "CMP " + register + ", _ceroULONGINT" + '\n';
+        }
+
         assembler += "JE Error_Division_Cero" + '\n';
 
         if(!this.getLeft().getAttribute().getLexeme().equals("EAX")) {
@@ -50,7 +58,7 @@ public class SyntacticTreeDIV extends SyntacticTree{
         resgisterContainer.setAverableRegister("EDX");
 
         this.deleteChildren(this);
-        Attribute attribute = new Attribute("EAX", Use.registro);
+        Attribute attribute = new Attribute("EAX", "EAX", Use.registro);
         this.replaceRoot(this, attribute);
         return assembler;
     }
@@ -60,8 +68,8 @@ public class SyntacticTreeDIV extends SyntacticTree{
 
         String assembler = "";
 
-        assembler += "FLD _" + this.getRight().getAttribute().getScope() +'\n';
-        assembler += "FCOMP _ceroDOUBLE" + '\n';
+        //assembler += "FLD _" + this.getRight().getAttribute().getScope() +'\n';
+        assembler += "FCOMP _" + this.getRight().getAttribute().getScope() + '\n';
         assembler += "JE Error_Division_Cero" + '\n';
 
         assembler += "FLD _" + this.getLeft().getAttribute().getScope() +'\n';

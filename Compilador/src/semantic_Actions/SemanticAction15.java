@@ -4,7 +4,7 @@ import Lexer.LexerAnalyzer;
 import Lexer.State;
 
 //Fin de archivo
-public class SemanticAction15 implements SemanticAction{
+public class SemanticAction15 extends SemanticAction{
 
     public SemanticAction15(){ }
 

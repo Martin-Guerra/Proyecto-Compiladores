@@ -3,7 +3,7 @@ package semantic_Actions;
 import Lexer.LexerAnalyzer;
 import Lexer.State;
 //Cualquier caracter que no sea un igual
-public class SemanticAction16 implements SemanticAction{
+public class SemanticAction16 extends SemanticAction{
     @Override
     public void execute(char character, LexerAnalyzer la) {
 

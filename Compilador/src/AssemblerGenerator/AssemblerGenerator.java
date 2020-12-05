@@ -24,13 +24,13 @@ public class AssemblerGenerator {
         this.assemblerHeader += ".386" + '\n' + ".model flat, stdcall" + '\n' + "option casemap :none" + '\n' +
         "include \\masm32\\include\\windows.inc" + '\n' + "include \\masm32\\include\\kernel32.inc" + '\n' +
         "include \\masm32\\include\\user32.inc" + '\n' + "includelib \\masm32\\lib\\kernel32.lib" + '\n' +
-        "includelib \\masm32\\lib\\user32.lib" + '\n';
+        "includelib \\masm32\\lib\\user32.lib" + '\n' + ".STACK 200h" + '\n';
     }
 
     private void concatenateDataSection(SymbolTable st) {
         this.assemblerData += ".data" + '\n';
-        this.assemblerData += "_errorCero" + " DB " + "\"Error division por cero\", 0" + '\n';
-        this.assemblerData += "_errorNegativo" + " DB " + "\"Error valor negativo en la resta\" , 0" + '\n';
+        this.assemblerData += "_errorCero" + " DB " + "\"Error division\", 0" + '\n';
+        this.assemblerData += "_errorNegativo" + " DB " + "\"Error resta\" , 0" + '\n';
         this.assemblerData += "_ceroDOUBLE DQ 0.0" + '\n';
         this.assemblerData += "_ceroULONGINT DD 0" + '\n';
         this.assemblerData += st.generateAssemblerCode();
@@ -44,14 +44,17 @@ public class AssemblerGenerator {
     }
 
     private void concatenateCodeSection(List<SyntacticTree> PROCtrees, SyntacticTree root, RegisterContainer registerContainer) {
-        this.assemblerCode += ".code" + '\n' + "START:" + '\n';
-        this.concatenatePROCAssembler(PROCtrees, registerContainer);
+        this.assemblerCode += ".code" + '\n';
         this.assemblerCode += "Error_Resta_Negativa:"+ '\n';
-        this.assemblerCode += "invoke MessageBox, NULL, addr Message Error, addr _errorNegativo, MB_OK"+ '\n';
+        this.assemblerCode += "invoke MessageBox, NULL, addr _errorNegativo, addr _errorNegativo, MB_OK"+ '\n';
         this.assemblerCode += "invoke ExitProcess, 0" + '\n';
         this.assemblerCode += "Error_Division_Cero:"+ '\n';
-        this.assemblerCode += "invoke MessageBox, NULL, addr Message Error, addr _errorCero, MB_OK"+ '\n';
+        this.assemblerCode += "invoke MessageBox, NULL, addr _errorCero, addr _errorCero, MB_OK"+ '\n';
         this.assemblerCode += "invoke ExitProcess, 0" + '\n';
+        this.assemblerCode += "START:" + '\n';
+        this.assemblerCode += "FNINIT" + '\n';
+        this.concatenatePROCAssembler(PROCtrees, registerContainer);
+
         if(root != null)
             this.getMostLeftTree(root, registerContainer);
         this.assemblerCode += "invoke ExitProcess, 0" + '\n' + "END START";

@@ -99,9 +99,8 @@ public abstract class SyntacticTree {
 
     private String tab(int cant, String lexeme, Type type, Use use){
         for(int i=cant; i>0; i--){
-            lexeme = '\t' + lexeme;
+            lexeme = '\t' + lexeme +'\n';
         }
-        System.out.print(lexeme + " Type " + type + " Use " + use + '\n');
         return lexeme;
     }
 
