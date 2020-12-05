@@ -812,7 +812,7 @@ public class Parser
 
     public String printSyntacticTree(){
         if(this.syntacticTree != null){
-            this.syntacticTree.printTree(this.syntacticTree);
+            this.syntacticTree.printTree(this.syntacticTree, "Root: ");
             return this.syntacticTree.getPrintTree();
         }
         return "";
@@ -1016,7 +1016,7 @@ public class Parser
     public String printPROCtree(){
         String procTree = "";
         for(SyntacticTree node : this.PROCtrees){
-            node.printTree(node);
+            node.printTree(node, "Root: ");
             procTree += node.getPrintTree() + '\n';
         }
         return procTree;

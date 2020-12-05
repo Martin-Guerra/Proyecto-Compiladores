@@ -21,34 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="76b0d774-2e33-42ef-8f77-ebd5f85e6c07" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AssemblerGenerator/AssemblerGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AssemblerGenerator/AssemblerGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entrada - copia.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entrada.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entrada.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SymbolTable/SymbolTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SymbolTable/SymbolTable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SyntacticTree/SyntacticTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SyntacticTree/SyntacticTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SyntacticTree/SyntacticTreeDIV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SyntacticTree/SyntacticTreeDIV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SyntacticTree/SyntacticTreeOUT.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SyntacticTree/SyntacticTreeOUT.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SyntacticTree/SyntacticTreeSUB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SyntacticTree/SyntacticTreeSUB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assembler.asm" beforeDir="false" afterPath="$PROJECT_DIR$/src/assembler.asm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction10.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction11.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction12.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction12.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction13.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction13.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction14.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction14.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction15.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction15.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction16.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction16.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction17.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction17.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction7.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction8.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction8.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction9.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/semantic_Actions/SemanticAction9.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +164,7 @@
       <workItem from="1605960333499" duration="33968000" />
       <workItem from="1606046059372" duration="30195000" />
       <workItem from="1606565351108" duration="11951000" />
-      <workItem from="1607191947965" duration="10793000" />
+      <workItem from="1607191947965" duration="14162000" />
     </task>
     <servers />
   </component>
@@ -226,32 +201,32 @@
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
     <state x="1850" y="-115" key="FileChooserDialogImpl/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1603193765917" />
-    <state width="1843" height="145" key="GridCell.Tab.0.bottom" timestamp="1607202916273">
+    <state width="1843" height="763" key="GridCell.Tab.0.bottom" timestamp="1607206514059">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
     <state width="1843" height="450" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.-147.1920.1040@0.0.1366.728" timestamp="1606086493708" />
-    <state width="1843" height="145" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1607202916273" />
+    <state width="1843" height="763" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1607206514059" />
     <state width="1289" height="319" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1603835545755" />
     <state width="1323" height="104" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1601826870205" />
-    <state width="1843" height="145" key="GridCell.Tab.0.center" timestamp="1607202916273">
+    <state width="1843" height="763" key="GridCell.Tab.0.center" timestamp="1607206514059">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
     <state width="1843" height="450" key="GridCell.Tab.0.center/0.0.1366.728/1366.-147.1920.1040@0.0.1366.728" timestamp="1606086493706" />
-    <state width="1843" height="145" key="GridCell.Tab.0.center/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1607202916273" />
+    <state width="1843" height="763" key="GridCell.Tab.0.center/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1607206514059" />
     <state width="1289" height="319" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1603835545754" />
     <state width="1323" height="104" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1601826870205" />
-    <state width="1843" height="145" key="GridCell.Tab.0.left" timestamp="1607202916273">
+    <state width="1843" height="763" key="GridCell.Tab.0.left" timestamp="1607206514059">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
     <state width="1843" height="450" key="GridCell.Tab.0.left/0.0.1366.728/1366.-147.1920.1040@0.0.1366.728" timestamp="1606086493701" />
-    <state width="1843" height="145" key="GridCell.Tab.0.left/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1607202916273" />
+    <state width="1843" height="763" key="GridCell.Tab.0.left/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1607206514059" />
     <state width="1289" height="319" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1603835545754" />
     <state width="1323" height="104" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1601826870204" />
-    <state width="1843" height="145" key="GridCell.Tab.0.right" timestamp="1607202916273">
+    <state width="1843" height="763" key="GridCell.Tab.0.right" timestamp="1607206514059">
       <screen x="1366" y="-147" width="1920" height="1040" />
     </state>
     <state width="1843" height="450" key="GridCell.Tab.0.right/0.0.1366.728/1366.-147.1920.1040@0.0.1366.728" timestamp="1606086493708" />
-    <state width="1843" height="145" key="GridCell.Tab.0.right/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1607202916273" />
+    <state width="1843" height="763" key="GridCell.Tab.0.right/0.0.1366.728/1366.-147.1920.1040@1366.-147.1920.1040" timestamp="1607206514059" />
     <state width="1289" height="319" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1603835545755" />
     <state width="1323" height="104" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1601826870205" />
     <state width="1843" height="621" key="GridCell.Tab.1.bottom" timestamp="1606584829430">

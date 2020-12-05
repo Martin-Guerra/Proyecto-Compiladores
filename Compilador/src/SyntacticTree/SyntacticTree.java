@@ -67,16 +67,16 @@ public abstract class SyntacticTree {
         return this.printTree;
     }
 
-    public void printTree(SyntacticTree node) {
+    public void printTree(SyntacticTree node, String hijo) {
         if (node != null) {
             if (node.isLeaf()) {
-                this.printTree += tab(cant, node.attribute.getLexeme(), node.attribute.getType(), node.attribute.getUse()) +'\n';
+                this.printTree += tab(cant, hijo+node.attribute.getLexeme(), node.attribute.getType(), node.attribute.getUse());
                 return;
             }
-            tab(cant, node.getLexeme(), node.getType(), node.attribute.getUse()); // mostrar datos del nodo
+            this.printTree += tab(cant, hijo+node.getLexeme(), node.getType(), node.attribute.getUse()); // mostrar datos del nodo
             cant++;
-            printTree(node.getLeft()); //recorre subarbol izquierdo
-            printTree(node.getRight()); //recorre subarbol derecho
+            printTree(node.getLeft(), "Hijo izquierdo: "); //recorre subarbol izquierdo
+            printTree(node.getRight(), "Hijo derecho: "); //recorre subarbol derecho
             cant--;
         }
     }
@@ -99,9 +99,9 @@ public abstract class SyntacticTree {
 
     private String tab(int cant, String lexeme, Type type, Use use){
         for(int i=cant; i>0; i--){
-            lexeme = '\t' + lexeme +'\n';
+            lexeme = '\t' + lexeme;
         }
-        return lexeme;
+        return lexeme + '\n';
     }
 
     public boolean checkType(SyntacticTree root){

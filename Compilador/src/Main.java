@@ -50,9 +50,9 @@ public class Main {
         	String source = "";
         	//if(args.length>0) {
                 try {
+                    source = loadFile(args[0]);
                 	//source = loadFile("C:\\Users\\Yago\\Compilador\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
-                    //source = loadFile(args[0]);
-                	source = loadFile("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
+                	//source = loadFile("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
                 } catch (IOException e) {
                     System.out.println("No se encuentra el archivo");
                     return;
@@ -68,7 +68,7 @@ public class Main {
                 System.out.println(t);
             }*/
 
-            /*String textoSalida = "";
+            String textoSalida = "";
 
             textoSalida+= "************* Tabla de simbolos *************"+"\n";
             textoSalida+= lexerAnalyzer.printSymbolTable();
@@ -82,16 +82,25 @@ public class Main {
             textoSalida+="************* Errores Sintacticos y Semánticos Reconocidos *************"+"\n";
             for(int i=0;i<parser.getErrors().size();i++)
                 textoSalida+=parser.getErrors().get(i)+"\n";
-            if(parser.getErrors().size() == 0){
+            if(lexerAnalyzer.getErrors().isBlank() && parser.getErrors().size() == 0){
                 textoSalida+="************* Arbol sintactico *************"+"\n";
                 textoSalida+=parser.printSyntacticTree();
                 textoSalida+='\n'+"************* Arbol sintactico procedimientos *************"+"\n";
                 textoSalida+=parser.printPROCtree();
+                List<SyntacticTree> PROCtrees = parser.getPROCtreeList();
+                System.out.println('\n'+"************* ASSEMBLER *************"+"\n");
+                RegisterContainer registerContainer = new RegisterContainer();
+                SyntacticTree syntacticTree = parser.returnTree();
+                AssemblerGenerator ag = new AssemblerGenerator(syntacticTree);
+                SymbolTable st = lexerAnalyzer.getSt();
+                String assembler = ag.printAssembler(PROCtrees, syntacticTree, registerContainer, st);
+                generarArchivo(args[2], assembler);
             }
+            generarArchivo(args[1], textoSalida);
 
-            System.out.println(textoSalida);*/
 
-            System.out.println("************* Tabla de simbolos *************"+"\n");
+
+            /*System.out.println("************* Tabla de simbolos *************"+"\n");
             System.out.println(lexerAnalyzer.printSymbolTable()+"\n"+"\n");
             System.out.println("************* Errores Lexicos Reconocidos *************"+"\n");
             System.out.println(lexerAnalyzer.getErrors());
@@ -108,10 +117,10 @@ public class Main {
 
             if(lexerAnalyzer.getErrors().isBlank() && parser.getErrors().size() == 0){
                 System.out.println("************* Arbol sintactico *************"+"\n");
-                parser.printSyntacticTree();
+                System.out.print(parser.printSyntacticTree());
 
                 System.out.println('\n'+"************* Arbol sintactico procedimientos *************"+"\n");
-                parser.printPROCtree();
+                System.out.print(parser.printPROCtree());
                 List<SyntacticTree> PROCtrees = parser.getPROCtreeList();
 
                 System.out.println('\n'+"************* ASSEMBLER *************"+"\n");
@@ -123,7 +132,7 @@ public class Main {
                 generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\assembler.asm", assembler);
             }
             //generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Salida.txt", textoSalida);
-        	//}
+        	//}*/
 
 
        }
