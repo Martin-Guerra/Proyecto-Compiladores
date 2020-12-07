@@ -25,7 +25,8 @@ public class SyntacticTreeIFCMP extends SyntacticTree{
         String assembler = "";
         String register = "";
         Attribute attribute = null;
-        if(this.getLeft().getAttribute().getUse().equals(Use.constante)) {
+
+        if(this.getLeft().getAttribute().getUse().equals(Use.constante) || this.getLeft().getAttribute().getUse().equals(Use.variable)) {
             register = resgisterContainer.getRegister();
             attribute = new Attribute(register, Use.registro);
             assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getScope() + '\n';
@@ -71,7 +72,7 @@ public class SyntacticTreeIFCMP extends SyntacticTree{
         assembler += "MOV AX, _" + auxVar + '\n';
         assembler += "SAHF" + '\n';
 
-        this.assemblerData += "_" + auxVar + " DQ ?" + '\n';
+        this.assemblerData += "_" + auxVar + " DW ?" + '\n';
 
         String label = "IF_CMP" + ++counter;
         assembler += getAssemblerConditionDOUBLE() + label + '\n';

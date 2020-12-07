@@ -156,6 +156,10 @@ public class LexerAnalyzer {
 		this.st.add(token, attribute);
 	}
 
+	public boolean checkDouble(String lexeme){
+		return this.st.checkDouble(lexeme);
+	}
+
 	//Devuelve tabla de símbolos
 	public SymbolTable getSymbolTable(){
 		return this.st;
@@ -226,6 +230,9 @@ public class LexerAnalyzer {
 		return this.source;
 	}
 
+	public String getAttributeScope(String lexeme){
+		return this.st.getAttributeScope(lexeme);
+	}
 
 	public boolean checkNegativeDouble(String lexeme){
 		final double POWERPOSITIVE =  Math.pow(10,308);

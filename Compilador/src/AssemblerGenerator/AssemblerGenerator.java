@@ -37,9 +37,10 @@ public class AssemblerGenerator {
     }
     public void concatenatePROCAssembler(List<SyntacticTree> PROCtrees, RegisterContainer registerContainer) {
         for (SyntacticTree root : PROCtrees) {
-            this.assemblerCode += root.getAttribute().getScope() + ": \n";
+            this.assemblerCode += root.getAttribute().getScope() + " proc\n";
             this.getMostLeftTreePROC(root, registerContainer);
-            this.assemblerCode += "END\nRET\n";
+            this.assemblerCode += "RET\n";
+            this.assemblerCode += root.getAttribute().getScope() + " endp\n";
         }
     }
 
@@ -51,9 +52,11 @@ public class AssemblerGenerator {
         this.assemblerCode += "Error_Division_Cero:"+ '\n';
         this.assemblerCode += "invoke MessageBox, NULL, addr _errorCero, addr _errorCero, MB_OK"+ '\n';
         this.assemblerCode += "invoke ExitProcess, 0" + '\n';
+
+        this.concatenatePROCAssembler(PROCtrees, registerContainer);
+
         this.assemblerCode += "START:" + '\n';
         this.assemblerCode += "FNINIT" + '\n';
-        this.concatenatePROCAssembler(PROCtrees, registerContainer);
 
         if(root != null)
             this.getMostLeftTree(root, registerContainer);
@@ -65,7 +68,12 @@ public class AssemblerGenerator {
         if (root != null && !root.isLeaf()) {
             if ((root.getRight() != null)) {
                 if (root.getLeft().isLeaf() && root.getRight().isLeaf()) {
-                    this.assemblerCode += root.assemblerTechnique(registerContainer);
+                    if(root.getLeft().getAttribute().getUse().equals(Use.llamado_procedimiento) &&
+                            root.getRight().getAttribute().getUse().equals(Use.llamado_procedimiento)) {
+                        this.assemblerCode += root.getLeft().assemblerTechnique(registerContainer);
+                        this.assemblerCode += root.getRight().assemblerTechnique(registerContainer);
+                    }else
+                        this.assemblerCode += root.assemblerTechnique(registerContainer);
                 } else {
                     this.getMostLeftTree(root.getLeft(), registerContainer);
                     this.getMostLeftTree(root.getRight(), registerContainer);

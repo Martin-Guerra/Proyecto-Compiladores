@@ -53,10 +53,12 @@ public class SemanticAction3 extends SemanticAction{
 			la.setActualState(0);
 		}else {
 			lexeme = String.valueOf(num);
-			String scope = "D" + SemanticAction.counter;
-			SemanticAction.counter++;
-			Attribute attribute = new Attribute(lexeme, scope,"NRO_DOUBLE", Type.DOUBLE, Use.constante);
-			la.addSymbolTable(lexeme, attribute);
+			if(la.checkDouble(lexeme)) {
+				String scope = "D" + SemanticAction.counter;
+				SemanticAction.counter++;
+				Attribute attribute = new Attribute(lexeme, scope, "NRO_DOUBLE", Type.DOUBLE, Use.constante);
+				la.addSymbolTable(lexeme, attribute);
+			}
 			int idNumber = la.getNumberId(lexeme);
 			la.setToken(idNumber, lexeme);
 			la.addRecognizedTokens("Valor double: " + lexeme);

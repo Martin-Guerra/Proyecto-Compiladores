@@ -1,5 +1,6 @@
 DOUBLE a, r;
 PROC z (DOUBLE g) NA = 5_ul {
+	OUT('Entro 1 z');
 	PROC c (DOUBLE m) NA = 1_ul {
 		DOUBLE a;
 		a = 2.0;
@@ -10,10 +11,13 @@ PROC z (DOUBLE g) NA = 5_ul {
 	PROC d () NA = 0_ul {
 		a = r;
 	};
+	OUT('Entro 2 z');
 };
 
 PROC d () NA = 0_ul {
+	OUT('Entro d');
 	a = r;
 };
 
 z(a); 
+d();

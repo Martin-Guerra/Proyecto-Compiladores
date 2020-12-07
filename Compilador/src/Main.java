@@ -50,9 +50,9 @@ public class Main {
         	String source = "";
         	//if(args.length>0) {
                 try {
-                    source = loadFile(args[0]);
+                    //source = loadFile(args[0]);
                 	//source = loadFile("C:\\Users\\Yago\\Compilador\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
-                	//source = loadFile("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
+                	source = loadFile("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Entrada.txt");
                 } catch (IOException e) {
                     System.out.println("No se encuentra el archivo");
                     return;
@@ -94,10 +94,12 @@ public class Main {
                 AssemblerGenerator ag = new AssemblerGenerator(syntacticTree);
                 SymbolTable st = lexerAnalyzer.getSt();
                 String assembler = ag.printAssembler(PROCtrees, syntacticTree, registerContainer, st);
-                generarArchivo(args[2], assembler);
+                //generarArchivo(args[2], assembler);
+                generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Salida.txt", assembler);
             }
-            generarArchivo(args[1], textoSalida);
-
+            //generarArchivo(args[1], textoSalida);
+            generarArchivo("C:\\Users\\Camila Barreiro\\Desktop\\Compiladores\\Proyecto-Compiladores\\Compilador\\src\\Salida.txt", textoSalida);
+            System.out.println(textoSalida);
 
 
             /*System.out.println("************* Tabla de simbolos *************"+"\n");

@@ -34,6 +34,12 @@ public class SymbolTable {
 		}
 	}
 
+	public boolean checkDouble(String lexeme){
+		if(!this.symbolTable.containsKey(lexeme))
+			return true;
+		return false;
+	}
+
 	public Hashtable<String,List<Attribute>> getSymbolTable(){
 		Hashtable<String,List<Attribute>> symbolTable = new Hashtable<>(this.symbolTable);
 		return symbolTable;
@@ -68,6 +74,10 @@ public class SymbolTable {
 		return this.symbolTable.get(lexeme);
 	}
 
+	public String getAttributeScope(String lexeme){
+		return this.symbolTable.get(lexeme).get(0).getScope();
+	}
+
 	public String generateAssemblerCode(){
 		String assembler ="";
 		String value = "";
@@ -88,7 +98,6 @@ public class SymbolTable {
 							}
 						}
 					}
-
 
 					switch (a.getType().getName()) {
 						case "DOUBLE":

@@ -154,7 +154,7 @@ public abstract class SyntacticTree {
     public String assemblerTechnique(RegisterContainer resgisterContainer){
         String assembler = "";
         //Casos especiales de nodos intermedios que no tienen tipo y el assembler se genera siempre igual
-        //nvocamos generateAssemblerCodeRegister y dejamos sin código generateAssemblerCodeVariable
+        //invocamos generateAssemblerCodeRegister y dejamos sin código generateAssemblerCodeVariable
         if(this.getAttribute().getType() == null){
             assembler += generateAssemblerCodeRegister(resgisterContainer);
             return assembler;
@@ -192,15 +192,15 @@ public abstract class SyntacticTree {
         String assembler = "";
         switch(this.getLexeme())
         {
-            case "<" : assembler = "JAE ";
+            case "<" : assembler = "JGE ";
                 break;
             case ">" : assembler = "JBE ";
                 break;
             case "==" : assembler = "JNE ";
                 break;
-            case ">=" : assembler = "JA ";
+            case ">=" : assembler = "JB ";
                 break;
-            case "<=" : assembler = "JB ";
+            case "<=" : assembler = "JG ";
                 break;
             case "!=" : assembler = "JE ";
                 break;

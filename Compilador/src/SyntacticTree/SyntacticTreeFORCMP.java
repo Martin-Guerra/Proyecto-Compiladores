@@ -23,12 +23,19 @@ public class SyntacticTreeFORCMP extends SyntacticTree{
     @Override
     public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
+        String register = "";
+        Attribute attribute = null;
+
+        register = resgisterContainer.getRegister();
+        assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getScope() + '\n';
 
         if(this.getRight().getAttribute().getUse().equals(Use.registro)) {
-            assembler += "CMP _" + this.getLeft().getAttribute().getScope() + ", " + this.getRight().getAttribute().getLexeme() + '\n';
+            assembler += "CMP " + register + ", " + this.getRight().getAttribute().getLexeme() + '\n';
             resgisterContainer.setAverableRegister(this.getRight().getAttribute().getLexeme());
         }else
-                assembler += "CMP _" + this.getLeft().getAttribute().getScope() + ", _" + this.getRight().getAttribute().getScope() + '\n';
+            assembler += "CMP " + register + ", _" + this.getRight().getAttribute().getScope() + '\n';
+
+        resgisterContainer.setAverableRegister(register);
 
         String label = "FOR_CMP" + ++counter;
         assembler += getAssemblerConditionULONGINT() + label + '\n';

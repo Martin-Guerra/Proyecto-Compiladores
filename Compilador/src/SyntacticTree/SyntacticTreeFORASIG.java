@@ -23,11 +23,16 @@ public class SyntacticTreeFORASIG extends SyntacticTree{
 
     @Override
     public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
-
         String assembler = "";
-
+        String register = "";
         Attribute attribute = null;
-        assembler += "MOV _" + this.getLeft().getAttribute().getScope() + ", _" + this.getRight().getAttribute().getScope()  + '\n';
+
+        register = resgisterContainer.getRegister();
+        assembler += "MOV " + register + ", _" + this.getRight().getAttribute().getScope() + '\n';
+
+        assembler += "MOV _" + this.getLeft().getAttribute().getScope() + ", " + register + '\n';
+
+        resgisterContainer.setAverableRegister(register);
 
         String label = "FOR_INICIO" + ++counter;
         SyntacticTreeFOR.jLabel.push(label);

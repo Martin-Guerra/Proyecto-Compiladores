@@ -20,7 +20,6 @@ public class SyntacticTreeOUT extends SyntacticTree{
     @Override
     public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
-        System.out.println(this.getLeft().getLexeme());
         Attribute attribute = this.getLeft().getAttribute();
         this.deleteLeftChildren(this);
         this.replaceRoot(this, attribute);
