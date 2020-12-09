@@ -1,23 +1,10 @@
-DOUBLE a, r;
-PROC z (DOUBLE g) NA = 5_ul {
-	OUT('Entro 1 z');
-	PROC c (DOUBLE m) NA = 1_ul {
-		DOUBLE a;
-		a = 2.0;
-		PROC d () NA = 0_ul {
-			a = r;
-		};	
-	};
-	PROC d () NA = 0_ul {
-		a = r;
-	};
-	OUT('Entro 2 z');
-};
-
-PROC d () NA = 0_ul {
-	OUT('Entro d');
-	a = r;
-};
-
-z(a); 
-d();
+DOUBLE a;
+ULONGINT d, e, f;
+a = 34.0;
+a = a + a * a;
+d = 5_ul;
+d = ULONGINT(a);
+IF (a == 5.0){
+	OUT('OP OK');
+}
+END_IF;

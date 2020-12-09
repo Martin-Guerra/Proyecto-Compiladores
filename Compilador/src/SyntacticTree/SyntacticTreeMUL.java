@@ -43,9 +43,9 @@ public class SyntacticTreeMUL extends SyntacticTree{
         assembler += "MOV EDX, 0" + '\n';
 
         if(this.getRight().getAttribute().getUse().equals(Use.registro))
-            assembler += "MUL EAX, " + this.getRight().getAttribute().getScope() + '\n';
+            assembler += "MUL " + this.getRight().getAttribute().getScope() + '\n';
         else
-            assembler += "MUL EAX, _" + this.getRight().getAttribute().getScope() + '\n';
+            assembler += "MUL " + this.getRight().getAttribute().getScope() + '\n';
 
         resgisterContainer.setAverableRegister("EDX");
 

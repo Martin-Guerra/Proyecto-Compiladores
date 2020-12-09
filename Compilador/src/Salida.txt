@@ -1,126 +1,50 @@
 ************* Tabla de simbolos *************
-Lexema: r
- Lexeme ST: r - Ambito: r@main - Parametros:  - Identificador: ID - Uso: variable - Tipo: Type(DOUBLE) - isDeclared? true
-Lexema: Entro d
- Lexeme ST: Entro d - Ambito: S2 - Parametros:  - Identificador: CADENA - Uso: cadena - Tipo: Type(STRING) - isDeclared? false
-Lexema: Entro 1 z
- Lexeme ST: Entro 1 z - Ambito: S0 - Parametros:  - Identificador: CADENA - Uso: cadena - Tipo: Type(STRING) - isDeclared? false
-Lexema: m
- Lexeme ST: m - Ambito: m@main@z@c - Parametros:  - Identificador: ID - Uso: nombre_parametro - Tipo: Type(DOUBLE) - isDeclared? false
-Lexema: Entro 2 z
- Lexeme ST: Entro 2 z - Ambito: S1 - Parametros:  - Identificador: CADENA - Uso: cadena - Tipo: Type(STRING) - isDeclared? false
-Lexema: g
- Lexeme ST: g - Ambito: g@main@z - Parametros:  - Identificador: ID - Uso: nombre_parametro - Tipo: Type(DOUBLE) - isDeclared? false
-Lexema: d
- Lexeme ST: d - Ambito: d@main@z@c - Parametros:  - Identificador: ID - Uso: nombre_procedimiento - Tipo: null - isDeclared? true
- Lexeme ST: d - Ambito: d@main@z - Parametros:  - Identificador: ID - Uso: nombre_procedimiento - Tipo: null - isDeclared? true
- Lexeme ST: d - Ambito: d@main - Parametros:  - Identificador: ID - Uso: nombre_procedimiento - Tipo: null - isDeclared? true
- Lexeme ST: d - Ambito: d@main - Parametros:  - Identificador: ID - Uso: llamado_procedimiento - Tipo: null - isDeclared? false
-Lexema: c
- Lexeme ST: c - Ambito: c@main@z - Parametros: m@main@z@c, - Identificador: ID - Uso: nombre_procedimiento - Tipo: null - isDeclared? true
-Lexema: z
- Lexeme ST: z - Ambito: z@main - Parametros: g@main@z, - Identificador: ID - Uso: nombre_procedimiento - Tipo: null - isDeclared? true
- Lexeme ST: z - Ambito: z@main - Parametros: a@main, - Identificador: ID - Uso: llamado_procedimiento - Tipo: null - isDeclared? false
+Lexema: OP OK
+ Lexeme ST: OP OK - Ambito: S0 - Parametros:  - Identificador: CADENA - Uso: cadena - Tipo: Type(STRING) - isDeclared? false
 Lexema: 5
  Lexeme ST: 5 - Ambito: 5 - Parametros:  - Identificador: NRO_ULONGINT - Uso: constante - Tipo: Type(ULONGINT) - isDeclared? false
-Lexema: 2.0
- Lexeme ST: 2.0 - Ambito: D0 - Parametros:  - Identificador: NRO_DOUBLE - Uso: constante - Tipo: Type(DOUBLE) - isDeclared? false
+Lexema: 34.0
+ Lexeme ST: 34.0 - Ambito: D0 - Parametros:  - Identificador: NRO_DOUBLE - Uso: constante - Tipo: Type(DOUBLE) - isDeclared? false
 Lexema: a
  Lexeme ST: a - Ambito: a@main - Parametros:  - Identificador: ID - Uso: variable - Tipo: Type(DOUBLE) - isDeclared? true
- Lexeme ST: a - Ambito: a@main@z@c - Parametros:  - Identificador: ID - Uso: variable - Tipo: Type(DOUBLE) - isDeclared? true
-Lexema: 1
- Lexeme ST: 1 - Ambito: 1 - Parametros:  - Identificador: NRO_ULONGINT - Uso: constante - Tipo: Type(ULONGINT) - isDeclared? false
-Lexema: 0
- Lexeme ST: 0 - Ambito: 0 - Parametros:  - Identificador: NRO_ULONGINT - Uso: constante - Tipo: Type(ULONGINT) - isDeclared? false
+Lexema: 5.0
+ Lexeme ST: 5.0 - Ambito: D1 - Parametros:  - Identificador: NRO_DOUBLE - Uso: constante - Tipo: Type(DOUBLE) - isDeclared? false
+Lexema: f
+ Lexeme ST: f - Ambito: f@main - Parametros:  - Identificador: ID - Uso: variable - Tipo: Type(ULONGINT) - isDeclared? true
+Lexema: e
+ Lexeme ST: e - Ambito: e@main - Parametros:  - Identificador: ID - Uso: variable - Tipo: Type(ULONGINT) - isDeclared? true
+Lexema: d
+ Lexeme ST: d - Ambito: d@main - Parametros:  - Identificador: ID - Uso: variable - Tipo: Type(ULONGINT) - isDeclared? true
 ************* Errores Lexicos Reconocidos *************
 
 *************	Warning  Reconocidos *************
 
 ************* Reglas Reconocidas *************
 Linea 1: Sentencia declarativa - Variable/s.
-Linea 2: PROC ID
-Linea 2: Procedimiento - un parametro
-Linea 2: Procedimiento - Asignacion NA
-Linea 2: Encabezado procedimiento
-Linea 3: Sentencia OUT
-Linea 4: PROC ID
-Linea 4: Procedimiento - un parametro
-Linea 4: Procedimiento - Asignacion NA
-Linea 4: Encabezado procedimiento
-Linea 5: Sentencia declarativa - Variable/s.
+Linea 2: Sentencia declarativa - Variable/s.
+Linea 3: ID
+Linea 3: NRO_DOUBLE.
+Linea 3: Asignacion
+Linea 4: ID
+Linea 4: ID
+Linea 4: ID
+Linea 4: ID
+Linea 4: Multiplicacion
+Linea 4: Suma
+Linea 4: Asignacion
+Linea 5: ID
+Linea 5: NRO_ULONGINT.
+Linea 5: Asignacion
 Linea 6: ID
-Linea 6: NRO_DOUBLE.
+Linea 6: ID
 Linea 6: Asignacion
-Linea 7: PROC ID
-Linea 7: Procedimiento - Asignacion NA
-Linea 7: Encabezado procedimiento
-Linea 8: ID
-Linea 8: ID
-Linea 8: Asignacion
-Linea 9: Procedimiento
-Linea 10: Procedimiento
-Linea 11: PROC ID
-Linea 11: Procedimiento - Asignacion NA
-Linea 11: Encabezado procedimiento
-Linea 12: ID
-Linea 12: ID
-Linea 12: Asignacion
-Linea 13: Procedimiento
-Linea 14: Sentencia OUT
-Linea 15: Procedimiento
-Linea 17: PROC ID
-Linea 17: Procedimiento - Asignacion NA
-Linea 17: Encabezado procedimiento
-Linea 18: Sentencia OUT
-Linea 19: ID
-Linea 19: ID
-Linea 19: Asignacion
-Linea 20: Procedimiento
-Linea 22: Llamado a procedimiento con un parametro
-Linea 23: Llamado a procedimiento sin parametros
+Linea 7: ID
+Linea 7: NRO_DOUBLE.
+Linea 7: Sentencia IF - Condicion ==.
+Linea 8: Sentencia OUT
+Linea 9: Sentencia IF - Bloque de sentencias
+Linea 10: Sentencia IF - Cuerpo
+Linea 10: Sentencia IF
 ************* Errores Sintacticos y Semánticos Reconocidos *************
-************* Arbol sintactico *************
-Root: LISTA SENTENCIAS
-	Hijo izquierdo: z
-	Hijo derecho: d
-
-************* Arbol sintactico procedimientos *************
-Root: d
-	Hijo izquierdo: INICIO PROCEDIMIENTO
-		Hijo izquierdo: =
-			Hijo izquierdo: a
-			Hijo derecho: r
-
-Root: c
-	Hijo izquierdo: INICIO PROCEDIMIENTO
-		Hijo izquierdo: SENTENCIA DECLARATIVA
-			Hijo izquierdo: SENTENCIA EJECUTABLE
-				Hijo derecho: =
-					Hijo izquierdo: a
-					Hijo derecho: 2.0
-
-Root: d
-	Hijo izquierdo: INICIO PROCEDIMIENTO
-		Hijo izquierdo: =
-			Hijo izquierdo: a
-			Hijo derecho: r
-
-Root: z
-	Hijo izquierdo: INICIO PROCEDIMIENTO
-		Hijo izquierdo: SENTENCIA EJECUTABLE
-			Hijo izquierdo: SENTENCIA DECLARATIVA
-				Hijo izquierdo: SENTENCIA DECLARATIVA
-					Hijo izquierdo: IMPRIMIR
-						Hijo izquierdo: Entro 1 z
-			Hijo derecho: IMPRIMIR
-				Hijo izquierdo: Entro 2 z
-
-Root: d
-	Hijo izquierdo: INICIO PROCEDIMIENTO
-		Hijo izquierdo: SENTENCIA EJECUTABLE
-			Hijo izquierdo: IMPRIMIR
-				Hijo izquierdo: Entro d
-			Hijo derecho: =
-				Hijo izquierdo: a
-				Hijo derecho: r
-
+Error Sintactico en linea 6: Conversion explicita - Se espera tipo DOUBLE.
+Error Semántico en linea 6: Asignacion - Incompatibilidad de tipos

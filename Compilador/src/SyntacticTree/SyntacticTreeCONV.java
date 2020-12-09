@@ -20,11 +20,6 @@ public class SyntacticTreeCONV extends SyntacticTree{
     @Override
     public String generateAssemblerCodeRegister(RegisterContainer resgisterContainer) {
         String assembler = "";
-        String register = resgisterContainer.getRegister();
-        assembler += "MOV " + register + ", _" + this.getLeft().getAttribute().getScope()+'\n'; //ULONGINT(expresion)
-        Attribute attribute = new Attribute(register, Use.registro);
-        this.deleteLeftChildren(this);
-        this.replaceRoot(this, attribute);
         return assembler;
     }
 
@@ -41,6 +36,7 @@ public class SyntacticTreeCONV extends SyntacticTree{
         Attribute attribute = new Attribute(auxVar, auxVar, Use.variable);
         this.deleteLeftChildren(this);
         this.replaceRoot(this, attribute);
+        this.counterVar++;
         return assembler;
     }
 }
