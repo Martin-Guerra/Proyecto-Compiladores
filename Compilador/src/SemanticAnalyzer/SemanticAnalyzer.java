@@ -53,6 +53,7 @@ public class SemanticAnalyzer {
         this.NA.remove(this.NA.size()-1);
     }
 
+
     public int checkNA(String globalScope){
         String[] scope = globalScope.split("@");
         for(int i=0; i < this.NA.size(); i++){

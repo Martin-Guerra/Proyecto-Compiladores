@@ -72,7 +72,7 @@ public class SyntacticTreeIFCMP extends SyntacticTree{
         assembler += "MOV AX, _" + auxVar + '\n';
         assembler += "SAHF" + '\n';
 
-        this.assemblerData += "_" + auxVar + " DW ?" + '\n';
+        this.assemblerData += "_" + auxVar + " DW ?" + '\n'; //16 bits
 
         String label = "IF_CMP" + ++counter;
         assembler += getAssemblerConditionDOUBLE() + label + '\n';

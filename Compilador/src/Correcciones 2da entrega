@@ -1,0 +1,87 @@
+//EJEMPLO da el mensaje de "se espera ID del lado izquierdo"
+ULONGINT a, b, i;
+a = 6_ul;
+b = 6_ul;
+DOUBLE c; //Esta definición debería estar arriba
+c = DOUBLE(a);
+
+LA FORMA CORRECTA SERÍA
+ULONGINT a, b, i;
+DOUBLE c;
+a = 6_ul;
+b = 6_ul;
+c = DOUBLE(a);
+---------
+
+-------------------// da error en la condición
+CAMBIOS:
+1- Permitimos que al principio del programa entren sentencias ejecutables solas (No pueden venir solo sentencias declarativas)
+	|lista_sentencias_ejecutables
+	{
+		syntacticTree = $1.tree;
+	}
+2- En la condición del FOR y la asignación del FOR chequeamos que cuando no se encuentra al alcance una variable, de error
+
+FOR(i=1_ul;i<b+a;UP 2_ul){ //Faltan definir las variables que se utilizan
+        IF(i<a){
+                a=b;
+OUT('FOR OKK');
+        }
+        END_IF;
+};
+
+LA FORMA CORRECTA SERÍA
+ULONGINT i, a, b;
+FOR(i=1_ul;i<b+a;UP 2_ul){ 
+        IF(i<a){
+                a=b;
+OUT('FOR OKK');
+        }
+        END_IF;
+};
+
+------------------// Genera un código de assembler vacio.
+DOUBLE c,d;
+ULONGINT a, b, i;
+a = 6_ul;
+b = 6_ul;
+c = 3.0;
+IF (c == 6.0){
+OUT('conv ok');
+}
+END_IF;
+a = a * b + a;
+c = 3.0 + 28.0 * 0.25 //FALTA PUNTO Y COMA, como hay un error léxico, el árbol no se genera
+
+IF (c == 10.0){
+OUT('op ok');
+}
+END_IF;
+
+--------------- // ERROR EN ASSEMBLER
+CAMBIOS:
+1- Sacamos el operando izquierdo de la sentencia de assembler
+
+ULONGINT a, b, i;
+a = 6_ul;
+b = 6_ul;
+a = a * b + a;
+IF (a == 42_ul){
+OUT('op ok');
+}
+END_IF;
+
+------------------ //error assembler
+DOUBLE a;
+ULONGINT d, e, f;
+a = 34.0;
+a = a + a * a;
+d = 5_ul;
+a = DOUBLE(d);
+IF (a == 5.0){
+OUT('OP OK');
+}
+END_IF;
+
+Error: simbolo _@aux2 redefinido, operandos inválidos linea 56 y 57.
+---------------

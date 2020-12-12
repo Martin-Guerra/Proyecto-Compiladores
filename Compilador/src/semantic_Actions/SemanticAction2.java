@@ -10,7 +10,7 @@ public class SemanticAction2 extends SemanticAction{
 	private static final int LENGTH = 20;
 
 	@Override
-	public void execute( char character, LexerAnalyzer la) {
+	public void execute(char character, LexerAnalyzer la) {
 		String lexeme = la.getLexeme();
 		if(lexeme.length() > LENGTH){
 			String warning = "Linea: " + la.getNroLinea() + " Warning: " + "La longitud del identificador es mayor a 20";

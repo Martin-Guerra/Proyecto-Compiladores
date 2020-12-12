@@ -101,13 +101,13 @@ public class SymbolTable {
 
 					switch (a.getType().getName()) {
 						case "DOUBLE":
-							assembler += "_" + scope + " DQ " + value + '\n';
+							assembler += "_" + scope + " DQ " + value + '\n'; //64 bits
 							break;
 						case "ULONGINT":
-							assembler += "_" + scope + " DD " + value + '\n';
+							assembler += "_" + scope + " DD " + value + '\n'; //32 bits
 							break;
 						case "STRING":
-							assembler += "_" + scope + " DB " + value + '\n';
+							assembler += "_" + scope + " DB " + value + '\n'; //8 bits
 							break;
 					}
 				}
